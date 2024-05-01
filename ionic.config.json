@@ -1,0 +1,8 @@
+{
+  "name": "blogic-app-v2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "176b498e"
+}
