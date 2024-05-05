@@ -1,8 +1,8 @@
 {
-  "name": "blogic-app-v-2",
+  "name": "blogic-app",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Juarismi",
+  "homepage": "https://juarismi.com/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,9 +21,11 @@
     "@angular/platform-browser": "^17.0.2",
     "@angular/platform-browser-dynamic": "^17.0.2",
     "@angular/router": "^17.0.2",
+    "@capacitor/android": "^6.0.0",
     "@capacitor/app": "6.0.0",
     "@capacitor/core": "6.0.0",
     "@capacitor/haptics": "6.0.0",
+    "@capacitor/ios": "^6.0.0",
     "@capacitor/keyboard": "6.0.0",
     "@capacitor/status-bar": "6.0.0",
     "@ionic/angular": "^8.0.0",
