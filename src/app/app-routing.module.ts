@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'producto-list',
     loadChildren: () => import('./pages/producto/producto-list/producto-list.module').then( m => m.ProductoListPageModule)
   },
+  {
+    path: 'preventa-form',
+    loadChildren: () => import('./pages/preventa/preventa-form/preventa-form.module').then( m => m.PreventaFormPageModule)
+  },
 ];
 
 @NgModule({
