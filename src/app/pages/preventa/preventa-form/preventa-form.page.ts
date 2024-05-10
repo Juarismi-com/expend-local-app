@@ -36,7 +36,7 @@ export class PreventaFormPage implements OnInit {
   }
 
   onSubmit() {
-    // Aquí puedes manejar la lógica para enviar el formulario
+    
   }
 
   
