@@ -22,7 +22,7 @@ export class ProductoModalFormComponent {
   productoCodigoInput: string = "";
   productoDesInput: string = "";
 
-  codigo: number = 0;
+  codigo: string = '';
   descripcion: string = '';
   precio: number = 0;
   cantidad: number = 0;
@@ -33,7 +33,7 @@ export class ProductoModalFormComponent {
     private formBuilder: FormBuilder
   ) {
     this.productoForm = this.formBuilder.group({
-      codigo: [null, Validators.required],
+      codigo: ['', Validators.required],
       descripcion: ['', Validators.required],
       precio: [null, Validators.required], 
       cantidad: [null, Validators.required], 
@@ -50,17 +50,19 @@ export class ProductoModalFormComponent {
       component: ProductoModalTableComponent
     });
     modal.onDidDismiss().then(data => {
-      const productoCodigo = data?.data?.codigo;
-      const productoDes = data?.data?.descripcion;
-      if (productoCodigo) {        
-        this.productoCodigoInput = productoCodigo;
-        this.productoDesInput = productoDes;
+      const producto = data?.data;
+      if (producto) {        
+        this.productoForm.patchValue({
+          codigo: producto.codigo,
+          descripcion: producto.descripcion,
+          precio: producto.precio
+        });
       }
     });
     await modal.present();
   }
 
-  agregarProductoEnTabla() {
+  agregarProductoEnTabla() {   
     if (this.productoForm.valid) {
       const producto: Producto = {
         codigo: this.productoForm.value.codigo,
@@ -69,9 +71,17 @@ export class ProductoModalFormComponent {
         cantidad: this.productoForm.value.cantidad,
         totalProducto: this.productoForm.value.totalProducto        
       };
-      this.productos.push(producto);
-      this.productoForm.reset();
-    }
-  }
   
+      //Validation
+      const existe = this.productos.some(p => p.codigo === producto.codigo);
+      if (!existe) {
+        this.productos.push(producto);
+        this.productoForm.reset();
+      } else {        
+        console.error('El producto ya existe en la lista.');
+      }
+    } else {     
+      console.error('Por favor, complete el formulario correctamente.');
+    }
+  }  
 }
