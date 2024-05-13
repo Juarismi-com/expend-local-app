@@ -1,4 +1,5 @@
 <ion-header [translucent]="true">
+  {{clienteIdInput}}
   <ion-toolbar color="main">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -11,29 +12,12 @@
   <form class="formulario" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <ion-label position="floating">Cliente </ion-label>
-      <ion-searchbar
-        name="searchTerm"
-        placeholder="Buscar cliente"
-        [(ngModel)]="searchTerm"
-        (ionChange)="filterClientes()"
-        debounce="500"
-      ></ion-searchbar>
-      <ion-item>
-        <ion-select
-          [(ngModel)]="selectedCliente"
-          interface="action-sheet"
-          [disabled]="!filteredClientes.length"
-          name="selectedCliente"
-          required
-        >
-          <ion-select-option
-            *ngFor="let cliente of filteredClientes"
-            [value]="cliente.id"
-          >
-            {{ cliente.name }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
+      <ion-input value="{{clienteIdInput}}"></ion-input>
+      <!-- <input type="text" [(ngModel)]="clienteIdInput"> -->
+    </div>
+
+    <div class="form-group">
+      <ion-button expand="block" (click)="abrirClienteModalTable()">Seleccionar Cliente</ion-button>
     </div>
 
     <div class="form-group">
@@ -88,7 +72,7 @@
       ></ion-textarea>
     </div>
     <div class="form-group">      
-      <ion-button (click)="abrirModalProducto()">Añadir producto</ion-button>
+      <ion-button (click)="abrirProductoModalForm()">Añadir productos</ion-button>
     </div>
 
     <button type="submit">Enviar</button>

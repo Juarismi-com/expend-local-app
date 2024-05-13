@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Añadir Cliente </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-list-header>
+      <ion-label>ID</ion-label>
+      <ion-label>Name</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let cliente of clientes" (click)="seleccionarCliente(cliente)">
+      <ion-label>{{ cliente.id }}</ion-label>
+      <ion-label>{{ cliente.name }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

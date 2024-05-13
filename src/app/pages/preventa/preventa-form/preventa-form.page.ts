@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { clienteList } from 'src/app/mocks/clientes.mock';
 import { ModalController } from '@ionic/angular';
-import { ModalProductoComponent } from '../../../components/modal-producto/modal-producto.component';
+import { ProductoModalFormComponent } from '../../../components/producto/producto-modal-form/producto-modal-form.component';
+import { ClienteModalTableComponent } from '../../../components/cliente/cliente-modal-table/cliente-modal-table.component';
+import { Producto } from 'src/app/interfaces/productos.interface';
 
 @Component({
   selector: 'app-preventa-form',
@@ -9,34 +11,39 @@ import { ModalProductoComponent } from '../../../components/modal-producto/modal
   styleUrls: ['./preventa-form.page.scss'],
 })
 export class PreventaFormPage implements OnInit {
-  clientes: { id: number; name: string; }[] = [];
-  filteredClientes: { id: number; name: string; }[] = [];
-  selectedCliente: number | undefined;
-  searchTerm: string = '';
+  clientes: { id: number; name: string; }[] = [];  
+  clienteIdInput: string = "";
+  productos: Producto[] = [];
 
   constructor(private modalController: ModalController) {}
 
   ngOnInit() {
-    this.clientes = clienteList();
-    this.filteredClientes = this.clientes;
+    this.clientes = clienteList();   
   }
 
-  filterClientes() {
-    this.filteredClientes = this.clientes.filter(cliente =>
-      cliente.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );    
-  }
-
-  async abrirModalProducto() {
+  async abrirClienteModalTable() {
     const modal = await this.modalController.create({
-      component: ModalProductoComponent,
+      component: ClienteModalTableComponent
+    });
+    modal.onDidDismiss().then(data => {
+      const clienteId = data?.data;
+      if (clienteId) {        
+        this.clienteIdInput = clienteId.toString();
+      }
+    });
+    await modal.present();
+  }
+
+  async abrirProductoModalForm() {
+    const modal = await this.modalController.create({
+      component: ProductoModalFormComponent,
       cssClass: 'modal-producto'
     });
     return await modal.present();
-  }
+  } 
 
   onSubmit() {
-    // Aquí puedes manejar la lógica para enviar el formulario
+    
   }
 
   
