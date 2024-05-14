@@ -1,8 +1,8 @@
 export const clienteList = () => {
    return [
-      { id: 1, name: 'José Gonzalez'},
-      { id: 2, name: 'Miguel Paredes'},
-      { id: 3, name: 'Clara Aguayo' }
+      { ci: 1, nombre: 'José Gonzalez'},
+      { ci: 2, nombre: 'Miguel Paredes'},
+      { ci: 3, nombre: 'Clara Aguayo' }
    ]
 
 }

@@ -10,14 +10,18 @@
 </ion-header>
 
 <ion-content>
+  <!-- Filtro -->
+  <ion-searchbar [(ngModel)]="filtro" placeholder="Filtrar por ID o nombre"></ion-searchbar>
+
   <ion-list lines="full">
     <ion-list-header>
-      <ion-label>ID</ion-label>
-      <ion-label>Name</ion-label>
+      <ion-label>CI</ion-label>
+      <ion-label>Nombre</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let cliente of clientes" (click)="seleccionarCliente(cliente)">
-      <ion-label>{{ cliente.id }}</ion-label>
-      <ion-label>{{ cliente.name }}</ion-label>
+    <!-- Aplicar filtro a la lista de clientes -->
+    <ion-item *ngFor="let cliente of filtrarClientes()" (click)="seleccionarCliente(cliente)">
+      <ion-label>{{ cliente.ci }}</ion-label>
+      <ion-label>{{ cliente.nombre }}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -17,19 +17,12 @@ export class ProductoModalTableComponent implements OnInit {
   ngOnInit() {
     this.productos = productList();
   }
- 
-   // Busca el precio con cantidad igual a 1
-   getPrecioCantidad1(producto: Producto): number {   
-    const precioCantidad1 = producto.precios.find(precio => precio.cantidad === 1);   
-    return precioCantidad1 ? precioCantidad1.precio_unitario : 0;
-  }
-
-  seleccionarProducto(producto: Producto) {
+   
+  seleccionarProducto(producto: Producto) {    
     const productoSeleccionado = {
       codigo: producto.codigo,
-      descripcion: producto.descripcion,
-      precio: producto.precios
-    };
+      descripcion: producto.descripcion      
+    };    
     this.modalController.dismiss(productoSeleccionado);
   }
 
