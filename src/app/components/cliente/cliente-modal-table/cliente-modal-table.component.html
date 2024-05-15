@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Añadir Cliente </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Filtro -->
+  <ion-searchbar [(ngModel)]="filtro" placeholder="Filtrar por ID o nombre"></ion-searchbar>
+
+  <ion-list lines="full">
+    <ion-list-header>
+      <ion-label>CI</ion-label>
+      <ion-label>Nombre</ion-label>
+    </ion-list-header>
+    <!-- Aplicar filtro a la lista de clientes -->
+    <ion-item *ngFor="let cliente of filtrarClientes()" (click)="seleccionarCliente(cliente)">
+      <ion-label>{{ cliente.ci }}</ion-label>
+      <ion-label>{{ cliente.nombre }}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -21,12 +21,7 @@ export class ProductoListPage  {
    private productoService: ProductoService,
    private alertController: AlertController
   ) { }
-
-  
-  ngOnInit(){
-    
-  }
-
+ 
   async viewMoreDetailsProducts(product: any){
 
       const optionsProducts = product.precios.map((precio:any) => {

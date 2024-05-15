@@ -1,4 +1,5 @@
 <ion-header [translucent]="true">
+  {{clienteIdInput}}
   <ion-toolbar color="main">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -8,14 +9,100 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-   - Buscador de clientes
-   - Buscador de de producto (modal o algo asi)
-      Cantidad, descripcion del producto y el precio, Iva
-   - Forma de pago
-   - Fecha
-   - Tipo venta
-      - contado / credito
-   - Observacion
-   - Total
-   - Total IVA
+  <form class="formulario" (ngSubmit)="onSubmit()" [formGroup]="clienteForm">
+    <div class="form-group">
+      <ion-label position="floating">CI </ion-label>
+      <ion-input formControlName="ci" type="text" name="ci"></ion-input>      
+    </div>
+
+    <div class="form-group">
+      <ion-label position="floating">Nombre </ion-label>
+      <ion-input formControlName="nombre" type="text" name="nombre"></ion-input>     
+    </div>
+
+    <div class="form-group">
+      <ion-button expand="block" (click)="abrirClienteModalTable()">Seleccionar Cliente</ion-button>
+    </div>
+
+    <div class="form-group">
+      <ion-label position="floating">Forma de Pago </ion-label>
+      <ion-list>
+        <ion-item>
+          <ion-select
+            aria-label="Forma de pago"
+            id="formaPago"
+            formControlName="formaPago"
+            name="formaPago"
+            required
+          >
+            <ion-select-option value="contado">Contado</ion-select-option>
+            <ion-select-option value="credito">Credito</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="form-group">
+      <ion-label position="floating">Fecha de Entrega</ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="datetime"></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div class="form-group">
+      <ion-label position="floating">Tipo de Venta</ion-label>
+
+      <ion-list>
+        <ion-item>
+          <ion-select
+            aria-label="Tipo de Venta"
+            id="tipoVenta"
+            formControlName="tipoVenta"
+            name="tipoVenta"
+            required
+          >
+            <ion-select-option value="contado">Contado</ion-select-option>
+            <ion-select-option value="credito">Credito</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="form-group">
+      <ion-label position="floating">Observación</ion-label>
+      <ion-textarea formControlName="observacion" labelPlacement="floating" fill="outline" placeholder="Enter text"></ion-textarea>
+    </div>
+    <div class="form-group">      
+      <ion-button (click)="abrirProductoModalForm()">Añadir productos</ion-button>
+    </div>
+
+    <button type="submit">Enviar</button>
+  </form>
 </ion-content>
+
+<!-- <
+    <div class="form-group">
+      <label for="cantidad">Cantidad</label>
+      <input type="text" id="cantidad" name="cantidad" required>
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción del Producto</label>
+      <input type="text" id="descripcion" name="descripcion" required>
+    </div>
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input type="text" id="precio" name="precio" required>
+    </div>
+    <div class="form-group">
+      <label for="iva">IVA</label>
+      <input type="text" id="iva" name="iva" required>
+    </div> -->
+<!-- <div class="form-group">
+      <ion-label position="floating">Total</ion-label>
+      <input type="text" id="total" name="total" required>
+    </div>
+    <div class="form-group">
+      <ion-label position="floating">Total IVA</ion-label>
+      <input type="text" id="totalIva" name="totalIva" required>
+    </div> -->

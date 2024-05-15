@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Añadir Productos </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="formulario" [formGroup]="productoForm" (ngSubmit)="agregarProductoEnTabla()">
+    <div class="form-group">
+      <ion-button expand="block" (click)="abrirProductoModalTabla()"
+        >Seleccionar Producto</ion-button
+      >
+    </div>
+    
+    <div class="form-group">
+      <ion-label position="floating">Código</ion-label>
+      <ion-input
+        formControlName="codigo"
+        type="text"        
+        name="codigo"
+      ></ion-input>
+    </div>
+
+    <div class="form-group">
+      <ion-label position="floating">Descripción</ion-label>
+      <ion-input
+        formControlName="descripcion"
+        type="text"        
+        name="descripcion"
+      ></ion-input>
+    </div>
+
+    <div class="form-group">
+      <ion-label position="floating">Cantidad</ion-label>
+      <ion-input
+        formControlName="cantidad"
+        type="number"
+        name="cantidad"
+        (input)="calcularPrecioPorCantidad()"
+      ></ion-input>
+    </div>
+    
+    <div class="form-group">
+      <ion-label position="floating">Precio</ion-label>
+      <ion-input
+        formControlName="precio"
+        type="number"
+        name="precio"
+      ></ion-input>
+    </div>    
+
+    <div class="form-group">
+      <ion-label position="floating">Total Producto</ion-label>
+      <ion-input
+        formControlName="totalProducto"
+        type="number"
+        name="totalProducto"
+      ></ion-input>
+    </div>
+
+    <ion-button type="submit" expand="block">Añadir</ion-button>
+  </form>
+
+  <table *ngIf="productos.length > 0">
+    <thead>
+      <tr>
+        <th style="padding: 10px">Detalles</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td style="padding: 10px">
+          <p><strong>Código:</strong> {{ producto.codigo }}</p>
+          <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+          <p><strong>Precio:</strong> {{ producto.precio }}</p>
+          <p><strong>Cantidad:</strong> {{ producto.cantidad }}</p>
+          <p><strong>Total Producto:</strong> {{ producto.totalProducto }}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ion-content>
