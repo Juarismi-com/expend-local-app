@@ -13,8 +13,7 @@ import { Cliente } from 'src/app/interfaces/clientes.interface';
   styleUrls: ['./preventa-form.page.scss'],
 })
 export class PreventaFormPage implements OnInit {
-  clienteForm: FormGroup;
-  clientes: Cliente[] = [];  
+  clienteForm: FormGroup; 
   clienteIdInput: string = "";
   productos: Producto[] = [];
 
@@ -33,7 +32,6 @@ export class PreventaFormPage implements OnInit {
 
 
   ngOnInit() {
-    this.clientes = clienteList();   
   }
 
   async abrirClienteModalTable() {
@@ -49,6 +47,7 @@ export class PreventaFormPage implements OnInit {
         });
       }
     });
+    console.log(this.clienteForm);
     await modal.present();
   }
 
