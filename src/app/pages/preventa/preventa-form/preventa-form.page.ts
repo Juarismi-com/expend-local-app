@@ -14,9 +14,11 @@ import { Cliente } from 'src/app/interfaces/clientes.interface';
 })
 export class PreventaFormPage implements OnInit {
   clienteForm: FormGroup;
-  clientes: Cliente[] = [];  
-  clienteIdInput: string = "";
+  clientes: Cliente[] = [];
+  clienteIdInput: string = '';
   productos: Producto[] = [];
+  ci: string = '';
+  nombre: string = '';
 
   constructor(
     private modalController: ModalController,
@@ -31,22 +33,21 @@ export class PreventaFormPage implements OnInit {
     });
   }
 
-
   ngOnInit() {
-    this.clientes = clienteList();   
+    this.clientes = clienteList();
   }
 
   async abrirClienteModalTable() {
     const modal = await this.modalController.create({
-      component: ClienteModalTableComponent
+      component: ClienteModalTableComponent,
     });
-    modal.onDidDismiss().then(data => {
-      const cliente = data?.data;
-      if (cliente) {               
-        this.clienteForm.patchValue({
-          ci: cliente.ci,
-          nombre: cliente.nombre,
-        });
+    modal.onDidDismiss().then((data) => {
+      if (data) {
+        const cliente = data?.data;
+        if (cliente) {         
+          this.ci = cliente.ci;
+          this.nombre = cliente.nombre;        
+        }
       }
     });
     await modal.present();
@@ -55,15 +56,10 @@ export class PreventaFormPage implements OnInit {
   async abrirProductoModalForm() {
     const modal = await this.modalController.create({
       component: ProductoModalFormComponent,
-      cssClass: 'modal-producto'
+      cssClass: 'modal-producto',
     });
     return await modal.present();
-  } 
-
-  onSubmit() {
-    
   }
 
-  
-
+  onSubmit() {}
 }
