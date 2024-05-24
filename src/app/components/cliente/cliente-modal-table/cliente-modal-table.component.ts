@@ -3,7 +3,6 @@ import { ModalController } from '@ionic/angular';
 import { clienteList } from 'src/app/mocks/clientes.mock';
 import { Cliente } from 'src/app/interfaces/clientes.interface';
 import { ClienteModalFormComponent } from '../cliente-modal-form/cliente-modal-form.component';
-
 import { removeAccents } from 'src/app/helpers/index.helper';
 
 @Component({

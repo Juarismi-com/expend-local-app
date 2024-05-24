@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { productList } from 'src/app/mocks/productos.mock';
 import { Producto } from 'src/app/interfaces/productos.interface';
+import { removeAccents } from 'src/app/helpers/index.helper';
 
 @Component({
   selector: 'app-producto-modal-table',
@@ -11,11 +12,21 @@ import { Producto } from 'src/app/interfaces/productos.interface';
 export class ProductoModalTableComponent implements OnInit {
 
   productos: Producto[] = [];
+  filtro: string = '';
 
   constructor(private modalController: ModalController) { }
  
   ngOnInit() {
     this.productos = productList();
+  }
+
+  filtrarProductos() {
+    return this.productos.filter(producto => {
+      const filtroSinAcentos = removeAccents(this.filtro.toLowerCase());
+      const codigoSinAcentos = removeAccents(producto.codigo.toLowerCase());
+      const descripcionSinAcentos = removeAccents(producto.descripcion.toLowerCase());
+      return codigoSinAcentos.includes(filtroSinAcentos) || descripcionSinAcentos.includes(filtroSinAcentos);
+    });
   }
 
   getPrecioCantidad1(producto: Producto): number {   
