@@ -44,7 +44,7 @@ export class ClienteModalTableComponent implements OnInit {
     });
     return await modal.present();
   }
- 
+   
   seleccionarCliente(clientes: Cliente) {    
     const clienteSeleccionado = {
       ci: clientes.ci,

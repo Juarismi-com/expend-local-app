@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { clienteList } from 'src/app/mocks/clientes.mock';
 import { ModalController } from '@ionic/angular';
-import { ProductoModalFormComponent } from '../../../components/producto/producto-modal-form/producto-modal-form.component';
+import { ProductoModalTableComponent } from '../../../components/producto/producto-modal-table/producto-modal-table.component';
+import { ProductoModalFormComponent } from 'src/app/components/producto/producto-modal-form/producto-modal-form.component';
 import { ClienteModalTableComponent } from '../../../components/cliente/cliente-modal-table/cliente-modal-table.component';
-import { Producto } from 'src/app/interfaces/productos.interface';
+import { Detalle_producto } from 'src/app/interfaces/productos.interface';
 import { Cliente } from 'src/app/interfaces/clientes.interface';
 
 @Component({
@@ -16,7 +17,7 @@ export class PreventaFormPage implements OnInit {
   clienteForm: FormGroup;
   clientes: Cliente[] = [];
   clienteIdInput: string = '';
-  productos: Producto[] = [];
+  productos: Detalle_producto[] = [];
   ci: string = '';
   nombre: string = '';
 
@@ -30,7 +31,7 @@ export class PreventaFormPage implements OnInit {
       formaPago: [null, Validators.required],
       tipoVenta: [null, Validators.required],
       observacion: [null, Validators.required],
-    });
+    });  
   }
 
   ngOnInit() {
@@ -52,14 +53,42 @@ export class PreventaFormPage implements OnInit {
     });
     await modal.present();
   }
-
-  async abrirProductoModalForm() {
+ 
+  async abrirProductoModalTabla() {
     const modal = await this.modalController.create({
-      component: ProductoModalFormComponent,
-      cssClass: 'modal-producto',
+      component: ProductoModalTableComponent,
     });
-    return await modal.present();
+    modal.onDidDismiss().then((data) => {
+      const producto = data?.data;
+      if (producto) {
+        if (!this.productos.some(p => p.codigo === producto.codigo)) {
+          this.productos.push(producto);         
+        }
+      }
+    });
+    await modal.present();
   }
 
-  onSubmit() {}
+  async abrirFormProducto(producto: Detalle_producto) {
+    const modal = await this.modalController.create({
+      component: ProductoModalFormComponent,
+      componentProps: { producto }
+    });    
+    modal.onDidDismiss().then((data) => {
+      if (data.data) {
+        const productoActualizado = data.data as Detalle_producto;
+        const index = this.productos.findIndex(p => p.codigo === productoActualizado.codigo);
+        if (index > -1) {
+          this.productos[index] = productoActualizado;
+        }
+      }
+    });
+    await modal.present();
+  }
+  
+
+  onSubmit() {
+    console.log(this.clienteForm.value);
+    console.log(this.productos);
+  }
 }

@@ -18,3 +18,11 @@ export interface Producto {
     peso: number;
     descuento: number;
   }
+
+  export interface Detalle_producto {    
+    codigo: string;
+    descripcion: string;   
+    cantidad: number;
+    precio: number;
+    totalUnitario: number;
+  }

@@ -17,11 +17,20 @@ export class ProductoModalTableComponent implements OnInit {
   ngOnInit() {
     this.productos = productList();
   }
+
+  getPrecioCantidad1(producto: Producto): number {   
+    const precioCantidad1 = producto.precios.find(precio => precio.cantidad === 1);    
+    return precioCantidad1 ? precioCantidad1.precio_unitario : 0;
+  }
    
   seleccionarProducto(producto: Producto) {    
+    const precioCantidad1 = this.getPrecioCantidad1(producto);
     const productoSeleccionado = {
       codigo: producto.codigo,
-      descripcion: producto.descripcion      
+      descripcion: producto.descripcion,      
+      precio: precioCantidad1,
+      cantidad: 1,
+      totalUnitario: precioCantidad1
     };    
     this.modalController.dismiss(productoSeleccionado);
   }
