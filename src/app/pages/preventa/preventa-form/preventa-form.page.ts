@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { clienteList } from 'src/app/mocks/clientes.mock';
 import { ModalController } from '@ionic/angular';
@@ -13,7 +13,8 @@ import { Cliente } from 'src/app/interfaces/clientes.interface';
   templateUrl: './preventa-form.page.html',
   styleUrls: ['./preventa-form.page.scss'],
 })
-export class PreventaFormPage implements OnInit {
+export class PreventaFormPage {
+
   clienteForm: FormGroup;
   clientes: Cliente[] = [];
   clienteIdInput: string = '';
@@ -33,11 +34,7 @@ export class PreventaFormPage implements OnInit {
       observacion: [null, Validators.required],
     });  
   }
-
-  ngOnInit() {
-    this.clientes = clienteList();
-  }
-
+ 
   async abrirClienteModalTable() {
     const modal = await this.modalController.create({
       component: ClienteModalTableComponent,
@@ -66,6 +63,7 @@ export class PreventaFormPage implements OnInit {
         }
       }
     });
+    console.log(this.clienteForm);
     await modal.present();
   }
 
