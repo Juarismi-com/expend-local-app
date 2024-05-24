@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { ProductoModalTableComponent } from '../../../components/producto/producto-modal-table/producto-modal-table.component';
@@ -13,6 +13,7 @@ import { Cliente } from 'src/app/interfaces/clientes.interface';
   styleUrls: ['./preventa-form.page.scss'],
 })
 export class PreventaFormPage {
+
   clienteForm: FormGroup;
   clientes: Cliente[] = [];
   clienteIdInput: string = '';
@@ -61,6 +62,7 @@ export class PreventaFormPage {
         }
       }
     });
+    console.log(this.clienteForm);
     await modal.present();
   }
 
