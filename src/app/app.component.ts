@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Productos', url: '/producto-list', icon: 'albums' },
+    { title: 'Productos (inactivo)', url: '/producto-list', icon: 'albums' },
     { title: 'Preventas', url: '/preventa-form', icon: 'checkmark-done' },
+    { title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
+    { title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
+    { title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
+    { title: 'Proveedores (inactivo)', url: '/preventa-form-5', icon: 'checkmark-done' },
+    { title: 'Mi cuenta (inactivo)', url: '/preventa-form-6', icon: 'person' },
 
     /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
     { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
@@ -16,6 +22,12 @@ export class AppComponent {
     { title: 'Trash', url: '/folder/trash', icon: 'trash' },
     { title: 'Spam', url: '/folder/spam', icon: 'warning' },*/
   ];
-  public labels = ['Family'];
-  constructor() {}
+  public labels = [];
+  constructor(private storage: Storage) {}
+
+  async ngOnInit() {
+    // If using a custom driver:
+    // await this.storage.defineDriver(MyCustomDriver)
+    await this.storage.create();
+  }
 }
