@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> Seleccionar Producto </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar
+    [(ngModel)]="filtro"
+    placeholder="Filtrar por Codigo o Descripcion"
+  ></ion-searchbar>
+<ion-list [inset]="true">
+  <ion-item *ngFor="let producto of productos of filtrarProductos()" [button]="true" detail="false" (click)="seleccionarProducto(producto)">
+      <div class="unread-indicator-wrapper" slot="start">
+        <div class="unread-indicator"></div>
+      </div>
+      <ion-label>
+        <strong>{{ producto.codigo }}</strong><br />
+        <ion-text>{{ producto.nombre }}</ion-text><br />
+        <ion-note color="medium" class="ion-text-wrap">
+          <ion-label>{{ getPrecioCantidad1(producto) }}</ion-label> 
+        </ion-note>
+      </ion-label>      
+  </ion-item>
+   
+</ion-list>
+</ion-content>
