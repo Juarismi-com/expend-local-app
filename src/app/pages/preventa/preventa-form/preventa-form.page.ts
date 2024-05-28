@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { ProductoModalTableComponent } from '../../../components/producto/producto-modal-table/producto-modal-table.component';
 import { ProductoModalFormComponent } from 'src/app/components/producto/producto-modal-form/producto-modal-form.component';
 import { ClienteModalTableComponent } from '../../../components/cliente/cliente-modal-table/cliente-modal-table.component';
@@ -23,7 +23,8 @@ export class PreventaFormPage {
 
   constructor(
     private modalController: ModalController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alertController: AlertController
   ) {
     this.clienteForm = this.formBuilder.group({
       ci: ['', Validators.required],
@@ -42,8 +43,12 @@ export class PreventaFormPage {
       if (data) {
         const cliente = data?.data;
         if (cliente) {         
-          this.ci = cliente.ci;
-          this.nombre = cliente.nombre;        
+          if (cliente) {         
+            this.clienteForm.patchValue({
+              ci: cliente.ci,
+              nombre: cliente.nombre
+            });    
+          }      
         }
       }
     });
@@ -82,7 +87,29 @@ export class PreventaFormPage {
     });
     await modal.present();
   }
-  
+
+  async eliminarProductoTabla(producto: Detalle_producto) {
+    const alert = await this.alertController.create({
+      header: 'Confirmación',
+      message: `¿Está seguro de que desea eliminar el producto con código ${producto.codigo}?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Eliminación cancelada');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.productos = this.productos.filter(p => p.codigo !== producto.codigo);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
   onSubmit() {
     console.log(this.clienteForm.value);
