@@ -42,8 +42,10 @@ export class PreventaFormPage {
       if (data) {
         const cliente = data?.data;
         if (cliente) {         
-          this.ci = cliente.ci;
-          this.nombre = cliente.nombre;        
+          this.clienteForm.patchValue({
+            ci: cliente.ci,
+            nombre: cliente.nombre
+          });    
         }
       }
     });
