@@ -6,6 +6,8 @@ import { ProductoModalFormComponent } from 'src/app/components/producto/producto
 import { ClienteModalTableComponent } from '../../../components/cliente/cliente-modal-table/cliente-modal-table.component';
 import { Detalle_producto } from 'src/app/interfaces/productos.interface';
 import { Cliente } from 'src/app/interfaces/clientes.interface';
+import { StorageService } from 'src/app/services/storage.service';
+
 
 @Component({
   selector: 'app-preventa-form',
@@ -23,7 +25,8 @@ export class PreventaFormPage {
 
   constructor(
     private modalController: ModalController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private storageService : StorageService
   ) {
     this.clienteForm = this.formBuilder.group({
       ci: ['', Validators.required],
@@ -35,10 +38,11 @@ export class PreventaFormPage {
   }
  
   async abrirClienteModalTable() {
+    
     const modal = await this.modalController.create({
       component: ClienteModalTableComponent,
     });
-    modal.onDidDismiss().then((data) => {
+    modal.onDidDismiss().then(async (data) => {
       if (data) {
         const cliente = data?.data;
         if (cliente) {         
