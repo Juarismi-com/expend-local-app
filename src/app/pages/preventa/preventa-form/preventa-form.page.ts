@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { clienteList } from 'src/app/mocks/clientes.mock';
 import { ModalController } from '@ionic/angular';
-import { ProductoModalFormComponent } from '../../../components/producto/producto-modal-form/producto-modal-form.component';
+import { ProductoModalTableComponent } from '../../../components/producto/producto-modal-table/producto-modal-table.component';
+import { ProductoModalFormComponent } from 'src/app/components/producto/producto-modal-form/producto-modal-form.component';
 import { ClienteModalTableComponent } from '../../../components/cliente/cliente-modal-table/cliente-modal-table.component';
-import { Producto } from 'src/app/interfaces/productos.interface';
+import { Detalle_producto } from 'src/app/interfaces/productos.interface';
 import { Cliente } from 'src/app/interfaces/clientes.interface';
 
 @Component({
@@ -12,10 +12,14 @@ import { Cliente } from 'src/app/interfaces/clientes.interface';
   templateUrl: './preventa-form.page.html',
   styleUrls: ['./preventa-form.page.scss'],
 })
-export class PreventaFormPage implements OnInit {
-  clienteForm: FormGroup; 
-  clienteIdInput: string = "";
-  productos: Producto[] = [];
+export class PreventaFormPage {
+
+  clienteForm: FormGroup;
+  clientes: Cliente[] = [];
+  clienteIdInput: string = '';
+  productos: Detalle_producto[] = [];
+  ci: string = '';
+  nombre: string = '';
 
   constructor(
     private modalController: ModalController,
@@ -27,42 +31,61 @@ export class PreventaFormPage implements OnInit {
       formaPago: [null, Validators.required],
       tipoVenta: [null, Validators.required],
       observacion: [null, Validators.required],
-    });
+    });  
   }
-
-
-  ngOnInit() {
-  }
-
+ 
   async abrirClienteModalTable() {
     const modal = await this.modalController.create({
-      component: ClienteModalTableComponent
+      component: ClienteModalTableComponent,
     });
-    modal.onDidDismiss().then(data => {
-      const cliente = data?.data;
-      if (cliente) {               
-        this.clienteForm.patchValue({
-          ci: cliente.ci,
-          nombre: cliente.nombre,
-        });
+    modal.onDidDismiss().then((data) => {
+      if (data) {
+        const cliente = data?.data;
+        if (cliente) {         
+          this.ci = cliente.ci;
+          this.nombre = cliente.nombre;        
+        }
+      }
+    });
+    await modal.present();
+  }
+ 
+  async abrirProductoModalTabla() {
+    const modal = await this.modalController.create({
+      component: ProductoModalTableComponent,
+    });
+    modal.onDidDismiss().then((data) => {
+      const producto = data?.data;
+      if (producto) {
+        if (!this.productos.some(p => p.codigo === producto.codigo)) {
+          this.productos.push(producto);         
+        }
       }
     });
     console.log(this.clienteForm);
     await modal.present();
   }
 
-  async abrirProductoModalForm() {
+  async abrirFormProducto(producto: Detalle_producto) {
     const modal = await this.modalController.create({
       component: ProductoModalFormComponent,
-      cssClass: 'modal-producto'
+      componentProps: { producto }
+    });    
+    modal.onDidDismiss().then((data) => {
+      if (data.data) {
+        const productoActualizado = data.data as Detalle_producto;
+        const index = this.productos.findIndex(p => p.codigo === productoActualizado.codigo);
+        if (index > -1) {
+          this.productos[index] = productoActualizado;
+        }
+      }
     });
-    return await modal.present();
-  } 
-
-  onSubmit() {
-    
+    await modal.present();
   }
-
   
 
+  onSubmit() {
+    console.log(this.clienteForm.value);
+    console.log(this.productos);
+  }
 }

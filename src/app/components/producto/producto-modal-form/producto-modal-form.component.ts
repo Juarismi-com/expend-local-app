@@ -1,32 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductoModalTableComponent } from '../producto-modal-table/producto-modal-table.component';
 import { productList } from 'src/app/mocks/productos.mock';
-
-interface Producto {
-  codigo: string;
-  descripcion: string;
-  precio: number;
-  cantidad: number;
-  totalProducto: number;
-}
+import { Detalle_producto } from 'src/app/interfaces/productos.interface';
 
 @Component({
   selector: 'app-modal-producto',
   templateUrl: './producto-modal-form.component.html',
   styleUrls: ['./producto-modal-form.component.scss'],
 })
-export class ProductoModalFormComponent {
+export class ProductoModalFormComponent implements OnInit {
   productoForm: FormGroup;
-  productos: Producto[] = [];
-  productoSeleccionado: Producto[] = [];
+  @Input() producto: Detalle_producto[] = [];
 
   codigo: string = '';
   descripcion: string = '';
-  precio: number = 0;
-  cantidad: number = 0;
-  totalProducto: number = 0;
 
   constructor(
     private modalController: ModalController,
@@ -37,31 +25,26 @@ export class ProductoModalFormComponent {
       descripcion: ['', Validators.required],
       precio: [null, Validators.required],
       cantidad: [null, Validators.required],
-      totalProducto: [null, Validators.required],
+      totalUnitario: [null, Validators.required],
     });
+  }
+
+  ngOnInit() {
+    if (this.producto) {
+      this.productoForm.patchValue(this.producto);     
+    }
+  }
+ 
+  actualizar() {
+    if (this.productoForm.valid) {
+      this.modalController.dismiss(this.productoForm.value);
+    }
   }
 
   cerrarModal() {
     this.modalController.dismiss();
   }
-
-  async abrirProductoModalTabla() {
-    const modal = await this.modalController.create({
-      component: ProductoModalTableComponent,
-    });
-    modal.onDidDismiss().then((data) => {
-      const producto = data?.data;
-      if (producto) {
-        this.productoSeleccionado = producto;
-        this.productoForm.patchValue({
-          codigo: producto.codigo,
-          descripcion: producto.descripcion,
-        });
-      }
-    });
-    await modal.present();
-  }
-
+ 
   calcularPrecioPorCantidad() {
     const codigo = this.productoForm.value.codigo;
     const cantidad = this.productoForm.value.cantidad;
@@ -83,40 +66,14 @@ export class ProductoModalFormComponent {
       }
     }
 
-    const totalProducto = precio * cantidad; 
+    const totalUnitario = precio * cantidad; 
 
     this.productoForm.patchValue({
       precio: precio,
-      totalProducto: totalProducto
+      totalUnitario: totalUnitario
     });
-
-    this.productoForm.patchValue({
-      precio: precio
-    });
-
+    
     return precio;
   }
-
-  agregarProductoEnTabla() {
-    if (this.productoForm.valid) {
-      const producto: Producto = {
-        codigo: this.productoForm.value.codigo,
-        descripcion: this.productoForm.value.descripcion,
-        precio: this.productoForm.value.precio,
-        cantidad: this.productoForm.value.cantidad,
-        totalProducto: this.productoForm.value.totalProducto,
-      };
-
-      //Validation
-      const existe = this.productos.some((p) => p.codigo === producto.codigo);
-      if (!existe) {
-        this.productos.push(producto);
-        this.productoForm.reset();
-      } else {
-        console.error('El producto ya existe en la lista.');
-      }
-    } else {
-      console.error('Por favor, complete el formulario correctamente.');
-    }
-  }
+  
 }

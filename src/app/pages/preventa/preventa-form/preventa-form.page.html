@@ -10,13 +10,19 @@
 
 <ion-content [fullscreen]="true">
   <form class="formulario" (ngSubmit)="onSubmit()" [formGroup]="clienteForm">
-    
-    <div class="form-group" *ngIf="clienteForm.value.nombre != '' x">
-      Nombre: {{ clienteForm.value.nombre }} CI/RUC: {{ clienteForm.value.ci }}
+
+    <div class="form-group">
+      <ion-label position="floating">CI/RUC: {{ clienteForm.value.ci }}</ion-label>
+    </div>
+    <div class="form-group">
+      <ion-label position="floating">Nombre: {{ clienteForm.value.nombre }}</ion-label>
+
     </div>
 
     <div class="form-group">
-      <ion-button expand="block" (click)="abrirClienteModalTable()">Seleccionar Cliente</ion-button>
+      <ion-button expand="block" (click)="abrirClienteModalTable()">
+        Seleccionar Cliente
+      </ion-button>
     </div>
 
     <div class="form-group">
@@ -66,38 +72,39 @@
     </div>
     <div class="form-group">
       <ion-label position="floating">Observación</ion-label>
-      <ion-textarea formControlName="observacion" labelPlacement="floating" fill="outline" placeholder="Enter text"></ion-textarea>
+      <ion-textarea
+        formControlName="observacion"
+        labelPlacement="floating"
+        fill="outline"
+        placeholder="Enter text"
+      ></ion-textarea>
     </div>
-    <div class="form-group">      
-      <ion-button (click)="abrirProductoModalForm()">Añadir productos</ion-button>
-    </div>
-
+    
     <button type="submit">Enviar</button>
   </form>
-</ion-content>
 
-<!-- <
+  <form class="formulario" (ngSubmit)="abrirProductoModalTabla()">
     <div class="form-group">
-      <label for="cantidad">Cantidad</label>
-      <input type="text" id="cantidad" name="cantidad" required>
+      <ion-button expand="block" (click)="abrirProductoModalTabla()">
+        Seleccionar Producto
+      </ion-button>
     </div>
-    <div class="form-group">
-      <label for="descripcion">Descripción del Producto</label>
-      <input type="text" id="descripcion" name="descripcion" required>
-    </div>
-    <div class="form-group">
-      <label for="precio">Precio</label>
-      <input type="text" id="precio" name="precio" required>
-    </div>
-    <div class="form-group">
-      <label for="iva">IVA</label>
-      <input type="text" id="iva" name="iva" required>
-    </div> -->
-<!-- <div class="form-group">
-      <ion-label position="floating">Total</ion-label>
-      <input type="text" id="total" name="total" required>
-    </div>
-    <div class="form-group">
-      <ion-label position="floating">Total IVA</ion-label>
-      <input type="text" id="totalIva" name="totalIva" required>
-    </div> -->
+    
+    <ion-list [inset]="true">
+      <ion-item *ngFor="let producto of productos" (click)="abrirFormProducto(producto)">
+        <div class="unread-indicator-wrapper" slot="start">
+          <div class="unread-indicator"></div>
+        </div>
+        <ion-label>
+          <strong>Codigo: {{ producto.codigo }}</strong><br />
+          <ion-text><strong>Descripcion: </strong> {{ producto.descripcion }}</ion-text><br />        
+          <ion-text><strong>Cantidad: </strong>{{ producto.cantidad }} </ion-text> <br />
+          <ion-text><strong>Precio: </strong> {{ producto.precio }}</ion-text> <br />  
+          <ion-text><strong>Total: </strong> {{ producto.totalUnitario }}</ion-text>   
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ion-button type="submit" expand="block">Enviar</ion-button>
+  </form>
+</ion-content>

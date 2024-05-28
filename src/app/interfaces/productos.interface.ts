@@ -1,3 +1,8 @@
+
+/**
+ * @todo precios and dimensiones have an interface, 
+ * @todo replace interface for type, this is not a class
+ */
 export interface Producto {
     id: number;
     codigo: string;
@@ -17,4 +22,17 @@ export interface Producto {
     dimensiones: { longitud: number; anchura: number; altura: number; };
     peso: number;
     descuento: number;
+  }
+
+
+
+  /**
+   * @todo rename this to camelcane and ProductoDetalle (the entity first)
+   */
+  export interface Detalle_producto {    
+    codigo: string;
+    descripcion: string;   
+    cantidad: number;
+    precio: number;
+    totalUnitario: number;
   }
