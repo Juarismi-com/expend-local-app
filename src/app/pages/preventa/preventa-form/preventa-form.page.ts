@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ComponentRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, ModalOptions } from '@ionic/angular';
 import { ProductoModalTableComponent } from '../../../components/producto/producto-modal-table/producto-modal-table.component';
 import { ProductoModalFormComponent } from 'src/app/components/producto/producto-modal-form/producto-modal-form.component';
 import { ClienteModalTableComponent } from '../../../components/cliente/cliente-modal-table/cliente-modal-table.component';
@@ -16,20 +16,31 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class PreventaFormPage {
 
-  clienteForm: FormGroup;
+  preventaForm: FormGroup;
   clientes: Cliente[] = [];
   clienteIdInput: string = '';
+
   productos: Detalle_producto[] = [];
+  formaPagoList: any[] = [
+      "Efectivo",
+      "Tarjetas de Crédito",
+      "Tarjetas de Débito",
+      "Transferencias Bancarias",
+      "Pagos Móviles",
+      "Billeteras Digitales",
+      "Pagos a Plazos",
+      "Pagos Contra Reembolso"
+  ]
   ci: string = '';
   nombre: string = '';
 
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
-    private alertController: AlertController
-
+    private alertController: AlertController,
+    private storageService: StorageService,
   ) {
-    this.clienteForm = this.formBuilder.group({
+    this.preventaForm = this.formBuilder.group({
       ci: ['', Validators.required],
       nombre: ['', Validators.required],
       formaPago: [null, Validators.required],
@@ -38,8 +49,8 @@ export class PreventaFormPage {
     });  
   }
  
+
   async abrirClienteModalTable() {
-    
     const modal = await this.modalController.create({
       component: ClienteModalTableComponent,
     });
@@ -49,7 +60,7 @@ export class PreventaFormPage {
         if (cliente) {         
 
           if (cliente) {         
-            this.clienteForm.patchValue({
+            this.preventaForm.patchValue({
               ci: cliente.ci,
               nombre: cliente.nombre
             });    
@@ -61,19 +72,25 @@ export class PreventaFormPage {
     await modal.present();
   }
  
+
   async abrirProductoModalTabla() {
     const modal = await this.modalController.create({
       component: ProductoModalTableComponent,
     });
-    modal.onDidDismiss().then((data) => {
+    
+    modal.onDidDismiss().then(async (data) => {
       const producto = data?.data;
-      if (producto) {
-        if (!this.productos.some(p => p.codigo === producto.codigo)) {
-          this.productos.push(producto);         
-        }
+      if (producto && !this.productos.some(p => p.codigo === producto.codigo)) {
+          this.productos.push(producto);
       }
+
+      // todo migrarlo a un service PreventaService
+      this.storageService.set("preventa/preventa-form", {
+        ...this.preventaForm.value,
+        productos: this.productos
+      })
     });
-    console.log(this.clienteForm);
+    console.log(this.preventaForm);
     await modal.present();
   }
 
@@ -117,8 +134,13 @@ export class PreventaFormPage {
     await alert.present();
   }
 
-  onSubmit() {
-    console.log(this.clienteForm.value);
-    console.log(this.productos);
+  async preventaFormSubmit() {
+    //this.storageService.set*this.preventaForm.value
+
+    const preventaList = await this.storageService.get("preventa/preventa-list") || [];
+    const preventaForm = await this.storageService.get("preventa/preventa-form");
+    preventaList.push(preventaForm);
+    
+    this.storageService.set("preventa/preventa-list", preventaList);
   }
 }

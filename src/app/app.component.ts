@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
+import { StorageService } from './services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ export class AppComponent {
   public appPages = [
     { title: 'Productos (inactivo)', url: '/producto-list', icon: 'albums' },
     { title: 'Preventas', url: '/preventa-form', icon: 'checkmark-done' },
+    { title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
     { title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
     { title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
     { title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
@@ -23,7 +25,7 @@ export class AppComponent {
     { title: 'Spam', url: '/folder/spam', icon: 'warning' },*/
   ];
   public labels = [];
-  constructor(private storage: Storage) {}
+  constructor(private storage: Storage, private storageService: StorageService) {}
 
   async ngOnInit() {
     // If using a custom driver:
