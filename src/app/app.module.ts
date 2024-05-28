@@ -12,6 +12,9 @@ import { ClienteModalFormComponent } from './components/cliente/cliente-modal-fo
 import { ClienteModalTableComponent } from './components/cliente/cliente-modal-table/cliente-modal-table.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     AppComponent,  
@@ -26,6 +29,10 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    IonicStorageModule.forRoot({
+      name: "blogic_app_db",
+      driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
+    })
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
