@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'preventa-form',
     loadChildren: () => import('./pages/preventa/preventa-form/preventa-form.module').then( m => m.PreventaFormPageModule)
   },
+  {
+    path: 'preventa-list',
+    loadChildren: () => import('./pages/preventa/preventa-list/preventa-list.module').then( m => m.PreventaListPageModule)
+  },
 ];
 
 @NgModule({
