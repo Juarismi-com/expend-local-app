@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'preventa-list',
     loadChildren: () => import('./pages/preventa/preventa-list/preventa-list.module').then( m => m.PreventaListPageModule)
   },
+  {
+    path: 'geo-simple',
+    loadChildren: () => import('./pages/common/geo/geo-simple/geo-simple.module').then( m => m.GeoSimplePageModule)
+  },
 ];
 
 @NgModule({

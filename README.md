@@ -9,3 +9,5 @@ $
 ```
 
 
+## Recursos
+- [Ionic/Capacitor Google Maps](https://www.youtube.com/watch?v=3r6KVnWv_lU&t=684s)
