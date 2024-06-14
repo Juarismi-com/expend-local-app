@@ -29,7 +29,7 @@ export class GeoSimplePage implements OnInit {
     this.map = await GoogleMap.create({
       id: 'my-map',
       element: this.mapRef.nativeElement,
-      apiKey: environment.gmapsKey,
+      apiKey: "AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ",
       config: {
         center: {
           lat: -25.28646,
