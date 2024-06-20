@@ -73,7 +73,10 @@ export class PreventaFormPage {
   }
  
 
-  async abrirProductoModalTabla() {
+  /**
+   * Abre el model con el listado de productos
+   */
+  async openProductoTableModal() {
     const modal = await this.modalController.create({
       component: ProductoModalTableComponent,
     });

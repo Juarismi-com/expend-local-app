@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import {productList} from "../mocks/productos.mock"
+import axios from 'axios';
+import { environment } from 'src/environments/environment';
+
+const { apiUrl } = environment;
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +12,12 @@ export class ProductoService {
 
   constructor() { }
 
-  searchProduct(value: string){
-   const data = productList();
-
-   return data.filter((d) => {
-      return d.codigo.toLowerCase().indexOf(value) > -1 || d.nombre.toLowerCase().indexOf(value) > -1
-   });
+  async searchProduct(value: string){
+    if (value.length > 3){
+      const result = (await axios.get(`${apiUrl}/productos/search?q=${value}`)).data?.rows;
+      return result;
+    } 
+    
+    return []
   }
 }

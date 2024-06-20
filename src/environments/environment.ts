@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  gmapsKey: "AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ"
+  gmapsKey: "AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ",
+  apiUrl: 'http://localhost:8000'
 };
 
 /*
