@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/auth/login-form/login-form.module').then( m => m.LoginFormPageModule)
-  },
+  },  
 ];
 
 @NgModule({
