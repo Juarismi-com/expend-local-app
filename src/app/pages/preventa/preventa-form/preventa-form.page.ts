@@ -8,7 +8,6 @@ import { Detalle_producto } from 'src/app/interfaces/productos.interface';
 import { Cliente } from 'src/app/interfaces/clientes.interface';
 import { StorageService } from 'src/app/services/storage.service';
 
-
 @Component({
   selector: 'app-preventa-form',
   templateUrl: './preventa-form.page.html',
@@ -31,7 +30,7 @@ export class PreventaFormPage {
       "Pagos a Plazos",
       "Pagos Contra Reembolso"
   ]
-  ci: string = '';
+  ciRuc: string = '';
   nombre: string = '';
 
   constructor(
@@ -41,7 +40,7 @@ export class PreventaFormPage {
     private storageService: StorageService,
   ) {
     this.preventaForm = this.formBuilder.group({
-      ci: ['', Validators.required],
+      ciRuc: ['', Validators.required],
       nombre: ['', Validators.required],
       formaPago: [null, Validators.required],
       tipoVenta: [null, Validators.required],

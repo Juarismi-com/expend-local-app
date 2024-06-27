@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { clienteList } from 'src/app/mocks/clientes.mock';
 import { Cliente } from 'src/app/interfaces/clientes.interface';
 import { ClienteModalFormComponent } from '../cliente-modal-form/cliente-modal-form.component';
 import { removeAccents } from 'src/app/helpers/index.helper';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-cliente-modal-form',
@@ -12,29 +12,18 @@ import { removeAccents } from 'src/app/helpers/index.helper';
 })
 export class ClienteModalTableComponent implements OnInit {
 
-  clientes: Cliente[] = [];
+  clientes: any[] = [];
   filtro: string = '';
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController, private clienteService: ClienteService) { }
  
   ngOnInit() {
-    this.clientes = clienteList();
+    
   }
 
-  cerrarModal() {
-    this.modalController.dismiss();
-  }  
-
-  filtrarClientes() {
-    return this.clientes.filter(cliente => {      
-      const filtroSinAcentos = removeAccents(this.filtro.toLowerCase());
-      const nombreSinAcentos = removeAccents(cliente.nombre.toLowerCase());
-      return cliente.ci.toString().includes(filtroSinAcentos) || nombreSinAcentos.includes(filtroSinAcentos);
-    });
-  }
-
-  hayResultados(): boolean {
-    return this.filtrarClientes().length === 0;
+  async handleInputSearch(e: any) {
+    const value = e.target.value.toLowerCase();
+    this.clientes =  await this.clienteService.searchClient(value)
   }
 
   async abrirClienteModalForm() {
@@ -44,12 +33,17 @@ export class ClienteModalTableComponent implements OnInit {
     return await modal.present();
   }
    
-  seleccionarCliente(clientes: Cliente) {    
-    const clienteSeleccionado = {
-      ci: clientes.ci,
+  selectClient(clientes: Cliente) {    
+    const clientSelected = {
+      ciRuc: clientes.ruc,
       nombre: clientes.nombre     
     };    
-    this.modalController.dismiss(clienteSeleccionado);
+
+    this.modalController.dismiss(clientSelected);
   }
+
+   closeModal() {
+    this.modalController.dismiss();
+  }  
 
 }
