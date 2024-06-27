@@ -46,6 +46,7 @@ export class ProductoModalTableComponent implements OnInit {
     this.productoSelected.precio_seleccionado = e?.value.toString()
   }
 
+
   async selectProduct(producto: any){
     this.productoSelected = producto;
     let openAlert = false;
@@ -75,6 +76,8 @@ export class ProductoModalTableComponent implements OnInit {
         this.inputRadioOptionForAlert(`${precioDescuento} - Descuento (${oferta.descuento}) %`, precioDescuento)
       )
     }
+
+
 
     // Si se encontro descuento y 
     if (openAlert) {
@@ -112,7 +115,6 @@ export class ProductoModalTableComponent implements OnInit {
    
 
   confirmProductSelected(producto: any){
-    console.log(producto);
     this.modalController.dismiss({
       codigo: producto.id,
       descripcion: producto.nombre,      
