@@ -12,9 +12,9 @@ export class ProductoListPage  {
   public results: any[] = [];
   public variantByCantSelected: any = null;
 
-  handleInput(e : any) {
+  async handleInput(e : any) {
     const value = e.target.value.toLowerCase();
-    this.results = this.productoService.searchProduct(value)
+    this.results = await this.productoService.searchProduct(value) 
   }
 
   constructor(
@@ -33,7 +33,6 @@ export class ProductoListPage  {
             }
          }
       })
-
 
       const alert = await this.alertController.create({
          header: "Precios por cantidad",

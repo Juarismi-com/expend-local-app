@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title> Agregar Cliente </ion-title>
+    <ion-title> Formulario de Cliente </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrarModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -13,7 +13,7 @@
   <form class="formulario" [formGroup]="clienteForm">
        
     <div class="form-group">
-      <ion-label position="floating">Ci/Ruc</ion-label>
+      <ion-label position="floating">CI/RUC</ion-label>
       <ion-input
         formControlName="ciRuc"
         type="text"        
@@ -30,7 +30,26 @@
       ></ion-input>
     </div>
     
-    <ion-button type="submit" expand="block">Enviar</ion-button>
+    <div class="form-group">
+      <ion-label position="floating">Telefono</ion-label>
+      <ion-input
+        formControlName="telefono"
+        type="text"        
+        name="telefono"
+      ></ion-input>
+    </div>
+
+    <div class="form-group">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+        formControlName="ciRuc"
+        type="text"        
+        name="ciRuc"
+      ></ion-input>
+    </div>
+
+    <ion-button type="button" expand="block" (click)="setGeobicationModal()">Editar Ubicación</ion-button>
+    <ion-button type="submit" expand="block">Guardar</ion-button>
   </form>
 
   

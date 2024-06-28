@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { productList } from 'src/app/mocks/productos.mock';
 import { Detalle_producto } from 'src/app/interfaces/productos.interface';
+import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
   selector: 'app-modal-producto',
@@ -13,19 +14,18 @@ export class ProductoModalFormComponent implements OnInit {
   productoForm: FormGroup;
   @Input() producto: Detalle_producto[] = [];
 
-  codigo: string = '';
-  descripcion: string = '';
-
   constructor(
     private modalController: ModalController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private productoService: ProductoService
   ) {
     this.productoForm = this.formBuilder.group({
-      codigo: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      precio: [null, Validators.required],
+      producto_id: ['', Validators.required],
+      nombre: ['', Validators.required],
+      precio_unitario: [null, Validators.required],
       cantidad: [null, Validators.required],
-      totalUnitario: [null, Validators.required],
+      descuento: [null, Validators.required],
+      subtotal: [null, Validators.required],
     });
   }
 
@@ -35,45 +35,23 @@ export class ProductoModalFormComponent implements OnInit {
     }
   }
  
-  actualizar() {
+  formSubmit() {
     if (this.productoForm.valid) {
       this.modalController.dismiss(this.productoForm.value);
     }
   }
 
-  cerrarModal() {
+  closeModal() {
     this.modalController.dismiss();
   }
  
-  calcularPrecioPorCantidad() {
-    const codigo = this.productoForm.value.codigo;
-    const cantidad = this.productoForm.value.cantidad;
 
-    const productoSeleccionado = productList().find(
-      (producto) => producto.codigo === codigo
+  setSubtotal(){
+    const producto = this.productoService.setSubtotal(
+      this.productoForm.value, 
+      this.productoForm.value?.cantidad
     );
-
-    if (!productoSeleccionado) {
-      return 0;
-    }
-
-    const precios = productoSeleccionado?.precios;
-
-    let precio = 0;
-    for (const p of precios) {
-      if (cantidad >= p.cantidad) {
-        precio = p.precio_unitario;
-      }
-    }
-
-    const totalUnitario = precio * cantidad; 
-
-    this.productoForm.patchValue({
-      precio: precio,
-      totalUnitario: totalUnitario
-    });
-    
-    return precio;
+    this.productoForm.setValue({...producto})
   }
-  
+
 }

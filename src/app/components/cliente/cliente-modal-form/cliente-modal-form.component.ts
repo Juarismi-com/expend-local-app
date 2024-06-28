@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GeoSimplePage } from 'src/app/pages/common/geo/geo-simple/geo-simple.page';
 
 @Component({
   selector: 'app-cliente-modal-form',
@@ -20,11 +21,25 @@ export class ClienteModalFormComponent {
     this.clienteForm = this.formBuilder.group({
       ciRuc: ['', Validators.required],
       nombre: ['', Validators.required],      
+      telefono: ['', Validators.required], 
+      
     });
   }
 
   cerrarModal() {
     this.modalController.dismiss();
+  }
+
+
+  async setGeobicationModal(){
+    const modal = await this.modalController.create({
+      component: GeoSimplePage,
+      componentProps: {
+        latitude: 25,  // Coordenadas de ejemplo
+        longitude: -56
+      }
+    });
+    modal.present()
   }
 
 }

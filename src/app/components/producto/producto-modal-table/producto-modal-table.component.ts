@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, AlertInput, ModalController } from '@ionic/angular';
 import { productList } from 'src/app/mocks/productos.mock';
 import { Producto } from 'src/app/interfaces/productos.interface';
-import { removeAccents } from 'src/app/helpers/index.helper';
+//import { removeAccents } from 'src/app/helpers/index.helper';
+import { ProductoService } from 'src/app/services/producto.service';
+//import { ProductoModalFormComponent } from '../producto-modal-form/producto-modal-form.component';
 
 @Component({
   selector: 'app-producto-modal-table',
@@ -10,44 +12,153 @@ import { removeAccents } from 'src/app/helpers/index.helper';
   styleUrls: ['./producto-modal-table.component.scss'],
 })
 export class ProductoModalTableComponent implements OnInit {
+  productos: any[] = [];
+  productoSelected : any = null
+  productoAdded = []
 
-  productos: Producto[] = [];
-  filtro: string = '';
-
-  constructor(private modalController: ModalController) { }
+  constructor(
+    private modalController: ModalController,
+    private productoService: ProductoService,
+    private alertController: AlertController
+  ) { }
  
   ngOnInit() {
-    this.productos = productList();
   }
 
-  filtrarProductos() {
-    return this.productos.filter(producto => {
-      const filtroSinAcentos = removeAccents(this.filtro.toLowerCase());
-      const codigoSinAcentos = removeAccents(producto.codigo.toLowerCase());
-      const descripcionSinAcentos = removeAccents(producto.descripcion.toLowerCase());
-      return codigoSinAcentos.includes(filtroSinAcentos) || descripcionSinAcentos.includes(filtroSinAcentos);
-    });
+  async handleInputSearch(e: any) {
+    const value = e.target.value.toLowerCase();
+    this.productos =  await this.productoService.searchProduct(value)
   }
 
-  getPrecioCantidad1(producto: Producto): number {   
-    const precioCantidad1 = producto.precios.find(precio => precio.cantidad === 1);    
-    return precioCantidad1 ? precioCantidad1.precio_unitario : 0;
-  }
-   
-  seleccionarProducto(producto: Producto) {    
-    const precioCantidad1 = this.getPrecioCantidad1(producto);
-    const productoSeleccionado = {
-      codigo: producto.codigo,
-      descripcion: producto.descripcion,      
-      precio: precioCantidad1,
-      cantidad: 1,
-      totalUnitario: precioCantidad1
-    };    
-    this.modalController.dismiss(productoSeleccionado);
+
+  /**
+   * Genera un input radio para una alert
+   * @param label 
+   * @param value 
+   * @returns 
+   */
+  inputRadioOptionForAlert(label: string, value: string|Number){
+    return {
+      type: "radio",
+      label,
+      value,
+      handler: (e:any) => {
+        this.selectPriceOfProduct(e);
+      }
+    } as AlertInput
   }
 
-  cerrarModal() {
+
+  /**
+   * Selecciona el precio cuando un producto tiene varios precios
+   * @param e 
+   */
+  selectPriceOfProduct(e: any){
+    this.productoSelected.precio_seleccionado = e?.value.toString()
+  }
+
+
+  /**
+   * Agrega todos los precios posible al alert
+   * @param producto 
+   */
+  setPricesToProductAlert(producto: any) {
+    let openAlert = false;
+
+    // Agrega una lista de precios
+    let prices = [
+      this.inputRadioOptionForAlert(`${producto?.precio} - Normal`, producto.precio)
+    ]
+
+    // Si existe el precio por fraccion o parte del producto lo agrega al listado
+    if (producto?.fraccion != 0 && producto?.precio_fraccion != 0 ) {
+      openAlert = true
+      const precioFraccion = producto?.precio_fraccion;
+      prices.push(
+        this.inputRadioOptionForAlert(`${precioFraccion} - Fraccion`, precioFraccion)
+      )
+    }
+
+    // Si existe alguna oferta selecciona el valor y lo asigna
+    if (producto?.ofertas.length > 0) {
+      openAlert = true
+      const lastIndex = producto.ofertas?.length;
+      const oferta = producto.ofertas[lastIndex - 1]
+    
+      const valorDescuento = producto?.precio * parseFloat(oferta.descuento)  / 100;
+      const precioDescuento = producto?.precio - valorDescuento
+      
+      prices.push(
+        this.inputRadioOptionForAlert(`${precioDescuento} - Descuento (${oferta.descuento}) %`, precioDescuento)
+      )
+    }
+
+    return { prices, openAlert }
+  }
+  
+
+  /**
+   * Selecciona un producto
+   * Agrega una lista de precio
+   * @param producto 
+   */
+  async selectProduct(producto: any){
+    this.productoSelected = producto;
+    
+    const { openAlert, prices } = this.setPricesToProductAlert(producto)
+
+    if (openAlert) {
+      const alert = await this.alertController.create({
+          header: "Precios",
+          inputs: [
+            ...prices, 
+          ],
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel',
+              handler: (e: any) => {
+                console.log('Alert canceled');
+              },
+            },
+            {
+              text: 'Seleccionar',
+              role: 'confirm',
+              handler: (e: any) => {
+                this.confirmProductSelected(this.productoSelected)
+              },
+            },
+          ]
+      })
+
+      await alert.present()
+    }
+  }
+
+  /**
+   * Confirma la seccion y lo retorna con el modal
+   * @param producto 
+   */
+  confirmProductSelected(producto: any){
+    const precioSeleccionado = parseFloat(producto.precio_seleccionado.toString());
+    let descuento = 0;
+
+    if (producto?.ofertas?.length > 0){
+      descuento = producto?.ofertas[0].descuento;
+    }    
+
+    this.modalController.dismiss({
+      "nombre": producto.nombre,
+      "producto_id": producto.id,
+      "precio_unitario": precioSeleccionado,
+      "descuento": parseFloat(descuento.toString()),
+      "cantidad": 1,
+      "subtotal": precioSeleccionado
+    })
+  }
+
+  
+  closeModal() {
     this.modalController.dismiss();
   }  
-
 }
