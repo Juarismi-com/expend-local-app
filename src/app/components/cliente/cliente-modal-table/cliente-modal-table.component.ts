@@ -14,7 +14,10 @@ export class ClienteModalTableComponent implements OnInit {
 
   clientes: any[] = [];
   
-  constructor(private modalController: ModalController, private clienteService: ClienteService) { }
+  constructor(
+    private modalController: ModalController, 
+    private clienteService: ClienteService
+  ) { }
  
   ngOnInit() {
     
@@ -29,20 +32,15 @@ export class ClienteModalTableComponent implements OnInit {
     return this.clientes.length === 0;
   }
 
-  async abrirClienteModalForm() {
+  async openClienteFormModal() {
     const modal = await this.modalController.create({
       component: ClienteModalFormComponent
     });
     return await modal.present();
   }
    
-  async selectClient(clientes: Cliente) {    
-    const clientSelected = {
-      ciRuc: clientes.ruc,
-      nombre: clientes.nombre     
-    };    
-
-    this.modalController.dismiss(clientSelected);
+  async selectClient(cliente: Cliente) {    
+    this.modalController.dismiss(cliente);
   }
 
    closeModal() {

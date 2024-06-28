@@ -77,6 +77,7 @@ export class ProductoService {
     return producto;
   }
 
-
-
+  remoteProductFromList(productoList: any[], producto: any){
+    return productoList.filter(p => p.producto_id !== producto.producto_id);
+  }
 }

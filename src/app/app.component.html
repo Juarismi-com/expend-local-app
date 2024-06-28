@@ -14,8 +14,8 @@
           </ion-menu-toggle>
         </ion-list>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+        <ion-list id="labels-list" *ngIf="labels.length > 0">
+          <ion-list-header>Etiquetas</ion-list-header>
 
           <ion-item *ngFor="let label of labels" lines="none">
             <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>

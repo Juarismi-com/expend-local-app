@@ -9,14 +9,14 @@ import { StorageService } from './services/storage.service';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Productos (inactivo)', url: '/producto-list', icon: 'albums' },
+    //{ title: 'Productos (inactivo)', url: '/producto-list', icon: 'albums' },
     { title: 'Preventas', url: '/preventa-form', icon: 'checkmark-done' },
-    { title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
-    { title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
-    { title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
-    { title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
-    { title: 'Proveedores (inactivo)', url: '/preventa-form-5', icon: 'checkmark-done' },
-    { title: 'Mi cuenta (inactivo)', url: '/preventa-form-6', icon: 'person' },
+    //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
+    //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
+    //{ title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
+    //{ title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
+    //{ title: 'Proveedores (inactivo)', url: '/preventa-form-5', icon: 'checkmark-done' },
+    //{ title: 'Mi cuenta (inactivo)', url: '/preventa-form-6', icon: 'person' },
 
     /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
     { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },

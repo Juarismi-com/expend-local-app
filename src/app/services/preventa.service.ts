@@ -23,4 +23,14 @@ export class PreventaService {
   async findAll(){
     
   }
+
+  async searchPreventa(value: string){
+    if (value.length > 3){
+      const result = (await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${value}`)).data?.rows;
+      return result;
+    } 
+    
+    return []
+  }
+
 }
