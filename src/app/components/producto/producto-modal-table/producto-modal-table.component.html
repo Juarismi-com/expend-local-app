@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title> Seleccionar Producto </ion-title>
+  <ion-toolbar color="main">
+    <ion-title>Seleccionar Producto</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -23,7 +23,7 @@
           <div class="unread-indicator"></div>
         </div-->
         <ion-label>
-          Cod: {{ result.id }}<br />
+          Id: {{ result?.id }}<br />
           <ion-text><strong>{{ result.nombre }}</strong></ion-text><br />
         </ion-label>
     </ion-item>
