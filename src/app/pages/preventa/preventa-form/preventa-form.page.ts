@@ -9,7 +9,6 @@ import { StorageService } from 'src/app/services/storage.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { PreventaService } from 'src/app/services/preventa.service';
 
-
 @Component({
   selector: 'app-preventa-form',
   templateUrl: './preventa-form.page.html',
@@ -36,6 +35,10 @@ export class PreventaFormPage {
       "Pagos Contra Reembolso"
   ]
 
+  ciRuc: string = '';
+  nombre: string = '';
+
+
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
@@ -45,12 +48,19 @@ export class PreventaFormPage {
     //private storageService: StorageService,
   ) {
     this.preventaForm = this.formBuilder.group({
+
+      ciRuc: ['', Validators.required],
+      nombre: ['', Validators.required],
+      formaPago: [null, Validators.required],
+      tipoVenta: [null, Validators.required],
+
       // campos para enviar a la preventa
       fecha: [(new Date).toISOString(), Validators.required],
       cliente_id: ['1', Validators.required],
       vendedor_id: [8, Validators.required],
       formapago_id: [1, Validators.required],
       condicion_venta: [1, Validators.required],
+
       observacion: [null, Validators.required],
 
       // campos para visualizacion en pantalla
@@ -85,8 +95,7 @@ export class PreventaFormPage {
 
           if (cliente) {         
             this.preventaForm.patchValue({
-              ci: cliente.ci,
-              cliente_id: cliente?.id,
+              ciRuc: cliente.ciRuc,
               nombre: cliente.nombre
             });    
           }     

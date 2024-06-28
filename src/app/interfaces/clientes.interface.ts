@@ -1,4 +1,4 @@
 export interface Cliente {
-    ci: number;
+    ruc: number;
     nombre: string;
 }
