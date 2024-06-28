@@ -6,6 +6,8 @@ import { tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { ResponseLogin } from 'src/app/interfaces/auth.interface';
 import { setCookie } from 'typescript-cookie';
+import { StorageService } from '../storage.service';
+import axios from 'axios';
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +17,16 @@ export class AuthService {
   apiUrl = environment.apiUrl;
 
   constructor(
-    private http: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private storageService: StorageService
   ) {}
 
-  login(username: string, password: string) {
-    return this.http.post<ResponseLogin>(`${this.apiUrl}/auth/login`, { 
-      username, 
+  async login(username: string, password: string) {
+    const data = (await axios.post(`${this.apiUrl}/auth/login`, {
+      username,
       password
-    })
-    .pipe(
-      tap(response => {
-          this.tokenService.saveToken(response.token);
-      })
-    )
-    ;
+    })).data;
+    this.tokenService.saveToken(data?.token);
+    this.storageService.set("usuario", data?.usuario);
   }
 }

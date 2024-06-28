@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PreventaService {
 
-  constructor() { }
+  constructor(
+    private storageService: StorageService
+  ) { }
 
 
   /**
@@ -16,8 +19,18 @@ export class PreventaService {
    * @returns 
    */
   async create(payload: any){
-    const result = await axios.post(`${environment.apiUrl}/preventas`, payload);
-    return result;
+    try {
+      const user : any = await this.storageService.get("usuario")
+      const vendedor_id = user?.vendedor?.id
+      const result = await axios.post(`${environment.apiUrl}/preventas`, {
+        ...payload,
+        vendedor_id
+      });
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
   async findAll(){

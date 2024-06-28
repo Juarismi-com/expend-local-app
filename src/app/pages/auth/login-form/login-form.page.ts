@@ -26,20 +26,11 @@ export class LoginFormPage {
   }    
 
   async loginFormSubmit() {       
-    
-    if (this.loginForm.valid) {
- 
+    try {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
-      .subscribe({ 
-        next: () => {          
-          this.router.navigate(['/preventa-form']);
-        },
-        error: () => {        
-          this.router.navigate(['/login']);
-        }
-      })
-
+      this.router.navigate(['/preventa-form']);
+    } catch (error) {
+      console.log(error);
     }
-
   }
 }

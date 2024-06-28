@@ -63,7 +63,7 @@ export class PreventaFormPage {
    */
   setPreventaFormDefault(){
     this.productos = [];
-    
+
     return this.formBuilder.group({
       formaPago: [null, Validators.required],
       tipoVenta: [null, Validators.required],
@@ -71,7 +71,6 @@ export class PreventaFormPage {
       // campos para enviar a la preventa
       fecha: [(new Date).toISOString(), Validators.required],
       cliente_id: ['1', Validators.required],
-      vendedor_id: [8, Validators.required],
       formapago_id: [1, Validators.required],
       condicion_venta: [1, Validators.required],
 
