@@ -60,7 +60,7 @@ export class PreventaFormPage {
 
           if (cliente) {         
             this.preventaForm.patchValue({
-              ci: cliente.ci,
+              ciRuc: cliente.ciRuc,
               nombre: cliente.nombre
             });    
           }     
