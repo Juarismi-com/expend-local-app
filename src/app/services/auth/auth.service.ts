@@ -4,20 +4,19 @@ import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs';
 
 import { TokenService } from './token.service';
-//import { StorageService } from '../storage.service';
 import { ResponseLogin } from 'src/app/interfaces/auth.interface';
+import { setCookie } from 'typescript-cookie';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  apiUrl = environment.API_URL;
+  apiUrl = environment.apiUrl;
 
   constructor(
     private http: HttpClient,
-    private tokenService: TokenService,
-    //private storageService: StorageService
+    private tokenService: TokenService
   ) {}
 
   login(username: string, password: string) {
@@ -28,7 +27,6 @@ export class AuthService {
     .pipe(
       tap(response => {
           this.tokenService.saveToken(response.token);
-          //this.storageService.set("token", response.token);
       })
     )
     ;
