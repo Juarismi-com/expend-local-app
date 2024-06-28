@@ -1,25 +1,26 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title> Añadir Productos </ion-title>
+  <ion-toolbar color="main">
+    <ion-title>Editar Detalle</ion-title>
+
     <ion-buttons slot="end">
-      <ion-button (click)="cerrarModal()">
+      <ion-button (click)="closeModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form class="formulario" [formGroup]="productoForm" (ngSubmit)="actualizar()">       
+<ion-content class="ion-padding">
+  <form class="formulario" [formGroup]="productoForm" (ngSubmit)="formSubmit()">       
 
     <div class="form-group">
-      <ion-label position="floating">Código</ion-label>
-      <ion-input formControlName="codigo" readonly></ion-input>
+      <ion-label position="floating">Id/Cod</ion-label>
+      <ion-input formControlName="producto_id" readonly></ion-input>
     </div>
 
     <div class="form-group">
-      <ion-label position="floating">Descripción</ion-label>
-      <ion-input formControlName="descripcion" readonly></ion-input>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="nombre" readonly></ion-input>
     </div>
 
     <div class="form-group">
@@ -28,29 +29,29 @@
         formControlName="cantidad"
         type="number"
         name="cantidad"
-        (input)="calcularPrecioPorCantidad()"
+        (input)="setSubtotal()"
       ></ion-input>
     </div>
     
     <div class="form-group">
-      <ion-label position="floating">Precio</ion-label>
+      <ion-label position="floating">Precio Unitario</ion-label>
       <ion-input
-        formControlName="precio"
-        type="number"
-        name="precio"
+        formControlName="precio_unitario"
+        type="text"
+        name="precio_unitario"
       ></ion-input>
     </div>    
 
     <div class="form-group">
-      <ion-label position="floating">Total Producto</ion-label>
+      <ion-label position="floating">Subtotal</ion-label>
       <ion-input
-        formControlName="totalUnitario"
+        formControlName="subtotal"
         type="number"
-        name="totalUnitario"
+        name="subtotal"
       ></ion-input>
     </div>
 
-    <ion-button type="submit" expand="block">Actualizar</ion-button>
+    <ion-button type="submit" expand="block">Guardar</ion-button>
   </form>
   
 </ion-content>

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, AlertInput, ModalController } from '@ionic/angular';
 import { productList } from 'src/app/mocks/productos.mock';
 import { Producto } from 'src/app/interfaces/productos.interface';
-import { removeAccents } from 'src/app/helpers/index.helper';
+//import { removeAccents } from 'src/app/helpers/index.helper';
 import { ProductoService } from 'src/app/services/producto.service';
+//import { ProductoModalFormComponent } from '../producto-modal-form/producto-modal-form.component';
 
 @Component({
   selector: 'app-producto-modal-table',
@@ -30,6 +31,12 @@ export class ProductoModalTableComponent implements OnInit {
   }
 
 
+  /**
+   * Genera un input radio para una alert
+   * @param label 
+   * @param value 
+   * @returns 
+   */
   inputRadioOptionForAlert(label: string, value: string|Number){
     return {
       type: "radio",
@@ -42,19 +49,28 @@ export class ProductoModalTableComponent implements OnInit {
   }
 
 
+  /**
+   * Selecciona el precio cuando un producto tiene varios precios
+   * @param e 
+   */
   selectPriceOfProduct(e: any){
     this.productoSelected.precio_seleccionado = e?.value.toString()
   }
 
 
-  async selectProduct(producto: any){
-    this.productoSelected = producto;
+  /**
+   * Agrega todos los precios posible al alert
+   * @param producto 
+   */
+  setPricesToProductAlert(producto: any) {
     let openAlert = false;
+
+    // Agrega una lista de precios
     let prices = [
       this.inputRadioOptionForAlert(`${producto?.precio} - Normal`, producto.precio)
     ]
 
-    // verifica si existe algun descuento
+    // Si existe el precio por fraccion o parte del producto lo agrega al listado
     if (producto?.fraccion != 0 && producto?.precio_fraccion != 0 ) {
       openAlert = true
       const precioFraccion = producto?.precio_fraccion;
@@ -62,8 +78,8 @@ export class ProductoModalTableComponent implements OnInit {
         this.inputRadioOptionForAlert(`${precioFraccion} - Fraccion`, precioFraccion)
       )
     }
-    
-    // verifica si existe alguna oferta
+
+    // Si existe alguna oferta selecciona el valor y lo asigna
     if (producto?.ofertas.length > 0) {
       openAlert = true
       const lastIndex = producto.ofertas?.length;
@@ -77,9 +93,20 @@ export class ProductoModalTableComponent implements OnInit {
       )
     }
 
+    return { prices, openAlert }
+  }
+  
 
+  /**
+   * Selecciona un producto
+   * Agrega una lista de precio
+   * @param producto 
+   */
+  async selectProduct(producto: any){
+    this.productoSelected = producto;
+    
+    const { openAlert, prices } = this.setPricesToProductAlert(producto)
 
-    // Si se encontro descuento y 
     if (openAlert) {
       const alert = await this.alertController.create({
           header: "Precios",
@@ -108,20 +135,26 @@ export class ProductoModalTableComponent implements OnInit {
     }
   }
 
-  /*getPrecioCantidad1(): number {   
-    const precioCantidad1 = producto.precios.find(precio => precio.cantidad === 1);    
-    return precioCantidad1 ? precioCantidad1.precio_unitario : 0;
-  }*/
-   
-
+  /**
+   * Confirma la seccion y lo retorna con el modal
+   * @param producto 
+   */
   confirmProductSelected(producto: any){
+    const precioSeleccionado = parseFloat(producto.precio_seleccionado.toString());
+    let descuento = 0;
+
+    if (producto?.ofertas?.length > 0){
+      descuento = producto?.ofertas[0].descuento;
+    }    
+
     this.modalController.dismiss({
-      codigo: producto.id,
-      descripcion: producto.nombre,      
-      precio: producto.precio_seleccionado,
-      cantidad: 1,
-      totalUnitario: producto.precio_seleccionado * 1
-    });
+      "nombre": producto.nombre,
+      "producto_id": producto.id,
+      "precio_unitario": precioSeleccionado,
+      "descuento": parseFloat(descuento.toString()),
+      "cantidad": 1,
+      "subtotal": precioSeleccionado
+    })
   }
 
   
