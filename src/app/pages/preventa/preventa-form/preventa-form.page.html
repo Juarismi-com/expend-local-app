@@ -1,20 +1,70 @@
 <ion-header [translucent]="true">
-  {{clienteIdInput}}
   <ion-toolbar color="main">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    
     <ion-title>Preventa</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <form class="formulario" (ngSubmit)="preventaFormSubmit()" [formGroup]="preventaForm">
     <div class="form-group">
-      <ion-button expand="block" (click)="abrirClienteModalTable()">
-        Seleccionar Cliente
-      </ion-button>
+      <ion-label position="floating">Fecha</ion-label>
+      <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="datetime"></ion-datetime>
+        </ng-template>
+      </ion-modal>
     </div>
+    
+    <div class="form-group">
+      <ion-label position="floating">Condicion Venta</ion-label>
+
+      <ion-list>
+        <ion-item>
+          <ion-select
+            aria-label="Condicion Venta"
+            id="condicion_venta"
+            formControlName="condicion_venta"
+            name="condicion_venta"
+            required
+          >
+            <ion-select-option  [value]="1">Contado</ion-select-option>
+            <ion-select-option [value]="2">Credito</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div class="form-group">
+      <ion-label position="floating">Forma de Pago </ion-label>
+      <ion-list>
+        <ion-item>
+          <ion-select
+            aria-label="Forma de pago"
+            id="formapago_id"
+            formControlName="formapago_id"
+            name="formapago_id"
+            required
+          >
+            <ion-select-option *ngFor="let formaPagoItem of formaPagoList; index as i" 
+              [value]="i + 1">{{formaPagoItem}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <ion-item-divider>
+      <ion-label> Section A </ion-label>
+    </ion-item-divider>
+    <ion-button expand="block" (click)="openClienteTableModal()">
+      Seleccionar Cliente
+    </ion-button>
 
     
     <div class="form-group">
@@ -27,59 +77,10 @@
         >Nombre: {{ preventaForm.value.nombre }}</ion-label
       >
     </div>
-
-    <div class="form-group">
-      <ion-label position="floating">Fecha</ion-label>
-      <ion-datetime-button datetime="datetime"></ion-datetime-button>
-
-      <ion-modal [keepContentsMounted]="true">
-        <ng-template>
-          <ion-datetime id="datetime"></ion-datetime>
-        </ng-template>
-      </ion-modal>
-    </div>
-
-
-    <div class="form-group">
-      <ion-label position="floating">Tipo de Venta</ion-label>
-
-      <ion-list>
-        <ion-item>
-          <ion-select
-            aria-label="Tipo de Venta"
-            id="tipoVenta"
-            formControlName="tipoVenta"
-            name="tipoVenta"
-            required
-          >
-            <ion-select-option  value="contado">Contado</ion-select-option>
-            <ion-select-option value="credito">Credito</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </div>
-
-    <div class="form-group">
-      <ion-label position="floating">Forma de Pago </ion-label>
-      <ion-list>
-        <ion-item>
-          <ion-select
-            aria-label="Forma de pago"
-            id="formaPago"
-            formControlName="formaPago"
-            name="formaPago"
-            required
-          >
-            <ion-select-option  *ngFor="let formaPago of formaPagoList" 
-              value="formaPago">{{formaPago}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </div>
     
     
-    <div class="form-group">
+    
+    <!--div class="form-group">
       <ion-label position="floating">Observación</ion-label>
       <ion-textarea
         formControlName="observacion"
@@ -87,47 +88,52 @@
         fill="outline"
         placeholder="Enter text"
       ></ion-textarea>
-    </div>    
+    </div-->    
 
-    <div class="form-group">
-      <ion-button expand="block" (click)="openProductoTableModal()">
-        Seleccionar Producto
-      </ion-button>
-    </div>
+   
 
-    <ion-list [inset]="true">
-      <ion-item-sliding
-        *ngFor="let producto of productos"
-        
-      >
-        <ion-item>
-          <div class="unread-indicator-wrapper" slot="start">
-            <div class="unread-indicator"></div>
-          </div>
-          <ion-label>
-            <strong>Codigo: {{ producto.codigo }}</strong><br />
-            <ion-text
-              ><strong>Descripcion: </strong> {{ producto.descripcion
-              }}</ion-text
-            ><br />
-            <ion-text
-              ><strong>Cantidad: </strong>{{ producto.cantidad }}
-            </ion-text>
-            <br />
-            <ion-text><strong>Precio: </strong> {{ producto.precio }}</ion-text>
-            <br />
-            <ion-text
-              ><strong>Total: </strong> {{ producto.totalUnitario }}</ion-text
-            >
-          </ion-label>
-        </ion-item>
-        <ion-item-options>     
-          <ion-item-option (click)="abrirFormProducto(producto)">Actualizar</ion-item-option>    
-          <ion-item-option color="danger" (click)="eliminarProductoTabla(producto)">Eliminar</ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-
-    <ion-button type="submit" expand="block">Enviar</ion-button>
+    <!-- Productos detalle -->
+     {{productos | json }}
+    <ion-grid *ngFor="let producto of productos" class="bl-detalle">
+      <ion-row>
+        <ion-col size-sm="12">
+          Id/Cod: {{ producto?.producto_id}}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="12">{{ producto?.nombre
+        }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6">{{ producto.cantidad }} x</ion-col>
+        <ion-col size="6">{{ producto.precio_unitario }} </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="bl-subtotal">{{ producto.subtotal }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="bl-edit" (click)="openProductoFormModal(producto)">Editar</ion-col>
+        <ion-col size="6" class="bl-remove" (click)="removeProductoDetalle(producto)">Eliminar</ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <!-- Seleccionar producto y enviar -->
+    <ion-button expand="block" (click)="openProductoTableModal()">
+      Seleccionar Producto
+    </ion-button>
+    
   </form>
+  
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="preventaFormSubmit()" color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-toast
+    [isOpen]="toastComponent.open"
+    [message]="toastComponent.message"
+    [duration]="3000"
+    (didDismiss)="setOpenToast(false)"
+  ></ion-toast>
 </ion-content>

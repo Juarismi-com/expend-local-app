@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {productList} from "../mocks/productos.mock"
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 
@@ -20,4 +19,64 @@ export class ProductoService {
     
     return []
   }
+
+  /**
+   * @todo agregar tipado a producto
+   * Si NO existe el producto en el listado lo agrega, si existe setea el subtotal
+   * y actualiza la cantidad
+   * @param producto 
+   */
+  selectProductFromList(productoList : any[] = [], producto: any){
+    if (producto){
+      const index = productoList.findIndex(productoItem => 
+        producto?.producto_id == productoItem.producto_id
+      );
+
+      if (index >= 0){
+        const productoSelected = productoList[index];
+        productoList[index] = this.setSubtotal(
+          productoSelected, 
+          ++productoSelected.cantidad
+        );
+
+      } else {
+        productoList.push(producto);
+      }
+    }
+
+    return productoList;
+  }
+
+  /**
+   * Cuando cambia la cantidad del producto
+   * @param producto 
+   */
+  changeQuantityOfProduct(productoList : any[] = [], producto: any){
+    if (producto){
+      const index = productoList.findIndex(productoItem => 
+        producto?.producto_id == productoItem.producto_id
+      );
+
+      if (index >= 0){
+        productoList[index] = producto
+      }
+    }
+
+    return productoList;
+  }
+
+
+  setSubtotal(producto: any, cantidad: number){
+    const subtotal = parseFloat(producto.precio_unitario.toString()) * cantidad;
+    producto = {
+      ...producto,
+      cantidad, 
+      subtotal
+    }
+
+    return producto;
+  }
+
+
+
 }
