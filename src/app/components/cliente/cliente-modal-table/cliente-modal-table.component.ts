@@ -13,8 +13,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 export class ClienteModalTableComponent implements OnInit {
 
   clientes: any[] = [];
-  filtro: string = '';
-
+  
   constructor(private modalController: ModalController, private clienteService: ClienteService) { }
  
   ngOnInit() {
@@ -26,6 +25,10 @@ export class ClienteModalTableComponent implements OnInit {
     this.clientes =  await this.clienteService.searchClient(value)
   }
 
+  showButtonAddCliente(): boolean {
+    return this.clientes.length === 0;
+  }
+
   async abrirClienteModalForm() {
     const modal = await this.modalController.create({
       component: ClienteModalFormComponent
@@ -33,7 +36,7 @@ export class ClienteModalTableComponent implements OnInit {
     return await modal.present();
   }
    
-  selectClient(clientes: Cliente) {    
+  async selectClient(clientes: Cliente) {    
     const clientSelected = {
       ciRuc: clientes.ruc,
       nombre: clientes.nombre     

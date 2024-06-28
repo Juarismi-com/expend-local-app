@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title> Seleccionar Cliente </ion-title>
+    <ion-button slot="end" (click)="abrirClienteModalForm()" *ngIf="showButtonAddCliente()">Agregar cliente</ion-button>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -11,10 +12,10 @@
 
 <ion-content>
   
-  <ion-searchbar
-    [(ngModel)]="filtro"
-    (ionInput)="handleInputSearch($event)" 
+  <ion-searchbar   
     placeholder="Filtrar por ID o nombre"
+    (ionInput)="handleInputSearch($event)"     
+    [debounce]="100"
   ></ion-searchbar>
 
   <ion-list lines="full">
