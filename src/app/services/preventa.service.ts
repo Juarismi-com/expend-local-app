@@ -12,11 +12,25 @@ export class PreventaService {
   constructor() { }
 
   async searchPreventa(value: string){
-    if (value.length > 1){
+    if (value.length > 3){
       const result = (await axios.get(`${apiUrl}/preventas?vendedor_id=${value}`)).data?.rows;
       return result;
     } 
     
     return []
+  }
+
+  /**
+   * @todo add type for payload
+   * @param payload 
+   * @returns 
+   */
+  async create(payload: any){
+    const result = await axios.post(`${environment.apiUrl}/preventas`, payload);
+    return result;
+  }
+
+  async findAll(){
+
   }
 }
