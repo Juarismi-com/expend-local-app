@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">  
+  <ion-toolbar color="main">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form class="formulario" (ngSubmit)="loginFormSubmit()" [formGroup]="loginForm">
+    
+    <div class="form-group">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email"></ion-input>    
+    </div>    
+
+    <div class="form-group">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>    
+    </div>    
+
+    <ion-button type="submit" expand="block">Enviar</ion-button>
+  </form>
+</ion-content>

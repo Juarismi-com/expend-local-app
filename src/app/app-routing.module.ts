@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -17,12 +18,18 @@ const routes: Routes = [
   },
   {
     path: 'preventa-form',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/preventa/preventa-form/preventa-form.module').then( m => m.PreventaFormPageModule)
   },
   {
     path: 'preventa-list',
     loadChildren: () => import('./pages/preventa/preventa-list/preventa-list.module').then( m => m.PreventaListPageModule)
   },
+  {
+
+    path: 'login',
+    loadChildren: () => import('./pages/auth/login-form/login-form.module').then( m => m.LoginFormPageModule)
+  },  
   {
     path: 'geo-simple',
     loadChildren: () => import('./pages/common/geo/geo-simple/geo-simple.module').then( m => m.GeoSimplePageModule)
