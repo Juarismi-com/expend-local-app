@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
+import { PreventaService } from 'src/app/services/preventa.service';
 
 @Component({
   selector: 'app-preventa-list',
@@ -10,17 +11,16 @@ export class PreventaListPage implements OnInit {
 
   public preventaList : any[] = [];
 
-  constructor(private storage: StorageService) { }
+  constructor(private storage: StorageService, private preventaService: PreventaService) { }
 
   ngOnInit() {
-    this.getPreventaList();
+   
   }
 
-
-  async getPreventaList(){
-    this.preventaList = await this.storage.get("preventa/preventa-list")
+  async handleInputSearch(e: any) {
+    const value = e.target.value.toLowerCase();
+    this.preventaList =  await this.preventaService.searchPreventa(value)
   }
-
 
   editPreventa(preventa: any){
     console.log("editPreventa");
