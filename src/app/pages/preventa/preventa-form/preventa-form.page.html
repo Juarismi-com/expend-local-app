@@ -59,13 +59,9 @@
       </ion-list>
     </div>
 
-    <ion-item-divider>
-      <ion-label> Section A </ion-label>
-    </ion-item-divider>
     <ion-button expand="block" (click)="openClienteTableModal()">
       Seleccionar Cliente
     </ion-button>
-
     
     <div class="form-group">
       <ion-label position="floating"
@@ -93,7 +89,6 @@
    
 
     <!-- Productos detalle -->
-     {{productos | json }}
     <ion-grid *ngFor="let producto of productos" class="bl-detalle">
       <ion-row>
         <ion-col size-sm="12">

@@ -60,6 +60,9 @@ export class PreventaFormPage {
   }
  
 
+  
+
+
   setOpenToast(open: boolean = false, message: any = undefined){
     this.toastComponent.open = open;
 
