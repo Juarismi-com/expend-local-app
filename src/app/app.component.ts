@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { StorageService } from './services/storage.service';
+import { TokenService } from './services/auth/token.service';
+import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -25,11 +28,29 @@ export class AppComponent {
     { title: 'Spam', url: '/folder/spam', icon: 'warning' },*/
   ];
   public labels = [];
-  constructor(private storage: Storage, private storageService: StorageService) {}
-
+  constructor(
+    private storage: Storage,
+    private storageService: StorageService,
+    private tokenService:TokenService,
+    private router: Router,
+    private menu: MenuController
+  ) {}
+  
   async ngOnInit() {
     // If using a custom driver:
     // await this.storage.defineDriver(MyCustomDriver)
     await this.storage.create();
   }
+
+  async closeSession() {
+    await this.storageService.get("usuario");   
+    await this.storageService.remove("usuario");
+    //await this.storageService.clear();
+
+    this.tokenService.removeToken();    
+
+    await this.menu.close();
+    this.router.navigate(['/login']);
+  }
+
 }
