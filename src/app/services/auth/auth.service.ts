@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs';
-
 import { TokenService } from './token.service';
-import { ResponseLogin } from 'src/app/interfaces/auth.interface';
-import { setCookie } from 'typescript-cookie';
 import { StorageService } from '../storage.service';
 import axios from 'axios';
 

@@ -6,9 +6,9 @@ import { Detalle_producto } from 'src/app/interfaces/productos.interface';
 import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
-  selector: 'app-modal-producto',
-  templateUrl: './producto-modal-form.component.html',
-  styleUrls: ['./producto-modal-form.component.scss'],
+  selector: 'app-producto-form-modal',
+  templateUrl: './producto-form-modal.component.html',
+  styleUrls: ['./producto-form-modal.component.scss'],
 })
 export class ProductoModalFormComponent implements OnInit {
   productoForm: FormGroup;

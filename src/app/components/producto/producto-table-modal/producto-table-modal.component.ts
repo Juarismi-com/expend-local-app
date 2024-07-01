@@ -1,17 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertController, AlertInput, ModalController } from '@ionic/angular';
-import { productList } from 'src/app/mocks/productos.mock';
-import { Producto } from 'src/app/interfaces/productos.interface';
 //import { removeAccents } from 'src/app/helpers/index.helper';
 import { ProductoService } from 'src/app/services/producto.service';
 //import { ProductoModalFormComponent } from '../producto-modal-form/producto-modal-form.component';
 
 @Component({
-  selector: 'app-producto-modal-table',
-  templateUrl: './producto-modal-table.component.html',
-  styleUrls: ['./producto-modal-table.component.scss'],
+  selector: 'app-producto-table-modal',
+  templateUrl: './producto-table-modal.component.html',
+  styleUrls: ['./producto-table-modal.component.scss'],
 })
-export class ProductoModalTableComponent implements OnInit {
+export class ProductoModalTableComponent {
   productos: any[] = [];
   productoSelected : any = null
   productoAdded = []
@@ -22,8 +20,6 @@ export class ProductoModalTableComponent implements OnInit {
     private alertController: AlertController
   ) { }
  
-  ngOnInit() {
-  }
 
   async handleInputSearch(e: any) {
     const value = e.target.value.toLowerCase();
