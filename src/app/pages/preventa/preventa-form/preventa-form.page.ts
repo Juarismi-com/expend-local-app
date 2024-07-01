@@ -1,9 +1,9 @@
 import { Component, ComponentRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, AlertController, ModalOptions } from '@ionic/angular';
-import { ProductoModalTableComponent } from '../../../components/producto/producto-modal-table/producto-modal-table.component';
-import { ProductoModalFormComponent } from 'src/app/components/producto/producto-modal-form/producto-modal-form.component';
-import { ClienteModalTableComponent } from '../../../components/cliente/cliente-modal-table/cliente-modal-table.component';
+import { ProductoModalTableComponent } from '../../../components/producto/producto-table-modal/producto-table-modal.component';
+import { ProductoModalFormComponent } from 'src/app/components/producto/producto-form-modal/producto-form-modal.component';
+import { ClienteModalTableComponent } from '../../../components/cliente/cliente-table-modal/cliente-table-modal.component';
 import { Detalle_producto } from 'src/app/interfaces/productos.interface';
 import { StorageService } from 'src/app/services/storage.service';
 import { ProductoService } from 'src/app/services/producto.service';

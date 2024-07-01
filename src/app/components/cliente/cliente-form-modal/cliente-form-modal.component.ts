@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GeoSimplePage } from 'src/app/pages/common/geo/geo-simple/geo-simple.page';
 
 @Component({
-  selector: 'app-cliente-modal-form',
-  templateUrl: './cliente-modal-form.component.html',
-  styleUrls: ['./cliente-modal-form.component.scss'],
+  selector: 'app-cliente-form-modal',
+  templateUrl: './cliente-form-modal.component.html',
+  styleUrls: ['./cliente-form-modal.component.scss'],
 })
 export class ClienteModalFormComponent {
   clienteForm: FormGroup;

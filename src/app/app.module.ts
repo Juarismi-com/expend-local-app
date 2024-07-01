@@ -7,10 +7,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ProductoModalFormComponent } from './components/producto/producto-modal-form/producto-modal-form.component';
-import { ProductoModalTableComponent } from './components/producto/producto-modal-table/producto-modal-table.component';
-import { ClienteModalFormComponent } from './components/cliente/cliente-modal-form/cliente-modal-form.component';
-import { ClienteModalTableComponent } from './components/cliente/cliente-modal-table/cliente-modal-table.component';
+import { ProductoModalFormComponent } from './components/producto/producto-form-modal/producto-form-modal.component';
+import { ProductoModalTableComponent } from './components/producto/producto-table-modal/producto-table-modal.component';
+import { ClienteModalFormComponent } from './components/cliente/cliente-form-modal/cliente-form-modal.component';
+import { ClienteModalTableComponent } from './components/cliente/cliente-table-modal/cliente-table-modal.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { IonicStorageModule } from '@ionic/storage-angular';

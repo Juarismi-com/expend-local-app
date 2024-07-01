@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Cliente } from 'src/app/interfaces/clientes.interface';
-import { ClienteModalFormComponent } from '../cliente-modal-form/cliente-modal-form.component';
+import { ClienteModalFormComponent } from '../cliente-form-modal/cliente-form-modal.component';
 import { removeAccents } from 'src/app/helpers/index.helper';
 import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-cliente-modal-form',
-  templateUrl: './cliente-modal-table.component.html',
-  styleUrls: ['./cliente-modal-table.component.scss'],
+  templateUrl: './cliente-table-modal.component.html',
+  styleUrls: ['./cliente-table-modal.component.scss'],
 })
-export class ClienteModalTableComponent implements OnInit {
+export class ClienteModalTableComponent {
 
   clientes: any[] = [];
   
@@ -19,9 +19,7 @@ export class ClienteModalTableComponent implements OnInit {
     private clienteService: ClienteService
   ) { }
  
-  ngOnInit() {
-    
-  }
+ 
 
   async handleInputSearch(e: any) {
     const value = e.target.value.toLowerCase();

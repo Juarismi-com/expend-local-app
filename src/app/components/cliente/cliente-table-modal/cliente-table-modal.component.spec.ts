@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ClienteModalFormComponent } from './cliente-modal-form.component';
+import { ClienteModalTableComponent } from './cliente-table-modal.component';
 
-describe('ClienteModalFormComponent', () => {
-  let component: ClienteModalFormComponent;
-  let fixture: ComponentFixture<ClienteModalFormComponent>;
+describe('ClienteModalTableComponent', () => {
+  let component: ClienteModalTableComponent;
+  let fixture: ComponentFixture<ClienteModalTableComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClienteModalFormComponent ],
+      declarations: [ ClienteModalTableComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ClienteModalFormComponent);
+    fixture = TestBed.createComponent(ClienteModalTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
