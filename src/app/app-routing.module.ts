@@ -26,7 +26,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/preventa/preventa-list/preventa-list.module').then( m => m.PreventaListPageModule)
   },
   {
-
     path: 'login',
     loadChildren: () => import('./pages/auth/login-form/login-form.module').then( m => m.LoginFormPageModule)
   },  
