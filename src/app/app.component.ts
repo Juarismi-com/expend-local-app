@@ -14,6 +14,7 @@ export class AppComponent {
   public appPages = [
     //{ title: 'Productos (inactivo)', url: '/producto-list', icon: 'albums' },
     { title: 'Preventas', url: '/preventa-form', icon: 'checkmark-done' },
+    { title: 'Clientes', url: '/cliente', icon: 'checkmark-done' },
     //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
     //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
     //{ title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
