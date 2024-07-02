@@ -58,7 +58,7 @@ export class ProductoModalTableComponent {
    * Agrega todos los precios posible al alert
    * @param producto 
    */
-  setPricesToProductAlert(producto: any) {
+  private setPricesToProductAlert(producto: any) {
     let openAlert = false;
 
     // Agrega una lista de precios

@@ -5,7 +5,7 @@ import { authGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'preventa-form',
+    redirectTo: 'dashboard/dashboard-vendedor',
     pathMatch: 'full'
   },
   /*{
@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'geo-simple',
     loadChildren: () => import('./pages/common/geo/geo-simple/geo-simple.module').then( m => m.GeoSimplePageModule)
   },
+  {
+    path: 'dashboard/dashboard-vendedor',
+    loadChildren: () => import('./pages/dashboard/dashboard-vendedor/dashboard-vendedor.module').then( m => m.DashboardVendedorPageModule)
+  }
 ];
 
 @NgModule({

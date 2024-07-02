@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>preventa-list</ion-title>
+  <ion-toolbar color="main">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Preventas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,10 +20,9 @@
       detail="false"            
     >
     <ion-label>
-      <strong>ID: {{ result.id }}</strong><br />
-      <strong>Cliente: {{ result.cliente_id }}</strong><br />
+      <strong>Tx: {{ result.id }}</strong><br />
+      <strong>{{ result.cliente.nombre }}</strong><br />
       <ion-text>Total: {{ result.total }}</ion-text><br />
-      <ion-text>Vendedor {{ result.vendedor_id }}</ion-text><br />
       <!-- <ion-note color="medium" class="ion-text-wrap">
        items: {{result.productos.length}}
       </ion-note> -->
@@ -31,4 +33,11 @@
     </div>
     </ion-item>
   </ion-list>
+
+  <!--on-item routerDirection="root" lines="none" detail="false" routerLinkActive="selected"-->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" routerLink="/preventa-form" >
+    <ion-fab-button color="secondary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

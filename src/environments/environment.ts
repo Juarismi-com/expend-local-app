@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   gmapsKey: "AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ",
-  apiUrl: 'http://blogic-lb-566429151.us-east-1.elb.amazonaws.com'
+  apiUrl: 'http://localhost:8000'
 };
 
 /*
