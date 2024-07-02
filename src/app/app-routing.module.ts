@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'geo-simple',
     loadChildren: () => import('./pages/common/geo/geo-simple/geo-simple.module').then( m => m.GeoSimplePageModule)
   },
+  {
+    path: 'cliente',
+    loadChildren: () => import('./pages/cliente/cliente-form/cliente-form.module').then( m => m.ClienteFormPageModule)
+  },
 ];
 
 @NgModule({
