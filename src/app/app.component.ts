@@ -13,6 +13,7 @@ import { MenuController } from '@ionic/angular';
 export class AppComponent {
   public appPages = [
     //{ title: 'Productos (inactivo)', url: '/producto-list', icon: 'albums' },
+    { title: 'Dashboard', url: '/dashboard', icon: 'checkmark-done' },
     { title: 'Preventas', url: '/preventa-form', icon: 'checkmark-done' },
     //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
     //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },

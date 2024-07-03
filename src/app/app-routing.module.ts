@@ -33,6 +33,10 @@ const routes: Routes = [
     path: 'geo-simple',
     loadChildren: () => import('./pages/common/geo/geo-simple/geo-simple.module').then( m => m.GeoSimplePageModule)
   },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+  },
 ];
 
 @NgModule({
