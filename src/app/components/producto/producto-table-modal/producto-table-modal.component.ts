@@ -60,24 +60,20 @@ export class ProductoModalTableComponent {
    */
   private setPricesToProductAlert(producto: any) {
     let openAlert = false;
+    let tieneDescuentro = false;
+    let tieneFraccion = false;
+    let precioFraccion = 0;
+    let valorDescuento;
 
     // Agrega una lista de precios
     let prices = [
-      this.inputRadioOptionForAlert(`${producto?.precio} - Normal`, producto.precio)
+      this.inputRadioOptionForAlert(`${producto?.precio} - Entero`, producto.precio)
     ]
-
-    // Si existe el precio por fraccion o parte del producto lo agrega al listado
-    if (producto?.fraccion != 0 && producto?.precio_fraccion != 0 ) {
-      openAlert = true
-      const precioFraccion = producto?.precio_fraccion;
-      prices.push(
-        this.inputRadioOptionForAlert(`${precioFraccion} - Fraccion`, precioFraccion)
-      )
-    }
 
     // Si existe alguna oferta selecciona el valor y lo asigna
     if (producto?.ofertas.length > 0) {
       openAlert = true
+      tieneDescuentro = true;
       const lastIndex = producto.ofertas?.length;
       const oferta = producto.ofertas[lastIndex - 1]
     
@@ -85,8 +81,28 @@ export class ProductoModalTableComponent {
       const precioDescuento = producto?.precio - valorDescuento
       
       prices.push(
-        this.inputRadioOptionForAlert(`${precioDescuento} - Descuento (${oferta.descuento}) %`, precioDescuento)
+        this.inputRadioOptionForAlert(`${precioDescuento} - Entero c/ Dto (${oferta.descuento}) %`, precioDescuento)
       )
+    }
+
+    // Si existe el precio por fraccion o parte del producto lo agrega al listado
+    if (producto?.fraccion != 0 && producto?.precio_fraccion != 0 ) {
+      openAlert = true
+      tieneFraccion = true
+      precioFraccion = producto?.precio_fraccion;
+      prices.push(
+        this.inputRadioOptionForAlert(`${precioFraccion} - Fraccion`, precioFraccion)
+      )
+    }
+
+    // Si existe descuento y fraccion, aplica un descuento al precio fraccion
+    if (tieneDescuentro && tieneFraccion){
+      /*const precioFraccionDescuento =  
+      const valorDescuento = precioFraccionDescuento * parseFloat(oferta.descuento)  / 100;
+      prices.push(
+        this.inputRadioOptionForAlert(`${precioFraccion} - Fraccion c/ Dto`, precioFraccion)
+      )*/
+     console.log("precio descuento");
     }
 
     return { prices, openAlert }

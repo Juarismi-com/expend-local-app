@@ -28,8 +28,10 @@
       <ion-label>        
         <strong>{{ result?.ruc || result?.ci }}</strong
         ><br />
-        <ion-text>{{ result.nombre }}</ion-text
+        <ion-text>{{ result.nombre |  titlecase }}</ion-text
         ><br />
+        Tel: {{ result?.telefono }}<br />
+        Dir: {{ result?.direccion | titlecase}}<br />
       </ion-label>
     </ion-item>
   </ion-list>
