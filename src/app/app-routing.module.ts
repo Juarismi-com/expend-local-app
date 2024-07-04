@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'preventa-form',
-    canActivate: [authGuard],
+    //canActivate: [authGuard],
     loadChildren: () => import('./pages/preventa/preventa-form/preventa-form.module').then( m => m.PreventaFormPageModule)
   },
   {
