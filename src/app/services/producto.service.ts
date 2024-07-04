@@ -12,19 +12,12 @@ export class ProductoService {
   constructor() { }
 
   async searchProduct(value: string){
-    try {
-      alert(`${apiUrl}/productos/search?q=${value}`)
+    if (value.length > 3){
+      const result = (await axios.get(`${apiUrl}/productos/search?q=${value}`)).data?.rows;
+      return result;
+    } 
     
-      if (value.length > 3){
-        const result = (await axios.get(`${apiUrl}/productos/search?q=${value}`)).data?.rows;
-        alert(result)
-        return result;
-      } 
-      
-      return []
-    } catch (error) {
-      alert(error);
-    }
+    return []
   }
 
   /**
