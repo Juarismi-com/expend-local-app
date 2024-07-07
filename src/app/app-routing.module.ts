@@ -5,7 +5,7 @@ import { authGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard/dashboard-vendedor',
     pathMatch: 'full'
   },
   /*{
@@ -14,15 +14,17 @@ const routes: Routes = [
   },*/
   {
     path: 'producto-list',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/producto/producto-list/producto-list.module').then( m => m.ProductoListPageModule)
   },
   {
     path: 'preventa-form',
-    //canActivate: [authGuard],
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/preventa/preventa-form/preventa-form.module').then( m => m.PreventaFormPageModule)
   },
   {
     path: 'preventa-list',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/preventa/preventa-list/preventa-list.module').then( m => m.PreventaListPageModule)
   },
   {
@@ -35,6 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard/dashboard-vendedor',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/dashboard/dashboard-vendedor/dashboard-vendedor.module').then( m => m.DashboardVendedorPageModule)
   }
 ];

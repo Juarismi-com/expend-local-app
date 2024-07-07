@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { FormatCustomPipe } from './pipes/number/format-custom.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { Drivers } from '@ionic/storage';
     ClienteModalTableComponent,
     ClienteModalFormComponent,
     ProductoModalTableComponent,
+    FormatCustomPipe
   ],
   imports: [
     BrowserModule,

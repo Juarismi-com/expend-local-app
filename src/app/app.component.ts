@@ -1,16 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { StorageService } from './services/storage.service';
 import { TokenService } from './services/auth/token.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
+import { MeService } from './services/auth/me.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnChanges{
+  @Input()
+  public usuario: any = null;
+
   public appPages = [
     { title: 'Inicio', url: '/dashboard/dashboard-vendedor', icon: 'albums' },
     { title: 'Preventas', url: '/preventa-list', icon: 'checkmark-done' },
@@ -33,7 +37,8 @@ export class AppComponent {
     private storageService: StorageService,
     private tokenService:TokenService,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
+    private meService: MeService
   ) {}
   
   async ngOnInit() {
@@ -42,11 +47,17 @@ export class AppComponent {
     await this.storage.create();
   }
 
-  async closeSession() {
-    await this.storageService.get("usuario");   
-    await this.storageService.remove("usuario");
-    //await this.storageService.clear();
+  ngOnChanges(changes: any) {
+    console.log(changes);
+  }
 
+  async getUserData(){
+    this.usuario = await this.meService.me()
+  }
+
+  async closeSession() {
+    await this.storageService.remove("usuario");
+    this.usuario = null;
     this.tokenService.removeToken();    
 
     await this.menu.close();

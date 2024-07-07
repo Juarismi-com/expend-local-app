@@ -1,13 +1,12 @@
-import { Component, ComponentRef } from '@angular/core';
+import { Component, ComponentRef,  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, AlertController, ModalOptions } from '@ionic/angular';
 import { ProductoModalTableComponent } from '../../../components/producto/producto-table-modal/producto-table-modal.component';
 import { ProductoModalFormComponent } from 'src/app/components/producto/producto-form-modal/producto-form-modal.component';
 import { ClienteModalTableComponent } from '../../../components/cliente/cliente-table-modal/cliente-table-modal.component';
-import { Detalle_producto } from 'src/app/interfaces/productos.interface';
-import { StorageService } from 'src/app/services/storage.service';
 import { ProductoService } from 'src/app/services/producto.service';
 import { PreventaService } from 'src/app/services/preventa.service';
+import { formatNumber } from '@angular/common';
 
 @Component({
   selector: 'app-preventa-form',
@@ -17,6 +16,8 @@ import { PreventaService } from 'src/app/services/preventa.service';
 export class PreventaFormPage {
 
   preventaForm: FormGroup;
+  segmentValue: string; 
+  sumTotal = 0;
 
   toastComponent: any =  {
     open: false,
@@ -48,12 +49,17 @@ export class PreventaFormPage {
     //private storageService: StorageService,
   ) {
     this.preventaForm = this.setPreventaFormDefault()
+    this.segmentValue = "formulario"
   }
  
 
 
   ngOnInit() {
     
+  }
+
+  setSegmentValue(val: string){
+    this.segmentValue = val; 
   }
 
   /**
@@ -63,6 +69,7 @@ export class PreventaFormPage {
    */
   setPreventaFormDefault(){
     this.productos = [];
+    this.sumTotal = 0;
 
     return this.formBuilder.group({
       formaPago: [null, Validators.required],
@@ -82,11 +89,21 @@ export class PreventaFormPage {
     });  
   }
 
+  
+
   setOpenToast(open: boolean = false, message: any = undefined){
     this.toastComponent.open = open;
 
     if (message) 
       this.toastComponent.message = message
+  }
+
+  setCliente(ciRuc: string, nombre: string, clienteId: string|number){
+    this.preventaForm.patchValue({
+      ci_ruc: ciRuc,
+      nombre: nombre,
+      cliente_id: clienteId
+    });
   }
 
   /**
@@ -103,12 +120,11 @@ export class PreventaFormPage {
         if (cliente) {         
           console.log(cliente);
           if (cliente) {         
-            
-            this.preventaForm.patchValue({
-              ci_ruc: cliente.ruc || cliente.ci,
-              nombre: cliente.nombre,
-              cliente_id: cliente.id
-            });
+            this.setCliente(
+              cliente.ruc || cliente.ci,
+              cliente.nombre,
+              cliente.id
+            )
           }     
 
         }
@@ -129,20 +145,13 @@ export class PreventaFormPage {
     modal.onDidDismiss().then(async (data) => {
       const producto = data?.data;
       this.productos = this.productoService.selectProductFromList(this.productos, producto)
-      
-      
-      // todo migrarlo a un service PreventaService
-      /*this.storageService.set("preventa/preventa-form", {
-        ...this.preventaForm.value,
-        productos: this.productos
-      })*/
+      this.sumTotal = this.productoService.setTotalOfList(this.productos)
     });
-    console.log(this.preventaForm);
     await modal.present();
   }
 
   /**
-   * Abre el modal con el listado de productos y al cerrar puede ven
+   * Abre el modal con el listado de productos y al cerrar puede actualiza el detalle
    * @param producto 
    */
   async openProductoFormModal(producto: any) {
@@ -158,6 +167,7 @@ export class PreventaFormPage {
         this.productos = this.productoService.changeQuantityOfProduct(
           this.productos, producto
         );
+        this.sumTotal = this.productoService.setTotalOfList(this.productos)
       }
     });
     await modal.present();
@@ -171,7 +181,7 @@ export class PreventaFormPage {
   async removeProductoDetalle(producto: any) {
     const alert = await this.alertController.create({
       header: 'Confirmación',
-      message: `¿Está seguro de que desea eliminar el producto?`,
+      message: `¿Desea eliminar el producto?`,
       buttons: [
         {
           text: 'Cancelar',
@@ -184,6 +194,7 @@ export class PreventaFormPage {
           text: 'Aceptar',
           handler: () => {
             this.productos = this.productoService.remoteProductFromList(this.productos, producto);
+            this.sumTotal = this.productoService.setTotalOfList(this.productos)
           }
         }
       ]
@@ -196,18 +207,40 @@ export class PreventaFormPage {
    */
   async preventaFormSubmit() {
     try {
-      console.log(this.preventaForm.value);
-
       const payload = {
         ...this.preventaForm.value,
         detalle: this.productos
       }
 
-      console.log(payload);
+      if (this.sumTotal <= 0)
+        throw "Subtotal no puede ser menos a cero"
 
-      await this.preventaService.create(payload);
-      this.setOpenToast(true, "Prenventa creada")
-      this.preventaForm = this.setPreventaFormDefault();
+      const alert = await this.alertController.create({
+        header: 'Confirmación',
+        message: `¿Desea guardar la preventa?
+          ${payload?.nombre} - ${payload?.ci_ruc}
+        `,
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Eliminación cancelada');
+            }
+          }, {
+            text: 'Aceptar',
+            handler: async () => {
+              await this.preventaService.create(payload);
+              this.setOpenToast(true, "Prenventa creada")
+              this.preventaForm = this.setPreventaFormDefault();
+            } 
+          }
+        ]
+      });
+
+      await alert.present();
+      
     } catch (error) {
       console.log(error);
       this.setOpenToast(true, "Prenventa no creada")

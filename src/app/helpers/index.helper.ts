@@ -3,4 +3,12 @@ export function removeAccents(text: string) {
 }
   
 // module.exports = removeAccents;
-  
+
+
+export const formatPriceNumber = (price: string|number, geo: string = "es-PY") => {
+    const priceFormat = new Intl.NumberFormat('es-PY', { maximumSignificantDigits: 3 }).format(
+        parseFloat(price.toString()),
+    )
+
+    return priceFormat;
+}

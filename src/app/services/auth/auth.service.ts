@@ -24,4 +24,5 @@ export class AuthService {
     this.tokenService.saveToken(data?.token);
     this.storageService.set("usuario", data?.usuario);
   }
+  
 }

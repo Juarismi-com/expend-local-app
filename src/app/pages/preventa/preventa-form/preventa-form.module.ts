@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PreventaFormPageRoutingModule } from './preventa-form-routing.module';
 
 import { PreventaFormPage } from './preventa-form.page';
+import { FormatCustomPipe } from 'src/app/pipes/number/format-custom.pipe';
 
 @NgModule({
   imports: [
@@ -16,6 +17,9 @@ import { PreventaFormPage } from './preventa-form.page';
     ReactiveFormsModule,
     PreventaFormPageRoutingModule
   ],
-  declarations: [PreventaFormPage]
+  declarations: [
+    PreventaFormPage,
+    FormatCustomPipe
+  ]
 })
 export class PreventaFormPageModule {}

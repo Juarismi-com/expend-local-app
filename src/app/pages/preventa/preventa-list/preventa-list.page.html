@@ -19,19 +19,17 @@
       [button]="true" 
       detail="false"            
     >
-    <ion-label>
-      <strong>Tx: {{ result.id }}</strong><br />
-      <strong>{{ result.cliente.nombre }}</strong><br />
-      <ion-text>Total: {{ result.total }}</ion-text><br />
-      <ion-text>Estado: {{ result.estado }}</ion-text><br />
-      <!-- <ion-note color="medium" class="ion-text-wrap">
-       items: {{result.productos.length}}
-      </ion-note> -->
-    </ion-label>
-    <div class="metadata-end-wrapper" slot="end">
-      <!--ion-note color="medium">+ {{ result.precios.length }}</ion-note>
-      <ion-icon color="medium" name="chevron-forward"></ion-icon-->
-    </div>
+      
+      
+      <ion-label>
+          <strong>Tx: {{ result.id }}</strong><br />
+          <strong>{{ result.cliente.nombre }}</strong><br />
+          <ion-text>Estado: {{ result.estado }}</ion-text><br />
+      </ion-label>
+      <div class="metadata-end-wrapper" slot="end">
+        <ion-text>{{ result.total | formatCustom }}</ion-text>
+        <!--ion-icon color="medium" name="chevron-forward"></ion-icon-->
+      </div>
     </ion-item>
   </ion-list>
 

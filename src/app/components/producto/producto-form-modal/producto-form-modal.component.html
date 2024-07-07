@@ -10,17 +10,23 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form class="formulario" [formGroup]="productoForm" (ngSubmit)="formSubmit()">       
+<ion-content >
+  <ion-card>
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <ion-card-header>
+      <ion-card-title>{{ productoForm.value.nombre }}</ion-card-title>
+      <ion-card-subtitle>{{ productoForm.value?.descripcion }}</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+     
+    </ion-card-content>
+  </ion-card>
 
+  <form [formGroup]="productoForm" (ngSubmit)="formSubmit()" class="ion-padding">       
     <div class="form-group">
       <ion-label position="floating">Id/Cod</ion-label>
       <ion-input formControlName="producto_id" readonly></ion-input>
-    </div>
-
-    <div class="form-group">
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input formControlName="nombre" readonly></ion-input>
     </div>
 
     <div class="form-group">
@@ -32,23 +38,30 @@
         (input)="setSubtotal()"
       ></ion-input>
     </div>
+
+    <div class="form-group">
+      <ion-select label="Listado de Precios" 
+        interface="action-sheet"
+        (ionChange)="selectPriceOfProduct($event)">
+        <ion-select-option  *ngFor="let val of producto.precio_lista"
+          [value]="val">
+          {{val.nombre}}
+        </ion-select-option>
+      </ion-select>
+    </div>
     
     <div class="form-group">
-      <ion-label position="floating">Precio Unitario</ion-label>
-      <ion-input
-        formControlName="precio_unitario"
-        type="text"
-        name="precio_unitario"
-      ></ion-input>
+      <ion-label position="floating">Precio Unitario</ion-label><br>
+      <ion-text>
+        {{ productoForm.value.precio_unitario | formatCustom }}
+      </ion-text>
     </div>    
 
     <div class="form-group">
-      <ion-label position="floating">Subtotal</ion-label>
-      <ion-input
-        formControlName="subtotal"
-        type="number"
-        name="subtotal"
-      ></ion-input>
+      <ion-label position="floating">Subtotal</ion-label><br>
+      <ion-text>
+        {{ productoForm.value.subtotal | formatCustom }}
+      </ion-text>
     </div>
 
     <ion-button type="submit" expand="block">Guardar</ion-button>
