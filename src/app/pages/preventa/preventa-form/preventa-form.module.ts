@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PreventaFormPageRoutingModule } from './preventa-form-routing.module';
 
 import { PreventaFormPage } from './preventa-form.page';
-import { FormatCustomPipe } from 'src/app/pipes/number/format-custom.pipe';
+import { PipeModule } from 'src/app/pipes/pipe/pipe.module';
 
 @NgModule({
   imports: [
@@ -15,11 +15,11 @@ import { FormatCustomPipe } from 'src/app/pipes/number/format-custom.pipe';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    PreventaFormPageRoutingModule
+    PreventaFormPageRoutingModule,
+    PipeModule
   ],
   declarations: [
-    PreventaFormPage,
-    FormatCustomPipe
+    PreventaFormPage
   ]
 })
 export class PreventaFormPageModule {}

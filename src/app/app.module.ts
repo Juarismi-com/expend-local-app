@@ -15,7 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
-import { FormatCustomPipe } from './pipes/number/format-custom.pipe';
+import { PipeModule } from './pipes/pipe/pipe.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { FormatCustomPipe } from './pipes/number/format-custom.pipe';
     ClienteModalTableComponent,
     ClienteModalFormComponent,
     ProductoModalTableComponent,
-    FormatCustomPipe
   ],
   imports: [
     BrowserModule,
@@ -36,7 +35,8 @@ import { FormatCustomPipe } from './pipes/number/format-custom.pipe';
     IonicStorageModule.forRoot({
       name: "blogic_app_db",
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
-    })
+    }),
+    PipeModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]
