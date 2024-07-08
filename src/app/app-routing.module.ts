@@ -5,7 +5,7 @@ import { authGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'preventa-form',
+    redirectTo: 'dashboard/dashboard-vendedor',
     pathMatch: 'full'
   },
   /*{
@@ -14,6 +14,7 @@ const routes: Routes = [
   },*/
   {
     path: 'producto-list',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/producto/producto-list/producto-list.module').then( m => m.ProductoListPageModule)
   },
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'preventa-list',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/preventa/preventa-list/preventa-list.module').then( m => m.PreventaListPageModule)
   },
   {
@@ -34,9 +36,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/common/geo/geo-simple/geo-simple.module').then( m => m.GeoSimplePageModule)
   },
   {
-    path: 'cliente',
-    loadChildren: () => import('./pages/cliente/cliente-form/cliente-form.module').then( m => m.ClienteFormPageModule)
-  },
+    path: 'dashboard/dashboard-vendedor',
+    canActivate: [authGuard],
+    loadChildren: () => import('./pages/dashboard/dashboard-vendedor/dashboard-vendedor.module').then( m => m.DashboardVendedorPageModule)
+  }
 ];
 
 @NgModule({
@@ -46,3 +49,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {}
+
