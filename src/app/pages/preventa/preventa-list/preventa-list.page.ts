@@ -11,10 +11,13 @@ export class PreventaListPage implements OnInit {
 
   public preventaList : any[] = [];
 
-  constructor(private storage: StorageService, private preventaService: PreventaService) { }
+  constructor(
+    private storageService: StorageService, 
+    private preventaService: PreventaService
+  ) { }
 
   ngOnInit() {
-   
+   this.getPreventaByVendedorId();
   }
 
   async handleInputSearch(e: any) {
@@ -25,6 +28,19 @@ export class PreventaListPage implements OnInit {
   editPreventa(preventa: any){
     console.log("editPreventa");
     // @todo should view the preventa-form modal with data
+  }
+
+  
+  async getPreventaByVendedorId(){
+    console.log("okg");
+    const usuario : any = await this.storageService.get("usuario");
+
+    console.log(usuario)
+
+    if (usuario?.vendedor){
+      console.log(usuario);
+      this.preventaList = await this.preventaService.getPreventaByVendedorId(usuario.vendedor?.id);
+    }   
   }
 
 }

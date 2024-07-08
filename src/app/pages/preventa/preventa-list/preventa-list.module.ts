@@ -7,14 +7,18 @@ import { IonicModule } from '@ionic/angular';
 import { PreventaListPageRoutingModule } from './preventa-list-routing.module';
 
 import { PreventaListPage } from './preventa-list.page';
+import { PipeModule } from 'src/app/pipes/pipe/pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PreventaListPageRoutingModule
+    PreventaListPageRoutingModule,
+    PipeModule
   ],
-  declarations: [PreventaListPage]
+  declarations: [
+    PreventaListPage,
+  ]
 })
 export class PreventaListPageModule {}

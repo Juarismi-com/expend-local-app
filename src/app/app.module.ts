@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { PipeModule } from './pipes/pipe/pipe.module';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { Drivers } from '@ionic/storage';
     IonicStorageModule.forRoot({
       name: "blogic_app_db",
       driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage]
-    })
+    }),
+    PipeModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]

@@ -72,4 +72,10 @@ export class PreventaService {
     return []
   }
 
+
+  async getPreventaByVendedorId(vendedorId: string|number){
+    const result = (await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${vendedorId}`)).data?.rows;
+    return result;
+  }
+
 }
