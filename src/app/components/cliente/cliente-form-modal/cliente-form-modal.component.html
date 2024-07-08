@@ -29,6 +29,39 @@
         name="nombre"
       ></ion-input>
     </div>
+
+    <div class="form-group">
+      <ion-label position="floating">Departamento</ion-label>
+    
+      <ion-select
+        aria-label="Departamento"
+        id="departamento"
+        formControlName="departamento"
+        name="departamento"
+        (ionChange)="onDepartamentoChange($event)"
+        required
+      >
+        <ion-select-option *ngFor="let departamento of departamentos" [value]="departamento.id">
+          {{ departamento.nombre }}
+        </ion-select-option>
+      </ion-select>
+    
+    </div>
+
+    <div class="form-group">
+      <ion-label position="floating">Ciudad</ion-label>
+      <ion-select
+        aria-label="Ciudad"
+        id="ciudad"
+        formControlName="ciudad"
+        name="ciudad"       
+        required
+      >
+        <ion-select-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">
+          {{ ciudad.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </div>
     
     <div class="form-group">
       <ion-label position="floating">Telefono</ion-label>
