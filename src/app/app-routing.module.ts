@@ -35,7 +35,6 @@ const routes: Routes = [
     path: 'geo-simple',
     loadChildren: () => import('./pages/common/geo/geo-simple/geo-simple.module').then( m => m.GeoSimplePageModule)
   },
-  {
     path: 'dashboard/dashboard-vendedor',
     canActivate: [authGuard],
     loadChildren: () => import('./pages/dashboard/dashboard-vendedor/dashboard-vendedor.module').then( m => m.DashboardVendedorPageModule)

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
+import { MeService } from 'src/app/services/me.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,32 @@ import { StorageService } from './storage.service';
 export class PreventaService {
 
   constructor(
-    private storageService: StorageService
+    private storageService: StorageService,    
+    private meService: MeService    
   ) { }
 
+  getPreventasDelMes = async (startDate: string, endDate: string) => {
+    try {      
+      const vendedor_id = await this.meService.getVendedor();     
+      const res = await axios.get(`${environment.apiUrl}/preventas?startDate=${startDate}&endDate=${endDate}&vendedor_id=${vendedor_id}`);
+      return res.data.count;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }    
+  };
+
+  getTotalPreventas = async () => {  
+    try {
+      const vendedor_id = await this.meService.getVendedor();   
+      console.log(vendedor_id);
+      const res = await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${vendedor_id}`);
+      return res.data.count;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }    
+  };  
 
   /**
    * @todo add type for payload
@@ -32,6 +56,8 @@ export class PreventaService {
       throw error;
     }
   }
+
+
 
   async findAll(){
     
