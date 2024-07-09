@@ -6,9 +6,18 @@ export function removeAccents(text: string) {
 
 
 export const formatPriceNumber = (price: string|number, geo: string = "es-PY") => {
-    const priceFormat = new Intl.NumberFormat('es-PY', { maximumSignificantDigits: 3 }).format(
+    console.log(price);
+    
+    const priceFormat = new Intl.NumberFormat('es-PY', { 
+        style: 'currency',
+        currency: 'PYG',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+     }).format(
         parseFloat(price.toString()),
     )
 
+    console.log(priceFormat);
+    console.log("-------");
     return priceFormat;
 }

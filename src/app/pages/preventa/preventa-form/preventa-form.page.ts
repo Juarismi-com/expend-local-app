@@ -144,6 +144,7 @@ export class PreventaFormPage {
     
     modal.onDidDismiss().then(async (data) => {
       const producto = data?.data;
+      console.log(producto);
       this.productos = this.productoService.selectProductFromList(this.productos, producto)
       this.sumTotal = this.productoService.setTotalOfList(this.productos)
     });
@@ -178,7 +179,7 @@ export class PreventaFormPage {
    * Elimina un detalle del producto asociado a la preventa
    * @param producto 
    */
-  async removeProductoDetalle(producto: any) {
+  async removeProductoDetalle(productoIndex: number) {
     const alert = await this.alertController.create({
       header: 'Confirmación',
       message: `¿Desea eliminar el producto?`,
@@ -193,7 +194,7 @@ export class PreventaFormPage {
         }, {
           text: 'Aceptar',
           handler: () => {
-            this.productos = this.productoService.remoteProductFromList(this.productos, producto);
+            this.productos = this.productoService.removeProductFromList(this.productos, productoIndex);
             this.sumTotal = this.productoService.setTotalOfList(this.productos)
           }
         }
@@ -245,15 +246,5 @@ export class PreventaFormPage {
       console.log(error);
       this.setOpenToast(true, "Prenventa no creada")
     }
-    
-    //this.storageService.set*this.preventaForm.value
-
-    /*const preventaList = await this.storageService.get("preventa/preventa-list") || [];
-    const preventaForm = await this.storageService.get("preventa/preventa-form");
-    preventaList.push(preventaForm);
-    
-    this.storageService.set("preventa/preventa-list", preventaList);*/
-
-
   }
 }

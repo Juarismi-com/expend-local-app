@@ -1,10 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { productList } from 'src/app/mocks/productos.mock';
-import { Detalle_producto } from 'src/app/interfaces/productos.interface';
 import { ProductoService } from 'src/app/services/producto.service';
-import { formatPriceNumber } from 'src/app/helpers/index.helper';
 
 @Component({
   selector: 'app-producto-form-modal',
@@ -14,6 +11,7 @@ import { formatPriceNumber } from 'src/app/helpers/index.helper';
 export class ProductoModalFormComponent implements OnInit {
   productoForm: FormGroup;
   @Input() producto: any;
+  imagen: string = 'http://localhost:4200/assets/imagen-default.jpeg';
 
   constructor(
     private modalController: ModalController,
@@ -28,6 +26,7 @@ export class ProductoModalFormComponent implements OnInit {
       cantidad: [null, Validators.required],
       descuento: [0],
       subtotal: [null, Validators.required],
+      tipo_envase: ['CJ', Validators.required]
     });
   }
 
@@ -47,8 +46,6 @@ export class ProductoModalFormComponent implements OnInit {
     }
   }
 
-
-
   closeModal() {
     this.modalController.dismiss();
   }
@@ -66,11 +63,13 @@ export class ProductoModalFormComponent implements OnInit {
    * @param e 
    */
   selectPriceOfProduct(e:any){
-    const precioSeleccionado = e.target.value;
+    const i = e.target.value;
+    const precioSeleccionado = this.producto.precio_lista[i]
     this.producto.precio_seleccionado = precioSeleccionado.precio
     this.productoForm.patchValue({
       precio_unitario: precioSeleccionado.precio,
-      descuento: precioSeleccionado.descuento
+      descuento: precioSeleccionado.descuento,
+      tipo_envase: precioSeleccionado.tipo_envase
     })
     this.setSubtotal();
   }

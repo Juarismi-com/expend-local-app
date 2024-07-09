@@ -30,9 +30,11 @@ export class ProductoService {
    */
   selectProductFromList(productoList : any[] = [], producto: any){
     if (producto){
-      const index = productoList.findIndex(productoItem => 
-        producto?.producto_id == productoItem.producto_id
-      );
+      const index = productoList.findIndex(productoItem => (
+        producto?.producto_id == productoItem.producto_id &&
+        // Solo para agregar al detalle con precio index
+        producto?.precio_unitario == productoItem.precio_unitario
+      ));
 
       if (index >= 0){
         const productoSelected = productoList[index];
@@ -55,8 +57,14 @@ export class ProductoService {
    */
   changeQuantityOfProduct(productoList : any[] = [], producto: any){
     if (producto){
-      const index = productoList.findIndex(productoItem => 
-        producto?.producto_id == productoItem.producto_id
+      const index = productoList.findIndex(productoItem => {
+        return (
+          producto?.producto_id == productoItem.producto_id &&
+          // Solo para agregar al detalle con precio index
+          producto?.precio_unitario == productoItem.precio_unitario
+        )
+      }
+       
       );
 
       if (index >= 0){
@@ -69,6 +77,8 @@ export class ProductoService {
 
 
   setSubtotal(producto: any, cantidad: number){
+    console.log(producto)
+    console.log(producto.precio_unitario.toString());
     const subtotal = parseFloat(producto.precio_unitario.toString()) * cantidad;
     producto = {
       ...producto,
@@ -79,8 +89,10 @@ export class ProductoService {
     return producto;
   }
 
-  remoteProductFromList(productoList: any[], producto: any){
-    return productoList.filter(p => p.producto_id !== producto.producto_id);
+  removeProductFromList(productoList: any[], productoIndex: number){
+    return productoList.filter((_, index) => 
+      index !== productoIndex
+    );
   }
 
   /**
@@ -101,7 +113,8 @@ export class ProductoService {
       {
         nombre: `Entero - ${formatPriceNumber(producto?.precio)}`,
         precio: parseFloat(producto.precio.toString()),
-        descuento: 0
+        descuento: 0,
+        tipo_envase: 'CJ'
       }
     ]
 
@@ -117,7 +130,8 @@ export class ProductoService {
       prices.push({
         nombre: `Entero c/ Dto (${oferta.descuento}) % - ${formatPriceNumber(precioDescuento)}`,
         precio: precioDescuento,
-        descuento: oferta.descuento
+        descuento: oferta.descuento,
+        tipo_envase: 'CJ'
       })
     }
 
@@ -128,7 +142,8 @@ export class ProductoService {
       prices.push({
         nombre: `Fraccion - ${formatPriceNumber(precioFraccion)}`,
         precio: precioFraccion,
-        descuento: 0
+        descuento: 0,
+        tipo_envase: 'FR'
       })
     }
 
@@ -139,7 +154,8 @@ export class ProductoService {
       prices.push({
         nombre: `Fraccion c/ Dto (${oferta.descuento}) % - ${formatPriceNumber(precioDescuento)} `,
         precio: precioDescuento,
-        descuento: oferta.descuento
+        descuento: oferta.descuento,
+        tipo_envase: 'FR'
       })
     }
 
