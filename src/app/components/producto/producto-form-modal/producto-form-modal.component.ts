@@ -8,7 +8,7 @@ import { ProductoService } from 'src/app/services/producto.service';
   templateUrl: './producto-form-modal.component.html',
   styleUrls: ['./producto-form-modal.component.scss'],
 })
-export class ProductoModalFormComponent implements OnInit {
+export class ProductoFormModalComponent implements OnInit {
   productoForm: FormGroup;
   @Input() producto: any;
   imagen: string = 'http://localhost:4200/assets/imagen-default.jpeg';
@@ -26,7 +26,7 @@ export class ProductoModalFormComponent implements OnInit {
       cantidad: [null, Validators.required],
       descuento: [0],
       subtotal: [null, Validators.required],
-      tipo_envase: ['CJ', Validators.required]
+      tipo_envase: ['CJ', Validators.required],
     });
   }
 
@@ -35,13 +35,13 @@ export class ProductoModalFormComponent implements OnInit {
       this.productoForm.patchValue(this.producto);
     }
   }
- 
+
   formSubmit() {
     if (this.productoForm.valid) {
       const producto = {
         ...this.producto,
-        ...this.productoForm.value
-      }
+        ...this.productoForm.value,
+      };
       this.modalController.dismiss(producto);
     }
   }
@@ -50,28 +50,27 @@ export class ProductoModalFormComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  setSubtotal(){
+  setSubtotal() {
     const producto = this.productoService.setSubtotal(
-      this.productoForm.value, 
+      this.productoForm.value,
       this.productoForm.value?.cantidad
     );
-    this.productoForm.setValue({...producto})
+    this.productoForm.setValue({ ...producto });
   }
 
   /**
    * Selecciona el precio cuando un producto tiene varios precios
-   * @param e 
+   * @param e
    */
-  selectPriceOfProduct(e:any){
+  selectPriceOfProduct(e: any) {
     const i = e.target.value;
-    const precioSeleccionado = this.producto.precio_lista[i]
-    this.producto.precio_seleccionado = precioSeleccionado.precio
+    const precioSeleccionado = this.producto.precio_lista[i];
+    this.producto.precio_seleccionado = precioSeleccionado.precio;
     this.productoForm.patchValue({
       precio_unitario: precioSeleccionado.precio,
       descuento: precioSeleccionado.descuento,
-      tipo_envase: precioSeleccionado.tipo_envase
-    })
+      tipo_envase: precioSeleccionado.tipo_envase,
+    });
     this.setSubtotal();
   }
-
 }

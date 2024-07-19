@@ -10,32 +10,31 @@ import { CiudadService } from 'src/app/services/ciudad.service';
   templateUrl: './cliente-form-modal.component.html',
   styleUrls: ['./cliente-form-modal.component.scss'],
 })
-export class ClienteModalFormComponent implements OnInit {
+export class ClienteFormModalComponent implements OnInit {
   clienteForm: FormGroup;
   departamentos: any[] = [];
   ciudades: any[] = [];
 
   ciRuc: string = '';
-  nombre: string = '';  
+  nombre: string = '';
 
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
     private departamentoService: DepartamentoService,
     private ciudadService: CiudadService
-    
   ) {
     this.clienteForm = this.formBuilder.group({
       ciRuc: ['', Validators.required],
-      nombre: ['', Validators.required],      
-      telefono: ['', Validators.required], 
+      nombre: ['', Validators.required],
+      telefono: ['', Validators.required],
       departamento: [''],
-      ciudad: [''],      
+      ciudad: [''],
     });
   }
 
-  ngOnInit() {   
-    this.loadDepartamentos(); 
+  ngOnInit() {
+    this.loadDepartamentos();
   }
 
   async loadDepartamentos() {
@@ -48,22 +47,21 @@ export class ClienteModalFormComponent implements OnInit {
 
   async onDepartamentoChange(event: any) {
     const id = event.detail.value;
-    this.ciudades = await this.ciudadService.getCiudadesPorDepartamento(id);    
+    this.ciudades = await this.ciudadService.getCiudadesPorDepartamento(id);
   }
 
   cerrarModal() {
     this.modalController.dismiss();
   }
 
-  async setGeobicationModal(){
+  async setGeobicationModal() {
     const modal = await this.modalController.create({
       component: GeoSimplePage,
       componentProps: {
-        latitude: 25,  // Coordenadas de ejemplo
-        longitude: -56
-      }
+        latitude: 25, // Coordenadas de ejemplo
+        longitude: -56,
+      },
     });
-    modal.present()
+    modal.present();
   }
-
 }
