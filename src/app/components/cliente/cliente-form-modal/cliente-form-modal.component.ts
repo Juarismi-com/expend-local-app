@@ -12,12 +12,12 @@ import { environment } from 'src/environments/environment';
   templateUrl: './cliente-form-modal.component.html',
   styleUrls: ['./cliente-form-modal.component.scss'],
 })
-export class ClienteModalFormComponent implements OnInit {
+export class ClienteFormModalComponent implements OnInit {
   clienteForm: FormGroup;
   departamentos: any[] = [];
   ciudades: any[] = [];
   categoriaClientes: any[] = [];
-  nombre: string = '';  
+  nombre: string = '';
 
   constructor(
     private modalController: ModalController,
@@ -25,17 +25,13 @@ export class ClienteModalFormComponent implements OnInit {
     private departamentoService: DepartamentoService,
     private ciudadService: CiudadService,
     private alertController: AlertController
-    
   ) {
     this.clienteForm = this.setClienteFormDefault();
   }
 
-  
-
-  ngOnInit() {   
-    
-    this.loadDepartamentos(); 
-    this.getCategoriaClientes()
+  ngOnInit() {
+    this.loadDepartamentos();
+    this.getCategoriaClientes();
   }
 
   setClienteFormDefault() {
@@ -54,7 +50,7 @@ export class ClienteModalFormComponent implements OnInit {
       gps: [''],
       comentario: [''],
       user_id: [null],
-      fecha_registro: ['']
+      fecha_registro: [''],
     });
   }
 
@@ -68,14 +64,15 @@ export class ClienteModalFormComponent implements OnInit {
 
   async onDepartamentoChange(event: any) {
     const id = event.detail.value;
-    this.ciudades = await this.ciudadService.getCiudadesPorDepartamento(id);    
+    this.ciudades = await this.ciudadService.getCiudadesPorDepartamento(id);
   }
 
   // todo move to client service
   async getCategoriaClientes() {
     try {
-      this.categoriaClientes = (await axios.get(`${environment.apiUrl}/categorias/clientes`)).data;
-      
+      this.categoriaClientes = (
+        await axios.get(`${environment.apiUrl}/categorias/clientes`)
+      ).data;
     } catch (error) {
       console.error('Error al cargar los departamentos', error);
     }
@@ -85,20 +82,20 @@ export class ClienteModalFormComponent implements OnInit {
     this.modalController.dismiss();
   }
 
-  async setGeobicationModal(){
+  async setGeobicationModal() {
     const modal = await this.modalController.create({
       component: GeoSimplePage,
       componentProps: {
-        latitude: 25,  // Coordenadas de ejemplo
-        longitude: -56
-      }
+        latitude: 25, // Coordenadas de ejemplo
+        longitude: -56,
+      },
     });
-    modal.present()
+    modal.present();
   }
 
   // todo: cuando se actualiza el cliente, debe enviar al put
   // todo: move to cliente service
-  async clienteFormSubmit(){
+  async clienteFormSubmit() {
     const alert = await this.alertController.create({
       header: 'Confirmación',
       message: `¿Desea guardar el cliente?
@@ -111,24 +108,24 @@ export class ClienteModalFormComponent implements OnInit {
           cssClass: 'secondary',
           handler: () => {
             console.log('Eliminación cancelada');
-          }
-        }, {
+          },
+        },
+        {
           text: 'Aceptar',
           handler: async () => {
-            const result =  await axios.post(`${environment.apiUrl}/clientes`, {
-              ...this.clienteForm.value
+            const result = await axios.post(`${environment.apiUrl}/clientes`, {
+              ...this.clienteForm.value,
             });
             console.log(result);
 
             // todo replace with toast
-            window.alert("Se agrego el cliente")
+            window.alert('Se agrego el cliente');
             this.clienteForm = this.setClienteFormDefault();
-          } 
-        }
-      ]
+          },
+        },
+      ],
     });
 
     await alert.present();
   }
-
 }
