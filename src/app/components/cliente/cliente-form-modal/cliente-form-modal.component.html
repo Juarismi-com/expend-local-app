@@ -1,8 +1,9 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title> Formulario de Cliente </ion-title>
+  <ion-toolbar color="main">
+    <ion-title>Formulario de Cliente</ion-title>
+
     <ion-buttons slot="end">
-      <ion-button (click)="cerrarModal()">
+      <ion-button (click)="closeModal()">
         <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -10,12 +11,12 @@
 </ion-header>
 
 <ion-content>
-  <form class="formulario" [formGroup]="clienteForm">
+  <form class="formulario" [formGroup]="clienteForm" (ngSubmit)="clienteFormSubmit()">
        
     <div class="form-group">
       <ion-label position="floating">CI/RUC</ion-label>
       <ion-input
-        formControlName="ciRuc"
+        formControlName="ruc"
         type="text"        
         name="ciRuc"
       ></ion-input>
@@ -31,12 +32,27 @@
     </div>
 
     <div class="form-group">
+      <ion-label position="floating">Categoria Cliente</ion-label>
+      <ion-select
+        aria-label="Categoria Cliente"
+        id="id_categoria_cliente"
+        formControlName="id_categoria_cliente"
+        name="id_categoria_cliente"       
+        required
+      >
+        <ion-select-option *ngFor="let item of categoriaClientes" [value]="item.id">
+          {{ item.nombre }}
+        </ion-select-option>
+      </ion-select>
+    </div>
+
+    <div class="form-group">
       <ion-label position="floating">Departamento</ion-label>
     
       <ion-select
         aria-label="Departamento"
         id="departamento"
-        formControlName="departamento"
+        formControlName="id_departamento"
         name="departamento"
         (ionChange)="onDepartamentoChange($event)"
         required
@@ -53,7 +69,7 @@
       <ion-select
         aria-label="Ciudad"
         id="ciudad"
-        formControlName="ciudad"
+        formControlName="id_ciudad"
         name="ciudad"       
         required
       >
@@ -75,9 +91,9 @@
     <div class="form-group">
       <ion-label position="floating">Email</ion-label>
       <ion-input
-        formControlName="ciRuc"
+        formControlName="email"
         type="text"        
-        name="ciRuc"
+        name="email"
       ></ion-input>
     </div>
 

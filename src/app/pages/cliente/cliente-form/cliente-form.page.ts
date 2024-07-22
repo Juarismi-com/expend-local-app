@@ -34,7 +34,7 @@ export class ClienteFormPage implements OnInit {
       lng: [''],
       gps: [''],
       comentario: [''],
-      user_id: [''],
+      user_id: [null],
       fecha_registro: ['']
     });
   }

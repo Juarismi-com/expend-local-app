@@ -1,4 +1,4 @@
-import { Component, ComponentRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, AlertController, ModalOptions } from '@ionic/angular';
 import { ProductoTableModalComponent } from '../../../components/producto/producto-table-modal/producto-table-modal.component';
@@ -47,8 +47,6 @@ export class PreventaFormPage {
     this.preventaForm = this.setPreventaFormDefault();
     this.segmentValue = 'formulario';
   }
-
-  ngOnInit() {}
 
   setSegmentValue(val: string) {
     this.segmentValue = val;
