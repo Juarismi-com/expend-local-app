@@ -232,8 +232,7 @@ export class PreventaFormPage {
           }, {
             text: 'Aceptar',
             handler: async () => {
-              console.log(payload)
-              //await this.preventaService.create(payload);
+              await this.preventaService.create(payload);
               this.setOpenToast(true, "Prenventa creada")
               this.preventaForm = this.setPreventaFormDefault();
             } 
