@@ -28,7 +28,6 @@ export class PreventaService {
   getTotalPreventas = async () => {  
     try {
       const vendedor_id = await this.meService.getVendedor();   
-      console.log(vendedor_id);
       const res = await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${vendedor_id}`);
       return res.data.count;
     } catch (error) {
@@ -56,8 +55,6 @@ export class PreventaService {
       throw error;
     }
   }
-
-
 
   async findAll(){
     

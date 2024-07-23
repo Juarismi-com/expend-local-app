@@ -144,7 +144,7 @@ export class PreventaFormPage {
     
     modal.onDidDismiss().then(async (data) => {
       const producto = data?.data;
-      console.log(producto);
+      
       this.productos = this.productoService.selectProductFromList(this.productos, producto)
       this.sumTotal = this.productoService.setTotalOfList(this.productos)
     });
@@ -232,7 +232,8 @@ export class PreventaFormPage {
           }, {
             text: 'Aceptar',
             handler: async () => {
-              await this.preventaService.create(payload);
+              console.log(payload)
+              //await this.preventaService.create(payload);
               this.setOpenToast(true, "Prenventa creada")
               this.preventaForm = this.setPreventaFormDefault();
             } 
