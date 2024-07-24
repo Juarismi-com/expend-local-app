@@ -38,6 +38,8 @@ export class ProductoFormModalComponent implements OnInit {
 
   formSubmit() {
     if (this.productoForm.valid) {
+      delete this.producto['id'];
+
       const producto = {
         ...this.producto,
         ...this.productoForm.value,

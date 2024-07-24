@@ -28,11 +28,8 @@ export class PreventaService {
 
   getTotalPreventas = async () => {
     try {
-      const vendedor_id = await this.meService.getVendedor();
-      console.log(vendedor_id);
-      const res = await axios.get(
-        `${environment.apiUrl}/preventas?vendedor_id=${vendedor_id}`
-      );
+      const vendedor_id = await this.meService.getVendedor();   
+      const res = await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${vendedor_id}`);
       return res.data.count;
     } catch (error) {
       console.log(error);
@@ -63,10 +60,8 @@ export class PreventaService {
   async findAll() {}
 
   async searchPreventa(value: string) {
-    if (value.length > 3) {
-      const result = (
-        await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${value}`)
-      ).data?.rows;
+    if (value.length > 3){
+      const result = (await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${value}`)).data?.rows;
       return result;
     }
 
