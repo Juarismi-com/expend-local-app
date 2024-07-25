@@ -6,7 +6,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard/dashboard-vendedor',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   /*{
     path: 'folder/:id',
@@ -15,38 +15,69 @@ const routes: Routes = [
   {
     path: 'producto-list',
     canActivate: [authGuard],
-    loadChildren: () => import('./pages/producto/producto-list/producto-list.module').then( m => m.ProductoListPageModule)
+    loadChildren: () =>
+      import('./pages/producto/producto-list/producto-list.module').then(
+        (m) => m.ProductoListPageModule
+      ),
   },
   {
     path: 'preventa-form',
     canActivate: [authGuard],
-    loadChildren: () => import('./pages/preventa/preventa-form/preventa-form.module').then( m => m.PreventaFormPageModule)
+    loadChildren: () =>
+      import('./pages/preventa/preventa-form/preventa-form.module').then(
+        (m) => m.PreventaFormPageModule
+      ),
   },
   {
     path: 'preventa-list',
     canActivate: [authGuard],
-    loadChildren: () => import('./pages/preventa/preventa-list/preventa-list.module').then( m => m.PreventaListPageModule)
+    loadChildren: () =>
+      import('./pages/preventa/preventa-list/preventa-list.module').then(
+        (m) => m.PreventaListPageModule
+      ),
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/auth/login-form/login-form.module').then( m => m.LoginFormPageModule)
+    loadChildren: () =>
+      import('./pages/auth/login-form/login-form.module').then(
+        (m) => m.LoginFormPageModule
+      ),
   },
   {
     path: 'geo-simple',
-    loadChildren: () => import('./pages/common/geo/geo-simple/geo-simple.module').then( m => m.GeoSimplePageModule)
+    loadChildren: () =>
+      import('./pages/common/geo/geo-simple/geo-simple.module').then(
+        (m) => m.GeoSimplePageModule
+      ),
   },
   {
     path: 'dashboard/dashboard-vendedor',
     canActivate: [authGuard],
-    loadChildren: () => import('./pages/dashboard/dashboard-vendedor/dashboard-vendedor.module').then( m => m.DashboardVendedorPageModule)
-  }
+    loadChildren: () =>
+      import(
+        './pages/dashboard/dashboard-vendedor/dashboard-vendedor.module'
+      ).then((m) => m.DashboardVendedorPageModule),
+  },
+  {
+    path: 'preventa-detail',
+    loadChildren: () =>
+      import('./pages/preventa/preventa-detail/preventa-detail.module').then(
+        (m) => m.PreventaDetailPageModule
+      ),
+  },
+  {
+    path: 'preventa-detail/:id',
+    loadChildren: () =>
+      import('./pages/preventa/preventa-detail/preventa-detail.module').then(
+        (m) => m.PreventaDetailPageModule
+      ),
+  },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
-
