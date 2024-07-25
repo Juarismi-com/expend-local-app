@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-
+import { BehaviorSubject } from "rxjs"
 import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class StorageService {
   private _storage: Storage | null = null;
+  private storageSub = new BehaviorSubject<boolean>(false);
 
   constructor(private storage: Storage) {
     this.init();
@@ -18,10 +19,15 @@ export class StorageService {
     this._storage = storage;
   }
 
+  watchStorage(): BehaviorSubject<boolean> {
+    return this.storageSub;
+  }
+
   // Create and expose methods that users of this service can
   // call, for example:
   public async set(key: string, value: any) {
     await this._storage?.set(key, value);
+    this.storageSub.next(true);
   }
 
   public async get(key: string){
@@ -31,10 +37,12 @@ export class StorageService {
   // Remover un valor
   async remove(key: string) {
     await this.storage.remove(key)
+    this.storageSub.next(true);
   }
 
   // Limpiar todo el almacenamiento
   async clear() {
     await this.storage.clear();
+    this.storageSub.next(true);
   }
 }

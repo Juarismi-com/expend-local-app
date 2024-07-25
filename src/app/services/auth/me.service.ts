@@ -13,7 +13,7 @@ export class MeService {
   constructor(private storageService: StorageService) { }
 
   async me() {    
-    const user = this.storageService.get("usuario");    
+    const user = await this.storageService.get("usuario");    
     return user;
   }
 

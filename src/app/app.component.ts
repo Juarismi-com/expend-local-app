@@ -5,6 +5,7 @@ import { TokenService } from './services/auth/token.service';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { MeService } from './services/auth/me.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,10 @@ import { MeService } from './services/auth/me.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnChanges{
+  public storageSub: Subscription | undefined;
   @Input()
   public usuario: any = null;
-
+  
   public appPages = [
     { title: 'Inicio', url: '/dashboard/dashboard-vendedor', icon: 'albums' },
     { title: 'Preventas', url: '/preventa-list', icon: 'checkmark-done' },
@@ -45,14 +47,26 @@ export class AppComponent implements OnChanges{
     // If using a custom driver:
     // await this.storage.defineDriver(MyCustomDriver)
     await this.storage.create();
+    
+    this.storageSub = this.storageService.watchStorage().subscribe(() => {
+      this.getUserData();
+    });
+    this.getUserData();
   }
+
+  ngOnDestroy(): void {
+    if (this.storageSub)
+      this.storageSub.unsubscribe();
+  }
+
 
   ngOnChanges(changes: any) {
     console.log(changes);
   }
 
+
   async getUserData(){
-    this.usuario = await this.meService.me()
+    this.usuario = await this.meService.me();
   }
 
   async closeSession() {
