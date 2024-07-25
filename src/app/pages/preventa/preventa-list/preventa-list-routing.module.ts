@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PreventaListPage } from './preventa-list.page';
+import { PreventaDetailPage } from '../preventa-detail/preventa-detail.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: PreventaListPage
-  }
+    component: PreventaListPage,
+  },
+  { path: 'preventa-detail/:id', component: PreventaDetailPage },
 ];
 
 @NgModule({

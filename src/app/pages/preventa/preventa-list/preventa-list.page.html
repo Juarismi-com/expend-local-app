@@ -8,33 +8,30 @@
 </ion-header>
 
 <ion-content>
-  <!--ion-searchbar  
-    (ionInput)="handleInputSearch($event)" 
-    placeholder="Filtrar por "
-  ></ion-searchbar-->
-
   <ion-list lines="full">
     <ion-item
       *ngFor="let result of preventaList"
-      [button]="true" 
-      detail="false"            
+      [routerLink]="['/preventa-detail', result.id]"
+      detail="false"
     >
-      
-      
       <ion-label>
-          <strong>Tx: {{ result.id }}</strong><br />
-          <strong>{{ result.cliente.nombre }}</strong><br />
-          <ion-text>Estado: {{ result.estado }}</ion-text><br />
+        <strong>Tx: {{ result.id }}</strong><br />
+        <strong>{{ result.cliente.nombre }}</strong><br />
+        <ion-text>Estado: {{ result.estado }}</ion-text><br />
       </ion-label>
       <div class="metadata-end-wrapper" slot="end">
         <ion-text>{{ result.total | formatCustom }}</ion-text>
-        <!--ion-icon color="medium" name="chevron-forward"></ion-icon-->
       </div>
+      <ion-button slot="end" expand="block">Ver Detalles</ion-button>
     </ion-item>
   </ion-list>
 
-  <!--on-item routerDirection="root" lines="none" detail="false" routerLinkActive="selected"-->
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" routerLink="/preventa-form" >
+  <ion-fab
+    slot="fixed"
+    vertical="bottom"
+    horizontal="end"
+    routerLink="/preventa-form"
+  >
     <ion-fab-button color="secondary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
