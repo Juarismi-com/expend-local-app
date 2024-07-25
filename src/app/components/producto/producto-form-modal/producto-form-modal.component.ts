@@ -67,10 +67,10 @@ export class ProductoFormModalComponent implements OnInit {
   selectPriceOfProduct(e: any) {
     const i = e.target.value;
     const precioSeleccionado = this.producto.precio_lista[i];
-    this.producto.precio_seleccionado = precioSeleccionado.precio;
+
     this.productoForm.patchValue({
       precio_unitario: precioSeleccionado.precio,
-      descuento: precioSeleccionado.descuento,
+      descuento: precioSeleccionado?.descuento || 0,
       tipo_envase: precioSeleccionado.tipo_envase,
     });
     this.setSubtotal();

@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { AlertController, AlertInput, ModalController } from '@ionic/angular';
-//import { removeAccents } from 'src/app/helpers/index.helper';
+import { ModalController } from '@ionic/angular';
 import { ProductoService } from 'src/app/services/producto.service';
 import { ProductoFormModalComponent } from '../producto-form-modal/producto-form-modal.component';
-//import { ProductoModalFormComponent } from '../producto-modal-form/producto-modal-form.component';
 
 @Component({
   selector: 'app-producto-table-modal',
@@ -18,7 +16,6 @@ export class ProductoTableModalComponent {
   constructor(
     private modalController: ModalController,
     private productoService: ProductoService,
-    private alertController: AlertController
   ) {}
 
   async handleInputSearch(e: any) {
@@ -28,7 +25,7 @@ export class ProductoTableModalComponent {
 
   async selectProduct(producto: any) {
     const prices = this.productoService.setListOfPrices(producto);
-    const precioDefault = producto.precio_lista[1].precio
+    const precioDefault = prices[1]?.precio || producto.precio
     const modal = await this.modalController.create({
       component: ProductoFormModalComponent,
       componentProps: {
@@ -45,30 +42,17 @@ export class ProductoTableModalComponent {
 
     modal.onDidDismiss().then(({ data }) => {
       const producto = data;
-      this.modalController.dismiss({
-        ...producto,
-        precio_unitario: producto.precio_seleccionado || producto.precio,
-        descuento: producto.descuento,
-        cantidad: producto.cantidad,
-        subtotal: producto.subtotal,
-      });
+      if (producto){
+        this.modalController.dismiss({
+          ...producto,
+          precio_unitario: producto?.precio_unitario,
+          descuento: producto?.descuento || 0,
+          cantidad: producto?.cantidad || 1,
+          subtotal: producto?.subtotal,
+        });
+      }
     });
     await modal.present();
-  }
-
-  /**
-   * Confirma la seccion y lo retorna con el modal
-   * @param producto
-   */
-  confirmProductSelected(producto: any) {
-    /*this.modalController.dismiss({
-      "nombre": producto.nombre,
-      "producto_id": producto.id,
-      "precio_unitario": producto.precio,
-      "descuento": producto,
-      "cantidad": 1,
-      "subtotal": precioSeleccionado
-    })*/
   }
 
   closeModal() {

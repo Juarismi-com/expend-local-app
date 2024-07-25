@@ -77,8 +77,6 @@ export class ProductoService {
 
 
   setSubtotal(producto: any, cantidad: number){
-    console.log(producto)
-    console.log(producto.precio_unitario.toString());
     const subtotal = parseFloat(producto.precio_unitario.toString()) * cantidad;
     producto = {
       ...producto,

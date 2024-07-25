@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { PreventaService } from 'src/app/services/preventa.service';
 
@@ -7,7 +7,7 @@ import { PreventaService } from 'src/app/services/preventa.service';
   templateUrl: './preventa-list.page.html',
   styleUrls: ['./preventa-list.page.scss'],
 })
-export class PreventaListPage implements OnInit {
+export class PreventaListPage{
 
   public preventaList : any[] = [];
 
@@ -16,8 +16,8 @@ export class PreventaListPage implements OnInit {
     private preventaService: PreventaService
   ) { }
 
-  ngOnInit() {
-   this.getPreventaByVendedorId();
+  ionViewWillEnter(){
+    this.getPreventaByVendedorId();
   }
 
   async handleInputSearch(e: any) {

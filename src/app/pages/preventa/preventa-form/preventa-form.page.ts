@@ -102,18 +102,13 @@ export class PreventaFormPage {
     });
 
     modal.onDidDismiss().then(async ({ data }) => {
-      if (data) {
-        const cliente = data;
-        if (cliente) {
-          console.log(cliente);
-          if (cliente) {
-            this.setCliente(
-              cliente.ruc || cliente.ci,
-              cliente.nombre,
-              cliente.id
-            );
-          }
-        }
+      const cliente = data
+      if (cliente) {
+        this.setCliente(
+          cliente.ruc || cliente.ci,
+          cliente.nombre,
+          cliente.id
+        );
       }
     });
     await modal.present();
