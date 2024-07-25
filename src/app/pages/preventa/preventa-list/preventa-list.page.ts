@@ -32,13 +32,8 @@ export class PreventaListPage implements OnInit {
 
   
   async getPreventaByVendedorId(){
-    console.log("okg");
     const usuario : any = await this.storageService.get("usuario");
-
-    console.log(usuario)
-
     if (usuario?.vendedor){
-      console.log(usuario);
       this.preventaList = await this.preventaService.getPreventaByVendedorId(usuario.vendedor?.id);
     }   
   }
