@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   gmapsKey: 'AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ',
-  apiUrl: 'http://localhost:8000',
-  //apiUrl: 'https://001aod9sa8.execute-api.us-east-1.amazonaws.com/core',
+  apiUrl: 'https://001aod9sa8.execute-api.us-east-1.amazonaws.com/core',
 };
 
 /*

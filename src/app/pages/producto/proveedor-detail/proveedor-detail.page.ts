@@ -18,10 +18,10 @@ export class ProveedorDetailPage {
     private formBuilder: FormBuilder,
     private proveedorService: ProveedorService
   ) {
-    this.proveedorForm = this.setPreventaFormDefault();
+    this.proveedorForm = this.setProveedorFormDefault();
   }
 
-  setPreventaFormDefault() {
+  setProveedorFormDefault() {
     return this.formBuilder.group({
       id: ['0', Validators.required],
       nombre: ['SIN PROVEEDOR', Validators.required],
