@@ -7,41 +7,41 @@ import { ProductoService } from 'src/app/services/producto.service';
   templateUrl: './producto-list.page.html',
   styleUrls: ['./producto-list.page.scss'],
 })
-export class ProductoListPage  {
-
+export class ProductoListPage {
   public results: any[] = [];
   public variantByCantSelected: any = null;
 
-  async handleInput(e : any) {
+  async handleInput(e: any) {
     const value = e.target.value.toLowerCase();
-    this.results = await this.productoService.searchProduct(value) 
+    this.results = await this.productoService.searchProduct(value);
   }
 
   constructor(
-   private productoService: ProductoService,
-   private alertController: AlertController
-  ) { }
- 
-  async viewMoreDetailsProducts(product: any){
+    private productoService: ProductoService,
+    private alertController: AlertController
+  ) {}
 
-      const optionsProducts = product.precios.map((precio:any) => {
-         return {
-            type: "radio",
-            label: `${precio.cantidad} x ${precio.precio_unitario}`,
-            handler: (e:any) => {
-               this.variantByCantSelected = JSON.stringify(e)
-            }
-         }
-      })
+  async viewMoreDetailsProducts(product: any) {
+    const optionsProducts = product.precios.map((precio: any) => {
+      return {
+        type: 'radio',
+        label: `${precio.cantidad} x ${precio.precio_unitario}`,
+        handler: (e: any) => {
+          this.variantByCantSelected = JSON.stringify(e);
+        },
+      };
+    });
 
-      const alert = await this.alertController.create({
-         header: "Precios por cantidad",
-         inputs: [...optionsProducts],
-         buttons: [{
-            text: "Salir"
-         }]
-      })
+    const alert = await this.alertController.create({
+      header: 'Precios por cantidad',
+      inputs: [...optionsProducts],
+      buttons: [
+        {
+          text: 'Salir',
+        },
+      ],
+    });
 
-      await alert.present()
+    await alert.present();
   }
 }

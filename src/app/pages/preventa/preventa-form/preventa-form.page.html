@@ -34,7 +34,7 @@
   </ion-segment>
 
   <!-- SEGMENT DE FORMULARIO -->
-  <div *ngIf="segmentValue == 'formulario'" class="ion-padding">
+  <div *ngIf="segmentValue === 'formulario'" class="ion-padding">
     <form (ngSubmit)="preventaFormSubmit()" [formGroup]="preventaForm">
       <div class="form-group">
         <ion-label position="floating">Fecha</ion-label>
@@ -164,7 +164,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-title slot="start">Total</ion-title>
-    <ion-title slot="end">{{ sumTotal | formatCustom }}</ion-title>    
+    <ion-title slot="end">{{ sumTotal | formatCustom }}</ion-title>
   </ion-toolbar>
   <ion-button expand="block" (click)="preventaFormSubmit()">
     Enviar Preventa

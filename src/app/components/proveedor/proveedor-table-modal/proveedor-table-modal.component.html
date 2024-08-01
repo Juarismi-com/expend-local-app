@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="main">
+    <ion-title>Seleccionar Proveedor</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar
+    placeholder="Filtrar por ID o nombre"
+    (ionInput)="handleInputSearch($event)"
+    [debounce]="100"
+  ></ion-searchbar>
+
+  <ion-list lines="full">
+    <ion-item
+      *ngFor="let result of proveedores"
+      [button]="true"
+      detail="false"
+      (click)="selectProveedor(result)"
+    >
+      <ion-label>
+        <strong>{{ result?.nombre || result?.nombre }}</strong
+        ><br />
+        Tel: {{ result?.telefono }}<br />
+        Dir: {{ result?.direccion | titlecase }}<br />
+        Dir: {{ result?.id }}<br />
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
