@@ -36,7 +36,7 @@ export class PreventaDetailPage implements OnInit {
   openWhatsApp(preventaId: string) {
     const message = `Tx:${preventaId} \n Detalle 1 \n Detalle 2.`;
     const encodedMessage = encodeURIComponent(message);
-    const url = `https://wa.me/${this.phoneNumber}?text=${encodedMessage}`;
+    const url = `https://wa.me/send?text=${encodedMessage}`;
     window.open(url, '_blank');
   }
 }
