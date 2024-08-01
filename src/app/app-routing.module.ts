@@ -72,6 +72,13 @@ const routes: Routes = [
         (m) => m.PreventaDetailPageModule
       ),
   },
+  {
+    path: 'proveedor-detail',
+    loadChildren: () =>
+      import('./pages/producto/proveedor-detail/proveedor-detail.module').then(
+        (m) => m.ProveedorDetailPageModule
+      ),
+  },
 ];
 
 @NgModule({
