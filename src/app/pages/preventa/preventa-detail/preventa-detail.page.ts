@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { StorageService } from 'src/app/services/storage.service';
 import { PreventaService } from 'src/app/services/preventa.service';
 
 @Component({
@@ -11,30 +9,30 @@ import { PreventaService } from 'src/app/services/preventa.service';
 })
 export class PreventaDetailPage implements OnInit {
   preventaId: string = '';
-  phoneNumber: string = '595983124821';
-
-  public preventaList: any[] = [];
+  public preventa: any;
 
   constructor(
     private route: ActivatedRoute,
-    private storageService: StorageService,
     private preventaService: PreventaService
   ) {}
 
   ngOnInit() {
     this.preventaId = this.route.snapshot.paramMap.get('id')!;
-    this.getPreventaDetalleByVendedorId(this.preventaId);
+    this.setPreventaDetail();
   }
 
-  async getPreventaDetalleByVendedorId(preventaId: string) {
-    const usuario: any = await this.storageService.get('usuario');
-    if (usuario?.vendedor) {
-      // this.preventaList = await this.preventaService.getPreventaByVendedorId(usuario.vendedor?.id);
-    }
+  async setPreventaDetail(){
+    this.preventa = await this.preventaService.getPreventaDetail(this.preventaId);
+    console.log(this.preventa);
   }
 
   openWhatsApp(preventaId: string) {
-    const message = `Tx:${preventaId} \n Detalle 1 \n Detalle 2.`;
+    const message = `
+      Tx: ${preventaId}
+      Fecha: ${this.preventa.fecha}
+      Total: ${this.preventa.total}
+      Estado: ${this.preventa.estado}
+    `;
     const encodedMessage = encodeURIComponent(message);
     const url = `https://wa.me/send?text=${encodedMessage}`;
     window.open(url, '_blank');

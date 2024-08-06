@@ -1,27 +1,78 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="main">
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button icon="caret-back"></ion-back-button>
     </ion-buttons>
 
-    <ion-title>Preventa Detail</ion-title>
+    <ion-title>Preventa </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">preventa-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div *ngIf="preventa" >
+    <ion-card>
+      <ion-card-header>
+        Tx: {{ preventaId }}
+        <ion-card-title>{{ preventa.cliente.nombre }}</ion-card-title>
+        <ion-card-subtitle>{{ preventa.cliente.ruc || preventa.cliente.ci }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
 
-  <ion-content>
-    <p>Preventa ID: {{ preventaId }}</p>
-    <p>Cliente ID:</p>
-    <p>Fecha:</p>
-    <p>Detalle:</p>
-    <ion-button expand="full" (click)="openWhatsApp(preventaId)">
-      Enviar Presupuesto por WhatsApp
-    </ion-button>
-  </ion-content>
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Formulario</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Fecha: {{ preventa.fecha }} </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Total: {{ preventa.total | formatCustom }} </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>Estado: {{ preventa.estado }} </ion-label>
+      </ion-item>
+    </ion-list>
+
+
+    <!-- Productos detalle -->
+    <!--ion-grid
+      *ngFor="let producto of preventa.detalle; let i = index"
+      class="bl-detalle"
+    >
+      <ion-row>
+        <ion-col size-sm="12"> Id/Cod: {{ producto?.producto_id}} </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="12">
+          <strong>
+            {{ producto?.nombre + " - " + producto?.descripcion }}
+          </strong>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2"
+          ><div class="ion-text-start">
+            {{ producto?.tipo_envase }}
+          </div></ion-col
+        >
+        <ion-col size="2"
+          ><div class="ion-text-start">{{ producto.cantidad }}</div></ion-col
+        >
+        <ion-col size="4"
+          ><div class="ion-text-end">
+            {{ producto.precio_unitario | formatCustom}}
+          </div></ion-col
+        >
+        <ion-col size="4" class="bl-subtotal ion-text-end"
+          >{{ producto.subtotal | formatCustom }}</ion-col
+        >
+      </ion-row>
+    </ion-grid-->
+
+    <div class="ion-padding">
+      <ion-button expand="block" (click)="openWhatsApp(preventaId)">
+        Enviar por WhatsApp
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

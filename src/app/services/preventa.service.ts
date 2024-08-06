@@ -57,6 +57,17 @@ export class PreventaService {
     }
   }
 
+
+  /**
+   * Retorna el detalle de una preventa
+   * @param preventaId 
+   * @returns 
+   */
+  async getPreventaDetail(preventaId: number|string){
+    const result = await axios.get(`${environment.apiUrl}/preventas/${preventaId}`);
+    return result?.data;
+  }
+
   async findAll() {}
 
   async searchPreventa(value: string) {

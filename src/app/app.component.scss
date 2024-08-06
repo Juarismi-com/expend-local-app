@@ -117,3 +117,26 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+
+// custom css
+.bl-detalle {
+  ion-col {
+      background-color: lime !important;
+      border: solid 1px #fff;
+      text-align: center;
+  }
+
+  .bl-edit {
+      background-color: yellow;
+  }
+  
+  .bl-remove {
+      background-color: red;
+      color: #fff;
+  }
+
+  .bl-subtotal {
+      background-color: #98eebc;
+  }
+}
