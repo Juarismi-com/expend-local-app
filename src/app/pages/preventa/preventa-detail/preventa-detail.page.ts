@@ -34,7 +34,7 @@ export class PreventaDetailPage implements OnInit {
       Estado: ${this.preventa.estado}
     `;
     const encodedMessage = encodeURIComponent(message);
-    const url = `https://wa.me/?text=Hola%20quiero%20hablar%20contigo`;
+    const url = `https://wa.me/?text=${encodedMessage}`;
     window.open(url, '_blank');
   }
 }
