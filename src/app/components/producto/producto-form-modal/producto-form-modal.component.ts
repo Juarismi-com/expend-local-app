@@ -44,10 +44,9 @@ export class ProductoFormModalComponent implements OnInit {
    * Verifica que el precio unitario sea mayor que el precio minimo y lo setea
    */
   verifyPriceIsOk() {
-    // verifica antes de enviar que el precio unitario sea mayor al precio minimo
     const precioUnitario = this.productoForm.value.precio_unitario;
     const precioMinimo = this.productoForm.value.precio_minimo;
-    console.log(precioUnitario < precioMinimo)
+    
     if(precioUnitario < precioMinimo){
       this.productoForm.patchValue({
         precio_unitario: precioMinimo

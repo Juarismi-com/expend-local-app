@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, AlertController, ModalOptions } from '@ionic/angular';
+import { ModalController, AlertController, ModalOptions, LoadingController } from '@ionic/angular';
 import { ProductoTableModalComponent } from '../../../components/producto/producto-table-modal/producto-table-modal.component';
 import { ProductoFormModalComponent } from 'src/app/components/producto/producto-form-modal/producto-form-modal.component';
 import { ClienteTableModalComponent } from '../../../components/cliente/cliente-table-modal/cliente-table-modal.component';
@@ -39,6 +39,7 @@ export class PreventaFormPage {
 
   constructor(
     private modalController: ModalController,
+    private loadingCtrl: LoadingController,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private productoService: ProductoService,
@@ -218,9 +219,17 @@ export class PreventaFormPage {
           {
             text: 'Aceptar',
             handler: async () => {
+              const loading = await this.loadingCtrl.create({
+                message: "Enviando.."
+              })
+
+              loading.present();
+              
               await this.preventaService.create(payload);
               this.setOpenToast(true, 'Prenventa creada');
               this.preventaForm = this.setPreventaFormDefault();
+              
+              loading.dismiss();
             },
           },
         ],
@@ -232,4 +241,5 @@ export class PreventaFormPage {
       this.setOpenToast(true, 'Prenventa no creada');
     }
   }
+
 }
