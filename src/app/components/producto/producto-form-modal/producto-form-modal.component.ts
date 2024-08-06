@@ -23,6 +23,7 @@ export class ProductoFormModalComponent implements OnInit {
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       precio_unitario: [null, Validators.required],
+      precio_minimo: [null, Validators.required],
       cantidad: [null, Validators.required],
       descuento: [0],
       subtotal: [null, Validators.required],
@@ -32,11 +33,33 @@ export class ProductoFormModalComponent implements OnInit {
 
   ngOnInit() {
     if (this.producto) {
-      this.productoForm.patchValue(this.producto);
+      this.productoForm.patchValue({
+        ...this.producto,
+        precio_minimo: this.producto.precio_unitario
+      });
+    }
+  }
+
+  /**
+   * Verifica que el precio unitario sea mayor que el precio minimo y lo setea
+   */
+  verifyPriceIsOk() {
+    // verifica antes de enviar que el precio unitario sea mayor al precio minimo
+    const precioUnitario = this.productoForm.value.precio_unitario;
+    const precioMinimo = this.productoForm.value.precio_minimo;
+    console.log(precioUnitario < precioMinimo)
+    if(precioUnitario < precioMinimo){
+      this.productoForm.patchValue({
+        precio_unitario: precioMinimo
+      })
+
+      this.setSubtotal()
     }
   }
 
   formSubmit() {
+    this.verifyPriceIsOk();
+
     if (this.productoForm.valid) {
       delete this.producto['id'];
 
@@ -60,6 +83,10 @@ export class ProductoFormModalComponent implements OnInit {
     this.productoForm.setValue({ ...producto });
   }
 
+  setPrecioUnitario(e: any){
+    this.setSubtotal()
+  }
+
   /**
    * Selecciona el precio cuando un producto tiene varios precios
    * @param e
@@ -72,7 +99,9 @@ export class ProductoFormModalComponent implements OnInit {
       precio_unitario: precioSeleccionado.precio,
       descuento: precioSeleccionado?.descuento || 0,
       tipo_envase: precioSeleccionado.tipo_envase,
+      precio_minimo: precioSeleccionado.precio
     });
+    
     this.setSubtotal();
   }
 }

@@ -52,9 +52,15 @@
     
     <div class="form-group">
       <ion-label position="floating">Precio Unitario</ion-label><br>
-      <ion-text>
+      <ion-input
+        formControlName="precio_unitario"
+        type="number"
+        name="cantidad"
+        (input)="setPrecioUnitario($event)"
+      ></ion-input>
+      <!--ion-text>
         {{ productoForm.value.precio_unitario | formatCustom }}
-      </ion-text>
+      </ion-text-->
     </div>    
 
     <div class="form-group">
