@@ -6,9 +6,7 @@ import { formatPriceNumber } from 'src/app/helpers/index.helper';
   //standalone: true
 })
 export class FormatCustomPipe implements PipeTransform {
-
   transform(value: string|number, ...args: any[]): string {
     return formatPriceNumber(value?.toString(), "es-PY");
   }
-
 }
