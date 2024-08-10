@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ProveedorDetailPageRoutingModule } from './proveedor-detail-routing.module';
 
 import { ProveedorDetailPage } from './proveedor-detail.page';
+import { PipeModule } from 'src/app/pipes/pipe/pipe.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProveedorDetailPageRoutingModule
+    ProveedorDetailPageRoutingModule,
+    PipeModule
   ],
   declarations: [ProveedorDetailPage]
 })

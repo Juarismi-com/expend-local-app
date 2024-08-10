@@ -20,7 +20,7 @@
     >
   </ion-card>
 
-  <ion-list [inset]="true">
+  <ion-list lines="full">
     <ion-item *ngFor="let result of results" [button]="true" detail="false">
       <div class="unread-indicator-wrapper" slot="start">
         <div class="unread-indicator"></div>
@@ -29,7 +29,12 @@
         <strong>{{ result?.id }}</strong><br />
         <ion-text>{{ result?.nombre }}</ion-text><br />
         <ion-note color="medium" class="ion-text-wrap">
-          {{ result?.precio }}
+          E: {{ result?.precio | formatCustom }}
+          |   
+          F: {{ 
+            result?.precio_fraccion == '0' ? '-' : 
+            result?.precio_fraccion | formatCustom 
+          }}
         </ion-note>
       </ion-label>
       <div class="metadata-end-wrapper" slot="end">
