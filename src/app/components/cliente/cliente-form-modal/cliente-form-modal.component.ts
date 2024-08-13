@@ -93,7 +93,6 @@ export class ClienteFormModalComponent implements OnInit {
     modal.present();
   }
 
-  // todo: cuando se actualiza el cliente, debe enviar al put
   // todo: move to cliente service
   async clienteFormSubmit() {
     try {
@@ -101,12 +100,12 @@ export class ClienteFormModalComponent implements OnInit {
         `${environment.apiUrl}/clientes/search?q=${this.clienteForm.value.ruc}`
       );
 
-      const esEdicion = clientes.count > 0;
-      const clienteId = esEdicion ? clientes.rows[0].id : null;
+      const clienteExistente = clientes.count > 0;
+      const clienteId = clienteExistente ? clientes.rows[0].id : null;
 
       const alert = await this.alertController.create({
         header: 'Confirmación',
-        message: esEdicion
+        message: clienteExistente
           ? `¿Desea editar el cliente?
               ${this.clienteForm.value?.nombre}`
           : `¿Desea guardar el cliente?
@@ -126,7 +125,7 @@ export class ClienteFormModalComponent implements OnInit {
               try {
                 let result;
 
-                if (esEdicion) {
+                if (clienteExistente) {
                   result = await axios.put(
                     `${environment.apiUrl}/clientes/${clienteId}`,
                     { ...this.clienteForm.value }
