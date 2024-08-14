@@ -93,39 +93,68 @@ export class ClienteFormModalComponent implements OnInit {
     modal.present();
   }
 
-  // todo: cuando se actualiza el cliente, debe enviar al put
   // todo: move to cliente service
   async clienteFormSubmit() {
-    const alert = await this.alertController.create({
-      header: 'Confirmación',
-      message: `¿Desea guardar el cliente?
-        ${this.clienteForm.value?.nombre}
-      `,
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Eliminación cancelada');
-          },
-        },
-        {
-          text: 'Aceptar',
-          handler: async () => {
-            const result = await axios.post(`${environment.apiUrl}/clientes`, {
-              ...this.clienteForm.value,
-            });
-            console.log(result);
+    try {
+      const { data: clientes } = await axios.get(
+        `${environment.apiUrl}/clientes/search?q=${this.clienteForm.value.ruc}`
+      );
 
-            // todo replace with toast
-            window.alert('Se agrego el cliente');
-            this.clienteForm = this.setClienteFormDefault();
-          },
-        },
-      ],
-    });
+      const clienteExistente = clientes.count > 0;
+      const clienteId = clienteExistente ? clientes.rows[0].id : null;
 
-    await alert.present();
+      const alert = await this.alertController.create({
+        header: 'Confirmación',
+        message: clienteExistente
+          ? `¿Desea editar el cliente?
+              ${this.clienteForm.value?.nombre}`
+          : `¿Desea guardar el cliente?
+              ${this.clienteForm.value?.nombre}`,
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Operación cancelada');
+            },
+          },
+          {
+            text: 'Aceptar',
+            handler: async () => {
+              try {
+                let result;
+
+                if (clienteExistente) {
+                  result = await axios.put(
+                    `${environment.apiUrl}/clientes/${clienteId}`,
+                    { ...this.clienteForm.value }
+                  );
+                  window.alert('Se actualizó el cliente');
+                } else {
+                  result = await axios.post(`${environment.apiUrl}/clientes`, {
+                    ...this.clienteForm.value,
+                  });
+                  window.alert('Se agregó el cliente');
+                }
+
+                console.log(result);
+                this.clienteForm = this.setClienteFormDefault();
+              } catch (error) {
+                console.error('Error al guardar/editar el cliente', error);
+                window.alert('Ocurrió un error. Intente nuevamente.');
+              }
+            },
+          },
+        ],
+      });
+
+      await alert.present();
+    } catch (error) {
+      console.error('Error al buscar el cliente', error);
+      window.alert(
+        'Ocurrió un error al verificar el cliente. Intente nuevamente.'
+      );
+    }
   }
 }
