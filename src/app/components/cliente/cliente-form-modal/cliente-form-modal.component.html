@@ -11,24 +11,24 @@
 </ion-header>
 
 <ion-content>
-  <form class="formulario" [formGroup]="clienteForm" (ngSubmit)="clienteFormSubmit()">
-       
+  <form
+    class="formulario"
+    [formGroup]="clienteForm"
+    (ngSubmit)="clienteFormSubmit()"
+  >
     <div class="form-group">
       <ion-label position="floating">CI/RUC</ion-label>
       <ion-input
         formControlName="ruc"
-        type="text"        
+        type="text"
         name="ciRuc"
+        (ionBlur)="handleInputSearch($event)"
       ></ion-input>
     </div>
 
     <div class="form-group">
       <ion-label position="floating">Nombre</ion-label>
-      <ion-input
-        formControlName="nombre"
-        type="text"        
-        name="nombre"
-      ></ion-input>
+      <ion-input formControlName="nombre" type="text" name="nombre"></ion-input>
     </div>
 
     <div class="form-group">
@@ -37,10 +37,13 @@
         aria-label="Categoria Cliente"
         id="id_categoria_cliente"
         formControlName="id_categoria_cliente"
-        name="id_categoria_cliente"       
+        name="id_categoria_cliente"
         required
       >
-        <ion-select-option *ngFor="let item of categoriaClientes" [value]="item.id">
+        <ion-select-option
+          *ngFor="let item of categoriaClientes"
+          [value]="item.id"
+        >
           {{ item.nombre }}
         </ion-select-option>
       </ion-select>
@@ -48,7 +51,7 @@
 
     <div class="form-group">
       <ion-label position="floating">Departamento</ion-label>
-    
+
       <ion-select
         aria-label="Departamento"
         id="departamento"
@@ -57,11 +60,13 @@
         (ionChange)="onDepartamentoChange($event)"
         required
       >
-        <ion-select-option *ngFor="let departamento of departamentos" [value]="departamento.id">
+        <ion-select-option
+          *ngFor="let departamento of departamentos"
+          [value]="departamento.id"
+        >
           {{ departamento.nombre }}
         </ion-select-option>
       </ion-select>
-    
     </div>
 
     <div class="form-group">
@@ -70,7 +75,7 @@
         aria-label="Ciudad"
         id="ciudad"
         formControlName="id_ciudad"
-        name="ciudad"       
+        name="ciudad"
         required
       >
         <ion-select-option *ngFor="let ciudad of ciudades" [value]="ciudad.id">
@@ -78,29 +83,24 @@
         </ion-select-option>
       </ion-select>
     </div>
-    
+
     <div class="form-group">
       <ion-label position="floating">Telefono</ion-label>
       <ion-input
         formControlName="telefono"
-        type="text"        
+        type="text"
         name="telefono"
       ></ion-input>
     </div>
 
     <div class="form-group">
       <ion-label position="floating">Email</ion-label>
-      <ion-input
-        formControlName="email"
-        type="text"        
-        name="email"
-      ></ion-input>
+      <ion-input formControlName="email" type="text" name="email"></ion-input>
     </div>
 
-    <ion-button type="button" expand="block" (click)="setGeobicationModal()">Editar Ubicación</ion-button>
+    <ion-button type="button" expand="block" (click)="setGeobicationModal()"
+      >Editar Ubicación</ion-button
+    >
     <ion-button type="submit" expand="block">Guardar</ion-button>
   </form>
-
-  
 </ion-content>
-
