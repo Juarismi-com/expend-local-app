@@ -79,6 +79,10 @@ const routes: Routes = [
         (m) => m.ProveedorDetailPageModule
       ),
   },
+  {
+    path: 'cliente-list',
+    loadChildren: () => import('./pages/cliente/cliente-list/cliente-list.module').then( m => m.ClienteListPageModule)
+  },
 ];
 
 @NgModule({

@@ -21,6 +21,7 @@ export class AppComponent implements OnChanges{
     { title: 'Inicio', url: '/dashboard/dashboard-vendedor', icon: 'albums' },
     { title: 'Preventas', url: '/preventa-list', icon: 'checkmark-done' },
     { title: 'Proveedores', url: '/proveedor-detail', icon: 'paper-plane' },
+    { title: 'Clientes', url: '/cliente-list', icon: 'paper-plane' },
     //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
     //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
     //{ title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
