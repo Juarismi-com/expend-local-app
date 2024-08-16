@@ -3,6 +3,7 @@ import { AlertController, ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GeoSimplePage } from 'src/app/pages/common/geo/geo-simple/geo-simple.page';
 import { DepartamentoService } from 'src/app/services/departamento.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 import { CiudadService } from 'src/app/services/ciudad.service';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
@@ -18,13 +19,15 @@ export class ClienteFormModalComponent implements OnInit {
   ciudades: any[] = [];
   categoriaClientes: any[] = [];
   nombre: string = '';
+  clientes: any[] = [];
 
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
     private departamentoService: DepartamentoService,
     private ciudadService: CiudadService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private clienteService: ClienteService
   ) {
     this.clienteForm = this.setClienteFormDefault();
   }
@@ -75,6 +78,27 @@ export class ClienteFormModalComponent implements OnInit {
       ).data;
     } catch (error) {
       console.error('Error al cargar los departamentos', error);
+    }
+  }
+
+  async handleInputSearch(e: any) {
+    try {
+      const value = e.target.value.toLowerCase();
+      this.clientes = await this.clienteService.searchClient(value);
+
+      this.clienteForm.patchValue({
+        nombre: this.clientes[0].nombre,
+        telefono: this.clientes[0].telefono,
+        id_departamento: this.clientes[0].id_departamento,
+      });
+
+      await this.onDepartamentoChange({
+        detail: { value: this.clientes[0].id_departamento },
+      });
+
+      this.clienteForm.patchValue({ id_ciudad: this.clientes[0].id_ciudad });
+    } catch (error) {
+      console.error('Error al buscar clientes', error);
     }
   }
 
