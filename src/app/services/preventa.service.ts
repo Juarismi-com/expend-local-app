@@ -109,7 +109,6 @@ export class PreventaService {
       return preventaDate >= oneWeekAgo;
     });
 
-    console.log(recentPreventas);
     return recentPreventas;
   }
 }
