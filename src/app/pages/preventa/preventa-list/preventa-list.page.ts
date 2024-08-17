@@ -7,35 +7,35 @@ import { PreventaService } from 'src/app/services/preventa.service';
   templateUrl: './preventa-list.page.html',
   styleUrls: ['./preventa-list.page.scss'],
 })
-export class PreventaListPage{
-
-  public preventaList : any[] = [];
+export class PreventaListPage {
+  public preventaList: any[] = [];
 
   constructor(
-    private storageService: StorageService, 
+    private storageService: StorageService,
     private preventaService: PreventaService
-  ) { }
+  ) {}
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.getPreventaByVendedorId();
   }
 
   async handleInputSearch(e: any) {
     const value = e.target.value.toLowerCase();
-    this.preventaList =  await this.preventaService.searchPreventa(value)
+    this.preventaList = await this.preventaService.searchPreventa(value);
   }
 
-  editPreventa(preventa: any){
-    console.log("editPreventa");
+  editPreventa(preventa: any) {
+    console.log('editPreventa');
     // @todo should view the preventa-form modal with data
   }
 
-  
-  async getPreventaByVendedorId(){
-    const usuario : any = await this.storageService.get("usuario");
-    if (usuario?.vendedor){
-      this.preventaList = await this.preventaService.getPreventaByVendedorId(usuario.vendedor?.id);
-    }   
+  async getPreventaByVendedorId() {
+    const usuario: any = await this.storageService.get('usuario');
+    if (usuario?.vendedor) {
+      this.preventaList =
+        await this.preventaService.getRecentPreventasByVendedorId(
+          usuario.vendedor?.id
+        );
+    }
   }
-
 }

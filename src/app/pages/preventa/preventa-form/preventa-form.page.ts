@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, AlertController, ModalOptions, LoadingController } from '@ionic/angular';
+import {
+  ModalController,
+  AlertController,
+  ModalOptions,
+  LoadingController,
+} from '@ionic/angular';
 import { ProductoTableModalComponent } from '../../../components/producto/producto-table-modal/producto-table-modal.component';
 import { ProductoFormModalComponent } from 'src/app/components/producto/producto-form-modal/producto-form-modal.component';
 import { ClienteTableModalComponent } from '../../../components/cliente/cliente-table-modal/cliente-table-modal.component';
@@ -103,13 +108,9 @@ export class PreventaFormPage {
     });
 
     modal.onDidDismiss().then(async ({ data }) => {
-      const cliente = data
+      const cliente = data;
       if (cliente) {
-        this.setCliente(
-          cliente.ruc || cliente.ci,
-          cliente.nombre,
-          cliente.id
-        );
+        this.setCliente(cliente.ruc || cliente.ci, cliente.nombre, cliente.id);
       }
     });
     await modal.present();
@@ -220,15 +221,15 @@ export class PreventaFormPage {
             text: 'Aceptar',
             handler: async () => {
               const loading = await this.loadingCtrl.create({
-                message: "Enviando.."
-              })
+                message: 'Enviando..',
+              });
 
               loading.present();
-              
+
               await this.preventaService.create(payload);
               this.setOpenToast(true, 'Prenventa creada');
               this.preventaForm = this.setPreventaFormDefault();
-              
+
               loading.dismiss();
             },
           },
@@ -241,5 +242,4 @@ export class PreventaFormPage {
       this.setOpenToast(true, 'Prenventa no creada');
     }
   }
-
 }
