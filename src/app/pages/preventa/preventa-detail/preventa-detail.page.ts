@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { formatPriceNumber } from 'src/app/helpers/index.helper';
 import { PreventaService } from 'src/app/services/preventa.service';
 
 @Component({
@@ -46,8 +47,8 @@ export class PreventaDetailPage implements OnInit {
       message += `${index + 1}. ${producto.producto.nombre}\n`;
       message += `   Cantidad: ${producto.cantidad}\n`;
       message += `   Presentación: ${producto.tipo_envase}\n`;
-      message += `   Precio Unitario: ${producto.precio_unitario}\n`;
-      message += `   Subtotal: ${producto.subtotal}\n\n`;
+      message += `   Precio Unitario: ${formatPriceNumber(producto.precio_unitario)}\n`;
+      message += `   Subtotal: ${formatPriceNumber(producto.subtotal)}\n\n`;
     });
 
     const encodedMessage = encodeURIComponent(message);

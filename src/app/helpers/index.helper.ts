@@ -9,7 +9,7 @@ export const formatPriceNumber = (price: string|number, geo: string = "es-PY") =
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
      }).format(
-        parseFloat(price.toString()),
+        parseInt(price.toString()),
     )
     return priceFormat;
 }
