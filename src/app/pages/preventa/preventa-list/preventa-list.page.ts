@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { PreventaService } from 'src/app/services/preventa.service';
+import { Subscription } from 'rxjs';
+import { MeService } from 'src/app/services/me.service';
 
 @Component({
   selector: 'app-preventa-list',
@@ -8,13 +10,25 @@ import { PreventaService } from 'src/app/services/preventa.service';
   styleUrls: ['./preventa-list.page.scss'],
 })
 export class PreventaListPage{
+  public storageSub: Subscription | undefined;
+  @Input()
+  public usuario: any = null;
 
   public preventaList : any[] = [];
 
   constructor(
-    private storageService: StorageService, 
-    private preventaService: PreventaService
+    private storageService: StorageService,
+    private preventaService: PreventaService,
+    private meService: MeService
   ) { }
+
+  async ngOnInit() {
+    // If using a custom driver:
+    // await this.storage.defineDriver(MyCustomDriver)
+    this.storageSub = this.storageService.watchStorage().subscribe(() => {
+      this.usuario = await this.meService.me();
+    });
+  }
 
   ionViewWillEnter(){
     this.getPreventaByVendedorId();
