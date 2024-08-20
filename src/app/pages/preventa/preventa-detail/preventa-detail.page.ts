@@ -38,7 +38,7 @@ export class PreventaDetailPage implements OnInit {
       this.preventa.cliente.ruc || this.preventa.cliente.ci
     }\n`;
 
-    message += `Total: ${this.preventa.total}\n`;
+    message += `Total: ${formatPriceNumber(this.preventa.total)}\n`;
     message += `Estado: ${this.preventa.estado}\n\n`;
 
     message += `Detalle de productos:\n`;
