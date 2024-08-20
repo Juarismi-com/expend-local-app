@@ -25,16 +25,19 @@ export class ProductoTableModalComponent {
 
   async selectProduct(producto: any) {
     const prices = this.productoService.setListOfPrices(producto);
-    const precioDefault = prices[1]?.precio || producto.precio
+    const precio = prices[1]?.precio || producto.precio
+    const descuento = prices[1]?.descuento
+
     const modal = await this.modalController.create({
       component: ProductoFormModalComponent,
       componentProps: {
         producto: {
           ...producto,
           producto_id: producto.id,
-          precio_unitario: precioDefault,
+          precio_unitario: precio,
           cantidad: 1,
-          subtotal: precioDefault * 1,
+          descuento,
+          subtotal: precio * 1,
           precio_lista: prices,
         },
       },

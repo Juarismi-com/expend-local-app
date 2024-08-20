@@ -35,6 +35,8 @@ export class ProductoFormModalComponent implements OnInit {
     if (this.producto) {
       this.productoForm.patchValue({
         ...this.producto,
+
+        // Se le agrega un precio minimo por defecto
         precio_minimo: this.producto.precio_unitario
       });
     }
