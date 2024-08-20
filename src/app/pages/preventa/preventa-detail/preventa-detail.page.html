@@ -36,39 +36,39 @@
     </ion-list>
 
     <!-- Productos detalle -->
-    <ion-grid
-      *ngFor="let producto of preventa.detalle; let i = index"
-      class="bl-detalle"
-    >
-      <ion-row>
-        <ion-col size-sm="12"> Id/Cod: {{ producto?.producto_id}} </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size-sm="12">
-          <strong> {{ producto?.producto.nombre }} </strong>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="2"
-          ><div class="ion-text-start">
-            {{ producto?.tipo_envase }}
-          </div></ion-col
-        >
-        <ion-col size="2"
-          ><div class="ion-text-start">{{ producto.cantidad }}</div></ion-col
-        >
-        <ion-col size="4"
-          ><div class="ion-text-end">
-            {{ producto.precio_unitario | formatCustom}}
-          </div></ion-col
-        >
-        <ion-col size="4" class="bl-subtotal ion-text-end"
-          >{{ producto.subtotal | formatCustom }}</ion-col
-        >
-      </ion-row>
-    </ion-grid>
-
     <div class="ion-padding">
+      <ion-grid
+        *ngFor="let producto of preventa.detalle; let i = index"
+        class="bl-detalle"
+      >
+        <ion-row>
+          <ion-col size-sm="12"> Id/Cod: {{ producto?.producto_id}} </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-sm="12">
+            <strong> {{ producto?.producto.nombre  + " - " + producto?.producto.descripcion}} </strong>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="2"
+            ><div class="ion-text-start">
+              {{ producto?.tipo_envase }}
+            </div></ion-col
+          >
+          <ion-col size="2"
+            ><div class="ion-text-start">{{ producto.cantidad }}</div></ion-col
+          >
+          <ion-col size="4"
+            ><div class="ion-text-end">
+              {{ producto.precio_unitario | formatCustom}}
+            </div></ion-col
+          >
+          <ion-col size="4" class="bl-subtotal ion-text-end"
+            >{{ producto.subtotal | formatCustom }}</ion-col
+          >
+        </ion-row>
+      </ion-grid>
+  
       <ion-button expand="block" (click)="openWhatsApp(preventaId)">
         Enviar por WhatsApp
       </ion-button>

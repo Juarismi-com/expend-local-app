@@ -27,7 +27,7 @@ export class LoginFormPage {
 
   async loginFormSubmit() {       
     try {
-      this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
+      await this.authService.login(this.loginForm.value.email, this.loginForm.value.password)
       this.router.navigate(['/dashboard/dashboard-vendedor']);
     } catch (error) {
       console.log(error);

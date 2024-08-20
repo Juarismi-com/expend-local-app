@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { PreventaService } from 'src/app/services/preventa.service';
 import { Subscription } from 'rxjs';
-import { MeService } from 'src/app/services/me.service';
+import { MeService } from 'src/app/services/auth/me.service';
 
 @Component({
   selector: 'app-preventa-list',
@@ -23,10 +23,8 @@ export class PreventaListPage{
   ) { }
 
   async ngOnInit() {
-    // If using a custom driver:
-    // await this.storage.defineDriver(MyCustomDriver)
-    this.storageSub = this.storageService.watchStorage().subscribe(() => {
-      this.usuario = await this.meService.me();
+    this.storageSub = this.storageService.watchStorage().subscribe(async () => {
+      this.usuario = await this.meService.me()
     });
   }
 
