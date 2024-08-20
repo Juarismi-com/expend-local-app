@@ -95,16 +95,20 @@ export class PreventaService {
   }
 
   async getRecentPreventasByVendedorId(vendedorId: string | number) {
-    const result = (
-      await axios.get(
-        `${environment.apiUrl}/preventas?vendedor_id=${vendedorId}`
-      )
-    ).data?.rows;
+    const result: any[] = await this.storageService.get(
+      'preventa/preventa-list'
+    );
 
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    const today = new Date();
+    const oneWeekAgo: Date = new Date(today);
 
-    const recentPreventas = result.filter((preventa: any) => {
+    oneWeekAgo.setDate(today.getDate() - 7);
+
+    const preventasByVendedor = result.filter((preventa: any) => {
+      return preventa.vendedor_id === vendedorId;
+    });
+
+    const recentPreventas = preventasByVendedor.filter((preventa: any) => {
       const preventaDate = new Date(preventa.fecha);
       return preventaDate >= oneWeekAgo;
     });

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { StorageService } from 'src/app/services/storage.service';
 import { PreventaService } from 'src/app/services/preventa.service';
+import { MeService } from 'src/app/services/me.service';
 
 @Component({
   selector: 'app-preventa-list',
@@ -11,7 +12,7 @@ export class PreventaListPage {
   public preventaList: any[] = [];
 
   constructor(
-    private storageService: StorageService,
+    private meService: MeService,
     private preventaService: PreventaService
   ) {}
 
@@ -30,12 +31,10 @@ export class PreventaListPage {
   }
 
   async getPreventaByVendedorId() {
-    const usuario: any = await this.storageService.get('usuario');
-    if (usuario?.vendedor) {
+    const vendedorId: any = await this.meService.getVendedor();
+    if (vendedorId) {
       this.preventaList =
-        await this.preventaService.getRecentPreventasByVendedorId(
-          usuario.vendedor?.id
-        );
+        await this.preventaService.getRecentPreventasByVendedorId(vendedorId);
     }
   }
 }
