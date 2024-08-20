@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { v4 as uuidv4 } from 'uuid';
 import { environment } from 'src/environments/environment';
 import { StorageService } from 'src/app/services/storage.service';
 import { PreventaService } from 'src/app/services/preventa.service';
@@ -27,7 +26,6 @@ export class DashboardVendedorPage implements OnInit {
 
       if (preventaList && preventaList.length > 0) {
         for (const preventa of preventaList) {
-          preventa.uuid = uuidv4();
           await this.preventaService.create(preventa);
         }
 

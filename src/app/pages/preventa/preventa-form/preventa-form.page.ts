@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController, AlertController, ModalOptions, LoadingController } from '@ionic/angular';
+import {
+  ModalController,
+  AlertController,
+  ModalOptions,
+  LoadingController,
+} from '@ionic/angular';
 import { ProductoTableModalComponent } from '../../../components/producto/producto-table-modal/producto-table-modal.component';
 import { ProductoFormModalComponent } from 'src/app/components/producto/producto-form-modal/producto-form-modal.component';
 import { ClienteTableModalComponent } from '../../../components/cliente/cliente-table-modal/cliente-table-modal.component';
 import { ProductoService } from 'src/app/services/producto.service';
 import { PreventaService } from 'src/app/services/preventa.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-preventa-form',
@@ -43,7 +50,8 @@ export class PreventaFormPage {
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private productoService: ProductoService,
-    private preventaService: PreventaService //private storageService: StorageService,
+    private preventaService: PreventaService, //private storageService: StorageService,}
+    private storageService: StorageService
   ) {
     this.preventaForm = this.setPreventaFormDefault();
     this.segmentValue = 'formulario';
@@ -103,13 +111,9 @@ export class PreventaFormPage {
     });
 
     modal.onDidDismiss().then(async ({ data }) => {
-      const cliente = data
+      const cliente = data;
       if (cliente) {
-        this.setCliente(
-          cliente.ruc || cliente.ci,
-          cliente.nombre,
-          cliente.id
-        );
+        this.setCliente(cliente.ruc || cliente.ci, cliente.nombre, cliente.id);
       }
     });
     await modal.present();
@@ -220,15 +224,18 @@ export class PreventaFormPage {
             text: 'Aceptar',
             handler: async () => {
               const loading = await this.loadingCtrl.create({
-                message: "Enviando.."
-              })
+                message: 'Enviando..',
+              });
 
               loading.present();
-              
+
+              payload.uuid = uuidv4();
+              this.storageService.set('preventa/preventa-list', payload);
+
               await this.preventaService.create(payload);
               this.setOpenToast(true, 'Prenventa creada');
               this.preventaForm = this.setPreventaFormDefault();
-              
+
               loading.dismiss();
             },
           },
@@ -241,5 +248,4 @@ export class PreventaFormPage {
       this.setOpenToast(true, 'Prenventa no creada');
     }
   }
-
 }
