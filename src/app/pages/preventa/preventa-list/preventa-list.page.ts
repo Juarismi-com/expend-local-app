@@ -7,9 +7,9 @@ import { MeService } from 'src/app/services/auth/me.service';
 import { VendedorTableModalComponent } from 'src/app/components/vendedor/vendedor-table-modal/vendedor-table-modal.component';
 
 @Component({
-  selector: 'app-preventa-list',
-  templateUrl: './preventa-list.page.html',
-  styleUrls: ['./preventa-list.page.scss'],
+   selector: "app-preventa-list",
+   templateUrl: "./preventa-list.page.html",
+   styleUrls: ["./preventa-list.page.scss"],
 })
 export class PreventaListPage {
   public storageSub: Subscription | undefined;
