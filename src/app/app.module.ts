@@ -12,6 +12,7 @@ import { ProductoTableModalComponent } from './components/producto/producto-tabl
 import { ClienteFormModalComponent } from './components/cliente/cliente-form-modal/cliente-form-modal.component';
 import { ClienteTableModalComponent } from './components/cliente/cliente-table-modal/cliente-table-modal.component';
 import { ProveedorTableModalComponent } from './components/proveedor/proveedor-table-modal/proveedor-table-modal.component';
+import { VendedorTableModalComponent } from './components/vendedor/vendedor-table-modal/vendedor-table-modal.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { IonicStorageModule } from '@ionic/storage-angular';
@@ -26,6 +27,7 @@ import { PipeModule } from './pipes/pipe/pipe.module';
     ClienteFormModalComponent,
     ProveedorTableModalComponent,
     ProductoTableModalComponent,
+    VendedorTableModalComponent,
   ],
   imports: [
     BrowserModule,

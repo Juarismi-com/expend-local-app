@@ -100,7 +100,7 @@
   </div>
 
   <!-- SEGMENT DE LISTADO DE PRODUCTO -->
-  <div *ngIf="segmentValue == 'producto'">
+  <div *ngIf="segmentValue === 'producto'">
     <!-- Productos detalle -->
     <ion-grid
       *ngFor="let producto of productos; let i = index"
@@ -152,7 +152,6 @@
       Seleccionar Producto
     </ion-button>
   </div>
-  
 </ion-content>
 
 <ion-toast
