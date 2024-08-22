@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   ModalController,
@@ -11,6 +12,7 @@ import { ProductoFormModalComponent } from 'src/app/components/producto/producto
 import { ClienteTableModalComponent } from '../../../components/cliente/cliente-table-modal/cliente-table-modal.component';
 import { ProductoService } from 'src/app/services/producto.service';
 import { PreventaService } from 'src/app/services/preventa.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-preventa-form',
@@ -48,7 +50,8 @@ export class PreventaFormPage {
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private productoService: ProductoService,
-    private preventaService: PreventaService //private storageService: StorageService,
+    private preventaService: PreventaService, //private storageService: StorageService,}
+    private storageService: StorageService
   ) {
     this.preventaForm = this.setPreventaFormDefault();
     this.segmentValue = 'formulario';
@@ -225,6 +228,9 @@ export class PreventaFormPage {
               });
 
               loading.present();
+
+              payload.uuid = uuidv4();
+              this.storageService.set('preventa/preventa-list', payload);
 
               await this.preventaService.create(payload);
               this.setOpenToast(true, 'Preventa creada');

@@ -13,10 +13,19 @@
       <ion-card-title>Tu resumen</ion-card-title>
       <ion-card-subtitle>Meta, Preventas, Clientes, etc</ion-card-subtitle>
     </ion-card-header>
-  
+
     <ion-card-content>
-      Pronto aquí tendras un resumen de tus actividades.<br>
+      Pronto aquí tendras un resumen de tus actividades.<br />
       Test: {{ apiUrl }}
     </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Sincronizar preventas</ion-card-title>
+    </ion-card-header>
+    <ion-button expand="block" (click)="syncPreventasWithServer()"
+      >Actualizar</ion-button
+    >
   </ion-card>
 </ion-content>
