@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
-import { MeService } from 'src/app/services/me.service';
+import { MeService } from 'src/app/services/auth/me.service';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,10 @@ export class PreventaService {
 
   getTotalPreventas = async () => {
     try {
-      const vendedor_id = await this.meService.getVendedor();   
-      const res = await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${vendedor_id}`);
+      const vendedor_id = await this.meService.getVendedor();
+      const res = await axios.get(
+        `${environment.apiUrl}/preventas?vendedor_id=${vendedor_id}`
+      );
       return res.data.count;
     } catch (error) {
       console.log(error);
@@ -57,22 +59,25 @@ export class PreventaService {
     }
   }
 
-
   /**
    * Retorna el detalle de una preventa
-   * @param preventaId 
-   * @returns 
+   * @param preventaId
+   * @returns
    */
-  async getPreventaDetail(preventaId: number|string){
-    const result = await axios.get(`${environment.apiUrl}/preventas/${preventaId}`);
+  async getPreventaDetail(preventaId: number | string) {
+    const result = await axios.get(
+      `${environment.apiUrl}/preventas/${preventaId}`
+    );
     return result?.data;
   }
 
   async findAll() {}
 
   async searchPreventa(value: string) {
-    if (value.length > 3){
-      const result = (await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${value}`)).data?.rows;
+    if (value.length > 3) {
+      const result = (
+        await axios.get(`${environment.apiUrl}/preventas?vendedor_id=${value}`)
+      ).data?.rows;
       return result;
     }
 
@@ -87,5 +92,27 @@ export class PreventaService {
     ).data?.rows;
     console.log(result);
     return result;
+  }
+
+  async getRecentPreventasByVendedorId(vendedorId: string | number) {
+    const result: any[] = await this.storageService.get(
+      'preventa/preventa-list'
+    );
+
+    const today = new Date();
+    const oneWeekAgo: Date = new Date(today);
+
+    oneWeekAgo.setDate(today.getDate() - 7);
+
+    const preventasByVendedor = result.filter((preventa: any) => {
+      return preventa.vendedor_id === vendedorId;
+    });
+
+    const recentPreventas = preventasByVendedor.filter((preventa: any) => {
+      const preventaDate = new Date(preventa.fecha);
+      return preventaDate >= oneWeekAgo;
+    });
+
+    return recentPreventas;
   }
 }

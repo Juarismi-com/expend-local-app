@@ -17,4 +17,15 @@ export class MeService {
     return user;
   }
 
+  async getVendedor() {    
+    const user : any = await this.me();
+    const vendedor_id = user?.vendedor?.id;
+    return vendedor_id;
+  }
+
+  async getCliente() {    
+    const user : any = await this.me();
+    const cliente_id = user?.cliente?.id;
+    return cliente_id;
+  }
 }

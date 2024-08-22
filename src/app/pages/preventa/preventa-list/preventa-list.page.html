@@ -8,6 +8,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-icon
+    *ngIf="usuario?.is_admin"
+    name="filter-outline"
+    (click)="openVendedorTableModal()"
+  ></ion-icon>
+
   <ion-list lines="full">
     <ion-item
       *ngFor="let result of preventaList"
@@ -25,7 +31,6 @@
       <div slot="end">
         <ion-icon color="end" name="chevron-forward"></ion-icon>
       </div>
-
     </ion-item>
   </ion-list>
 

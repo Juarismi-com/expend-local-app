@@ -233,7 +233,7 @@ export class PreventaFormPage {
               this.storageService.set('preventa/preventa-list', payload);
 
               await this.preventaService.create(payload);
-              this.setOpenToast(true, 'Prenventa creada');
+              this.setOpenToast(true, 'Preventa creada');
               this.preventaForm = this.setPreventaFormDefault();
 
               loading.dismiss();

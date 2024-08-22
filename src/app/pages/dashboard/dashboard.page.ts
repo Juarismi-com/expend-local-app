@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PreventaService } from 'src/app/services/preventa.service';
-import { MeService } from 'src/app/services/me.service';
+import { MeService } from 'src/app/services/auth/me.service';
 
 @Component({
   selector: 'app-dashboard',

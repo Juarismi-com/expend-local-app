@@ -1,3 +1,41 @@
 {
-  "typescript.preferences.autoImportFileExcludePatterns": ["@ionic/angular/common", "@ionic/angular/standalone"]
+   "typescript.preferences.autoImportFileExcludePatterns": [
+      "@ionic/angular/common",
+      "@ionic/angular/standalone"
+   ],
+   "editor.formatOnPaste": true,
+   "editor.formatOnSave": true,
+
+   // Para que no defecte la indentación del archivo
+   "editor.detectIndentation": false,
+   "editor.tabSize": 3,
+
+   // Inserta espacios cuando se agregan tabs
+   "editor.insertSpaces": true,
+
+   // Muestra barra vertical de identitación
+   "editor.guides.indentation": true,
+
+   // Agrega nueva linea al final
+   "editor.renderFinalNewline": "on",
+
+   // Muestra la flecha del tab y el punto del espacio en la identación
+   "editor.renderWhitespace": "none",
+   "editor.rulers": [80, 120],
+   "editor.wordWrap": "wordWrapColumn",
+   "editor.wordWrapColumn": 80,
+
+   "editor.defaultFormatter": "esbenp.prettier-vscode",
+   "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+   },
+   "[shellscript]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+   },
+   "[dockerfile]": {
+      "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+   },
+   "[dotenv]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+   }
 }
