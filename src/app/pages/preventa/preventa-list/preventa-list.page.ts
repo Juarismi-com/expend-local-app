@@ -46,14 +46,14 @@ export class PreventaListPage {
   }
 
   async getPreventaByVendedorId() {
-    const usuario: any = await this.storageService.get('usuario');
-    if (usuario?.vendedor) {
-      this.preventaList = await this.preventaService.getPreventaByVendedorId(
-        usuario.vendedor?.id
-      );
+
+    const vendedorId: any = await this.meService.getVendedor();
+    if (vendedorId) {
+      this.preventaList =
+        await this.preventaService.getRecentPreventasByVendedorId(vendedorId);
     }
   }
-
+  
   async openVendedorTableModal() {
     const modal = await this.modalController.create({
       component: VendedorTableModalComponent,
@@ -69,4 +69,5 @@ export class PreventaListPage {
     });
     await modal.present();
   }
+
 }
