@@ -121,6 +121,8 @@ export class ProductoService {
       valorDescuento = (producto?.precio * parseFloat(oferta.descuento)) / 100;
       precioDescuento = producto?.precio - valorDescuento;
 
+      console.log(oferta.descuento)
+
       prices.push({
         nombre: `Entero c/ Dto (${oferta.descuento}) % - ${formatPriceNumber(
           precioDescuento

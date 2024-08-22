@@ -81,7 +81,10 @@ const routes: Routes = [
   },
   {
     path: 'cliente-list',
-    loadChildren: () => import('./pages/cliente/cliente-list/cliente-list.module').then( m => m.ClienteListPageModule)
+    loadChildren: () =>
+      import('./pages/cliente/cliente-list/cliente-list.module').then(
+        (m) => m.ClienteListPageModule
+      ),
   },
 ];
 

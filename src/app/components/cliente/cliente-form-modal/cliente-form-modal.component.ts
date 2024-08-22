@@ -83,20 +83,14 @@ export class ClienteFormModalComponent implements OnInit {
 
   async handleInputSearch(e: any) {
     try {
-      const value = e.target.value.toLowerCase();
+      const value = e.target.value.toLowerCase(); // ruc or ci
       this.clientes = await this.clienteService.searchClient(value);
+      const cliente = this.clientes[0]
+      
+      this.ciudades = await this.ciudadService
+        .getCiudadesPorDepartamento(cliente?.id_departamento);
 
-      this.clienteForm.patchValue({
-        nombre: this.clientes[0].nombre,
-        telefono: this.clientes[0].telefono,
-        id_departamento: this.clientes[0].id_departamento,
-      });
-
-      await this.onDepartamentoChange({
-        detail: { value: this.clientes[0].id_departamento },
-      });
-
-      this.clienteForm.patchValue({ id_ciudad: this.clientes[0].id_ciudad });
+      this.clienteForm.patchValue({ ...cliente });
     } catch (error) {
       console.error('Error al buscar clientes', error);
     }
