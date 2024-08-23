@@ -3,10 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  gmapsKey: 'AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ',
-  apiUrl: 'https://001aod9sa8.execute-api.us-east-1.amazonaws.com/core',
-  //apiUrl: 'http://localhost:8000',
+   production: false,
+   gmapsKey: "AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ",
+   //apiUrl: 'https://001aod9sa8.execute-api.us-east-1.amazonaws.com/core',
+   apiUrl: "http://localhost:8000",
 };
 
 /*
