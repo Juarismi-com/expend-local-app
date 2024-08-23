@@ -232,6 +232,7 @@ export class PreventaFormPage {
                         message: "Enviando..",
                      });
 
+                     // @todo uuidv4 debe generarse desde el create
                      loading.present();
                      payload.uuid = uuidv4();
 
@@ -242,7 +243,6 @@ export class PreventaFormPage {
                      );
 
                      this.setOpenToast(true, "Preventa creada");
-
                      this.preventaForm = this.setPreventaFormDefault();
 
                      loading.dismiss();

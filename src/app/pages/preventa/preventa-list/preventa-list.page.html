@@ -1,47 +1,53 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="main">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Preventas</ion-title>
-  </ion-toolbar>
+   <ion-toolbar color="main">
+      <ion-buttons slot="start">
+         <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Preventas</ion-title>
+   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-icon
-    *ngIf="usuario?.is_admin"
-    name="filter-outline"
-    (click)="openVendedorTableModal()"
-  ></ion-icon>
+   <div *ngIf="usuario?.is_admin">
+      <ion-grid>
+         <ion-row>
+            <ion-col>
+               <ion-button size="small" (click)="openVendedorTableModal()">
+                  Vendedores <ion-icon name="filter-outline"></ion-icon>
+               </ion-button>
+            </ion-col>
+         </ion-row>
+      </ion-grid>
+   </div>
 
-  <ion-list lines="full">
-    <ion-item
-      *ngFor="let result of preventaList"
-      [routerLink]="['/preventa-detail', result.id]"
-      detail="false"
-    >
-      <ion-label>
-        <strong>Tx: {{ result.id }}</strong><br />
-        <strong>{{ result.cliente.nombre }}</strong><br />
-        <ion-text>Estado: {{ result.estado }}</ion-text><br />
-      </ion-label>
-      <div class="metadata-end-wrapper" slot="end">
-        <ion-text>{{ result.total | formatCustom }}</ion-text>
-      </div>
-      <div slot="end">
-        <ion-icon color="end" name="chevron-forward"></ion-icon>
-      </div>
-    </ion-item>
-  </ion-list>
+   <ion-list lines="full">
+      <ion-item
+         *ngFor="let result of preventaList"
+         [routerLink]="['/preventa-detail', result.id]"
+         detail="false"
+      >
+         <ion-label>
+            <strong>Tx: {{ result.id }}</strong><br />
+            <strong>{{ result.cliente.nombre }}</strong><br />
+            <ion-text>Estado: {{ result.estado }}</ion-text><br />
+         </ion-label>
+         <div class="metadata-end-wrapper" slot="end">
+            <ion-text>{{ result.total | formatCustom }}</ion-text>
+         </div>
+         <div slot="end">
+            <ion-icon color="end" name="chevron-forward"></ion-icon>
+         </div>
+      </ion-item>
+   </ion-list>
 
-  <ion-fab
-    slot="fixed"
-    vertical="bottom"
-    horizontal="end"
-    routerLink="/preventa-form"
-  >
-    <ion-fab-button color="secondary">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+   <ion-fab
+      slot="fixed"
+      vertical="bottom"
+      horizontal="end"
+      routerLink="/preventa-form"
+   >
+      <ion-fab-button color="secondary">
+         <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
 </ion-content>
