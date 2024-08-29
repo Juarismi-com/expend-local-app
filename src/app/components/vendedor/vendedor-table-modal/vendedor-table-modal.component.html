@@ -1,44 +1,36 @@
 <ion-header>
-  <ion-toolbar color="main">
-    <ion-title>Seleccionar Vendedor</ion-title>
+   <ion-toolbar color="main">
+      <ion-title>Seleccionar Vendedor</ion-title>
 
-    <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+      <ion-buttons slot="end">
+         <ion-button (click)="closeModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+         </ion-button>
+      </ion-buttons>
+   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- <ion-searchbar
+   <!-- <ion-searchbar
     placeholder="Filtrar por ID o nombre"
     (ionInput)="handleInputSearch($event)"
     [debounce]="100"
   ></ion-searchbar> -->
 
-  <ion-list lines="full">
-    <ion-item
-      *ngFor="let result of vendedores"
-      [button]="true"
-      detail="false"
-      (click)="selectVendedor(result)"
-    >
-      <ion-label>
-        <strong>{{ result?.id || result?.ci }}</strong
-        ><br />
-        <ion-text>{{ result.nombre | titlecase }}</ion-text
-        ><br />
-        Tel: {{ result?.telefono }}<br />
-        Dir: {{ result?.direccion | titlecase }}<br />
-      </ion-label>
-    </ion-item>
-  </ion-list>
-
-  <!-- boton para el formulario con el vendedor -->
-  <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="openVendedorFormModal()" color="secondary">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
+   <ion-list lines="full">
+      <ion-item
+         *ngFor="let result of vendedores"
+         [button]="true"
+         detail="false"
+         (click)="selectVendedor(result)"
+      >
+         <ion-label>
+            <strong>{{ result?.id || result?.ci }}</strong
+            ><br />
+            <ion-text>{{ result.nombre | titlecase }}</ion-text
+            ><br />
+            Tel: {{ result?.telefono }}<br />
+         </ion-label>
+      </ion-item>
+   </ion-list>
 </ion-content>
