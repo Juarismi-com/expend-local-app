@@ -39,6 +39,7 @@ export class PreventaListPage {
 
    async handleInputSearch(e: any) {
       const value = e.target.value.toLowerCase();
+      this.preventaList = [];
       this.preventaList = await this.preventaService.searchPreventa(value);
    }
 
@@ -48,6 +49,7 @@ export class PreventaListPage {
    }
 
    async getPreventaByVendedorId() {
+      this.preventaList = [];
       const vendedorId: any = await this.meService.getVendedor();
 
       if (vendedorId) {
@@ -63,6 +65,7 @@ export class PreventaListPage {
       });
 
       modal.onDidDismiss().then(async ({ data }) => {
+         this.preventaList = [];
          const vendedor = data;
          if (vendedor) {
             this.preventaList =
