@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { LoadingController } from "@ionic/angular";
+import { AlertController, LoadingController } from "@ionic/angular";
 import { AuthService } from "src/app/services/auth/auth.service";
 
 @Component({
@@ -20,6 +20,7 @@ export class LoginFormPage {
       private router: Router,
       private authService: AuthService,
       private loadingCtrl: LoadingController,
+      private alertController: AlertController,
    ) {
       this.loginForm = this.formBuilder.group({
          email: ["", Validators.required],
@@ -31,6 +32,13 @@ export class LoginFormPage {
       const loading = await this.loadingCtrl.create({
          message: "Enviando..",
       });
+
+      const errorLogin = await this.alertController.create({
+         header: "Error",
+         message: "Usuario inválido o inexistente",
+         buttons: ["OK"],
+      });
+
       try {
          loading.present();
          await this.authService.login(
@@ -40,6 +48,7 @@ export class LoginFormPage {
          this.router.navigate(["/dashboard/dashboard-vendedor"]);
       } catch (error) {
          console.log(error);
+         errorLogin.present();
       } finally {
          loading.dismiss();
       }
