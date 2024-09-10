@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { LoadingController } from "@ionic/angular";
 import { AuthService } from "src/app/services/auth/auth.service";
 
 @Component({
@@ -18,6 +19,7 @@ export class LoginFormPage {
       private formBuilder: FormBuilder,
       private router: Router,
       private authService: AuthService,
+      private loadingCtrl: LoadingController,
    ) {
       this.loginForm = this.formBuilder.group({
          email: ["", Validators.required],
@@ -26,8 +28,11 @@ export class LoginFormPage {
    }
 
    async loginFormSubmit() {
-      this.isLoading = true;
+      const loading = await this.loadingCtrl.create({
+         message: "Enviando..",
+      });
       try {
+         loading.present();
          await this.authService.login(
             this.loginForm.value.email,
             this.loginForm.value.password,
@@ -36,7 +41,7 @@ export class LoginFormPage {
       } catch (error) {
          console.log(error);
       } finally {
-         this.isLoading = false;
+         loading.dismiss();
       }
    }
 }
