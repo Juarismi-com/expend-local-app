@@ -30,7 +30,7 @@ export class LoginFormPage {
 
    async loginFormSubmit() {
       const loading = await this.loadingCtrl.create({
-         message: "Enviando..",
+         message: "Cargando...",
       });
 
       const errorLogin = await this.alertController.create({
