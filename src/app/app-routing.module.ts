@@ -93,6 +93,10 @@ const routes: Routes = [
             (m) => m.AboutUsPageModule,
          ),
    },
+  {
+    path: 'venta-form',
+    loadChildren: () => import('./pages/venta/venta-form/venta-form.module').then( m => m.VentaFormPageModule)
+  },
 ];
 
 @NgModule({

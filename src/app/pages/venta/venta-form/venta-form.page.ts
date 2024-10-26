@@ -10,16 +10,16 @@ import { ProductoTableModalComponent } from "../../../components/producto/produc
 import { ProductoFormModalComponent } from "src/app/components/producto/producto-form-modal/producto-form-modal.component";
 import { ClienteTableModalComponent } from "../../../components/cliente/cliente-table-modal/cliente-table-modal.component";
 import { ProductoService } from "src/app/services/producto.service";
-import { PreventaService } from "src/app/services/preventa.service";
+import { VentaService } from "src/app/services/venta.service";
 import { StorageService } from "src/app/services/storage.service";
 
 @Component({
-   selector: "app-preventa-form",
-   templateUrl: "./preventa-form.page.html",
-   styleUrls: ["./preventa-form.page.scss"],
+   selector: "app-venta-form",
+   templateUrl: "./venta-form.page.html",
+   styleUrls: ["./venta-form.page.scss"],
 })
-export class PreventaFormPage {
-   preventaForm: FormGroup;
+export class VentaFormPage {
+   ventaForm: FormGroup;
    segmentValue: string;
    sumTotal = 0;
 
@@ -49,10 +49,10 @@ export class PreventaFormPage {
       private formBuilder: FormBuilder,
       private alertController: AlertController,
       private productoService: ProductoService,
-      private preventaService: PreventaService, //private storageService: StorageService,}
+      private ventaService: VentaService, //private storageService: StorageService,}
       private storageService: StorageService,
    ) {
-      this.preventaForm = this.setPreventaFormDefault();
+      this.ventaForm = this.setVentaFormDefault();
       this.segmentValue = "formulario";
    }
 
@@ -65,7 +65,7 @@ export class PreventaFormPage {
     * de productos
     * @returns
     */
-   setPreventaFormDefault() {
+   setVentaFormDefault() {
       this.productos = [];
       this.sumTotal = 0;
 
@@ -94,7 +94,7 @@ export class PreventaFormPage {
    }
 
    setCliente(ciRuc: string, nombre: string, clienteId: string | number) {
-      this.preventaForm.patchValue({
+      this.ventaForm.patchValue({
          ci_ruc: ciRuc,
          nombre: nombre,
          cliente_id: clienteId,
@@ -202,9 +202,9 @@ export class PreventaFormPage {
    /**
     * Envia un formulario y lo setea a por defecto
     */
-   async preventaFormSubmit() {
+   async ventaFormSubmit() {
       const payload = {
-         ...this.preventaForm.value,
+         ...this.ventaForm.value,
          detalle: this.productos,
       };
       try {
@@ -212,7 +212,7 @@ export class PreventaFormPage {
 
          const alert = await this.alertController.create({
             header: "Confirmación",
-            message: `¿Desea guardar la preventa?
+            message: `¿Desea guardar la venta?
           ${payload?.nombre} - ${payload?.ci_ruc}
         `,
             buttons: [
@@ -235,14 +235,11 @@ export class PreventaFormPage {
                      loading.present();
                      payload.uuid = uuidv4();
 
-                     await this.preventaService.create(payload);
-                     await this.storageService.set(
-                        "preventa/preventa-list",
-                        payload,
-                     );
+                     await this.ventaService.create(payload);
+                     await this.storageService.set("venta/venta-list", payload);
 
-                     this.setOpenToast(true, "Preventa creada");
-                     this.preventaForm = this.setPreventaFormDefault();
+                     this.setOpenToast(true, "venta creada");
+                     this.ventaForm = this.setVentaFormDefault();
 
                      loading.dismiss();
                   },
@@ -253,7 +250,7 @@ export class PreventaFormPage {
          await alert.present();
       } catch (error) {
          console.log(error);
-         await this.storageService.set("preventa/preventa-list", payload);
+         await this.storageService.set("venta/venta-list", payload);
          this.setOpenToast(
             true,
             "Problema de conexión. Preventa guardada localmente.",
