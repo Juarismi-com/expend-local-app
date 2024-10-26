@@ -93,6 +93,10 @@ const routes: Routes = [
             (m) => m.AboutUsPageModule,
          ),
    },
+  {
+    path: 'compra-form',
+    loadChildren: () => import('./pages/compra/compra-form/compra-form.module').then( m => m.CompraFormPageModule)
+  },
 ];
 
 @NgModule({
