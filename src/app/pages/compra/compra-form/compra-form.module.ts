@@ -1,9 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IonicModule } from "@ionic/angular";
-import { PreventaFormPageRoutingModule } from "./preventa-form-routing.module";
-import { PreventaFormPage } from "./preventa-form.page";
+import { CompraFormPageRoutingModule } from "./compra-form-routing.module";
+import { CompraFormPage } from "./compra-form.page";
 import { PipeModule } from "src/app/pipes/pipe/pipe.module";
 
 @NgModule({
@@ -12,9 +12,9 @@ import { PipeModule } from "src/app/pipes/pipe/pipe.module";
       FormsModule,
       IonicModule,
       ReactiveFormsModule,
-      PreventaFormPageRoutingModule,
+      CompraFormPageRoutingModule,
       PipeModule,
    ],
-   declarations: [PreventaFormPage],
+   declarations: [CompraFormPage],
 })
-export class PreventaFormPageModule {}
+export class CompraFormPageModule {}
