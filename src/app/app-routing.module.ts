@@ -93,6 +93,10 @@ const routes: Routes = [
             (m) => m.AboutUsPageModule,
          ),
    },
+  {
+    path: 'producto-list-card',
+    loadChildren: () => import('./pages/producto/producto-list-card/producto-list-card.module').then( m => m.ProductoListCardPageModule)
+  },
 ];
 
 @NgModule({
