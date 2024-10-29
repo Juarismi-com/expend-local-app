@@ -3,17 +3,18 @@ import { AlertController } from "@ionic/angular";
 import { ProductoService } from "src/app/services/producto.service";
 
 @Component({
-   selector: "app-producto-list",
-   templateUrl: "./producto-list.page.html",
-   styleUrls: ["./producto-list.page.scss"],
+   selector: "app-producto-list-card",
+   templateUrl: "./producto-list-card.page.html",
+   styleUrls: ["./producto-list-card.page.scss"],
 })
-export class ProductoListPage {
+export class ProductoListCardPage {
    public results: any[] = [];
    public variantByCantSelected: any = null;
 
    async handleInput(e: any) {
       const value = e.target.value.toLowerCase();
       this.results = await this.productoService.searchProduct(value);
+      console.log(this.results);
    }
 
    constructor(
