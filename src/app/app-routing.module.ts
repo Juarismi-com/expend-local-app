@@ -93,10 +93,20 @@ const routes: Routes = [
             (m) => m.AboutUsPageModule,
          ),
    },
-  {
-    path: 'producto-list-card',
-    loadChildren: () => import('./pages/producto/producto-list-card/producto-list-card.module').then( m => m.ProductoListCardPageModule)
-  },
+   {
+      path: "producto-list-card",
+      loadChildren: () =>
+         import(
+            "./pages/producto/producto-list-card/producto-list-card.module"
+         ).then((m) => m.ProductoListCardPageModule),
+   },
+   {
+      path: "compra-form",
+      loadChildren: () =>
+         import("./pages/compra/compra-form/compra-form.module").then(
+            (m) => m.CompraFormPageModule,
+         ),
+   },
 ];
 
 @NgModule({
