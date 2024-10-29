@@ -11,16 +11,16 @@ export class ProductoListCardPage {
    public results: any[] = [];
    public variantByCantSelected: any = null;
 
+   constructor(
+      private productoService: ProductoService,
+      private alertController: AlertController,
+   ) {}
+
    async handleInput(e: any) {
       const value = e.target.value.toLowerCase();
       this.results = await this.productoService.searchProduct(value);
       console.log(this.results);
    }
-
-   constructor(
-      private productoService: ProductoService,
-      private alertController: AlertController,
-   ) {}
 
    async viewMoreDetailsProducts(product: any) {
       const optionsProducts = product.precios.map((precio: any) => {
