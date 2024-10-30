@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {
    ModalController,
    AlertController,
-   ModalOptions,
    LoadingController,
 } from "@ionic/angular";
 import { ProductoTableModalComponent } from "../../../components/producto/producto-table-modal/producto-table-modal.component";
