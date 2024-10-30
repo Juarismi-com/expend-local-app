@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {
    ModalController,
    AlertController,
-   ModalOptions,
    LoadingController,
 } from "@ionic/angular";
 import { ProductoTableModalComponent } from "../../../components/producto/producto-table-modal/producto-table-modal.component";
@@ -132,6 +131,7 @@ export class PreventaFormPage {
       });
 
       modal.onDidDismiss().then(async (data) => {
+         console.log(data);
          const producto = data?.data;
          this.productos = this.productoService.selectProductFromList(
             this.productos,

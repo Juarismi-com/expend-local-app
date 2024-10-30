@@ -3,7 +3,7 @@
       <ion-buttons slot="start">
          <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Productos</ion-title>
+      <ion-title>Productos List Card</ion-title>
    </ion-toolbar>
 </ion-header>
 
@@ -18,7 +18,7 @@
    <ion-list>
       <ion-card
          *ngFor="let result of results"
-         (click)="viewMoreDetailsProducts(result)"
+         (click)="selectProduct(result)"
          style="height: 120px"
       >
          <ion-grid>
@@ -47,4 +47,10 @@
          </ion-grid>
       </ion-card>
    </ion-list>
+
+   <ion-fab slot="fixed" vertical="bottom" horizontal="end" routerLink="">
+      <ion-fab-button color="secondary">
+         <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
 </ion-content>
