@@ -131,7 +131,6 @@ export class PreventaFormPage {
       });
 
       modal.onDidDismiss().then(async (data) => {
-         console.log(data);
          const producto = data?.data;
          this.productos = this.productoService.selectProductFromList(
             this.productos,
