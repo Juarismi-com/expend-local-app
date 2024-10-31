@@ -1,26 +1,32 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { ProductoService } from "src/app/services/producto.service";
-import { ProductoFormModalComponent } from "../producto-form-modal/producto-form-modal.component";
+import { ProductoFormModalComponent } from "src/app/components/producto/producto-form-modal/producto-form-modal.component";
 
 @Component({
-   selector: "app-producto-table-modal",
-   templateUrl: "./producto-table-modal.component.html",
-   styleUrls: ["./producto-table-modal.component.scss"],
+   selector: "app-producto-list-card",
+   templateUrl: "./producto-list-card.page.html",
+   styleUrls: ["./producto-list-card.page.scss"],
 })
-export class ProductoTableModalComponent {
+export class ProductoListCardPage implements OnInit {
+   public results: any[] = [];
    productos: any[] = [];
-   productoSelected: any = null;
-   productoAdded = [];
+   sumTotal = 0;
+   public variantByCantSelected: any = null;
 
    constructor(
-      private modalController: ModalController,
       private productoService: ProductoService,
+      private modalController: ModalController,
    ) {}
 
-   async handleInputSearch(e: any) {
+   async ngOnInit() {
+      this.results = await this.productoService.getProducts();
+   }
+
+   async handleInput(e: any) {
       const value = e.target.value.toLowerCase();
-      this.productos = await this.productoService.searchProduct(value);
+      this.results = await this.productoService.searchProduct(value);
+      console.log(this.results);
    }
 
    async selectProduct(producto: any) {
@@ -56,9 +62,5 @@ export class ProductoTableModalComponent {
          }
       });
       await modal.present();
-   }
-
-   closeModal() {
-      this.modalController.dismiss();
    }
 }

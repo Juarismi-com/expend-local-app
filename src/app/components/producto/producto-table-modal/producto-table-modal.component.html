@@ -1,32 +1,39 @@
 <ion-header>
-  <ion-toolbar color="main">
-    <ion-title>Seleccionar Producto</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="closeModal()">
-        <ion-icon slot="icon-only" name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
+   <ion-toolbar color="main">
+      <ion-title>Seleccionar Producto</ion-title>
+      <ion-buttons slot="end">
+         <ion-button (click)="closeModal()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+         </ion-button>
+      </ion-buttons>
+   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar
-    placeholder="Filtrar por Codigo o Descripcion"
-    (ionInput)="handleInputSearch($event)" 
-    [debounce]="100"
-  >
-  </ion-searchbar>
+   <ion-searchbar
+      placeholder="Filtrar por Codigo o Descripcion"
+      (ionInput)="handleInputSearch($event)"
+      [debounce]="100"
+   >
+   </ion-searchbar>
 
-  <ion-list lines="full">
-    <ion-item *ngFor="let result of productos" [button]="true" detail="false" (click)="selectProduct(result)">
-        <!--div class="unread-indicator-wrapper" slot="start">
+   <ion-list lines="full">
+      <ion-item
+         *ngFor="let result of productos"
+         [button]="true"
+         detail="false"
+         (click)="selectProduct(result)"
+      >
+         <!--div class="unread-indicator-wrapper" slot="start">
           <div class="unread-indicator"></div>
         </div-->
-        <ion-label>
-          Id: {{ result?.id }}<br />
-          <ion-text><strong>{{ result.nombre }}</strong></ion-text><br />
-          {{ result?.descripcion }}<br />
-        </ion-label>
-    </ion-item>
-  </ion-list>
+         <ion-label>
+            Id: {{ result?.id }}<br />
+            <ion-text
+               ><strong>{{ result.nombre }}</strong></ion-text
+            ><br />
+            {{ result?.descripcion }}<br />
+         </ion-label>
+      </ion-item>
+   </ion-list>
 </ion-content>
