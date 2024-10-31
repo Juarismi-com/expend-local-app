@@ -1,0 +1,180 @@
+<ion-header [translucent]="true">
+   <ion-toolbar color="main">
+      <ion-buttons slot="start">
+         <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+
+      <ion-title>Venta</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <ion-card>
+      <ion-card-header>
+         <ion-card-title>{{ ventaForm.value.nombre }}</ion-card-title>
+         <ion-card-subtitle>{{ ventaForm.value.ci_ruc }}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-button fill="clear" (click)="openClienteTableModal()"
+         >AGREGAR CLIENTE</ion-button
+      >
+      <!--ion-button fill="clear" (click)="setCliente('00000000-0', 'SIN NOMBRE', 1)">SIN NOMBRE</ion-button-->
+   </ion-card>
+
+   <ion-segment value="formulario">
+      <ion-segment-button
+         value="formulario"
+         (click)="setSegmentValue('formulario')"
+      >
+         <ion-label>Formulario</ion-label>
+      </ion-segment-button>
+      <ion-segment-button
+         value="producto"
+         (click)="setSegmentValue('producto')"
+      >
+         <ion-label>Productos</ion-label>
+      </ion-segment-button>
+   </ion-segment>
+
+   <!-- SEGMENT DE FORMULARIO -->
+   <div *ngIf="segmentValue === 'formulario'" class="ion-padding">
+      <form (ngSubmit)="ventaFormSubmit()" [formGroup]="ventaForm">
+         <div class="form-group">
+            <ion-label position="floating">Fecha</ion-label>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+
+            <ion-modal [keepContentsMounted]="true">
+               <ng-template>
+                  <ion-datetime id="datetime"></ion-datetime>
+               </ng-template>
+            </ion-modal>
+         </div>
+
+         <div class="form-group">
+            <ion-label position="floating">Condicion Venta</ion-label>
+
+            <ion-list>
+               <ion-item>
+                  <ion-select
+                     aria-label="Condicion Venta"
+                     id="condicion_venta"
+                     formControlName="condicion_venta"
+                     name="condicion_venta"
+                     required
+                  >
+                     <ion-select-option [value]="1">Contado</ion-select-option>
+                     <ion-select-option [value]="2">Credito</ion-select-option>
+                  </ion-select>
+               </ion-item>
+            </ion-list>
+         </div>
+
+         <div class="form-group">
+            <ion-label position="floating">Forma de Pago </ion-label>
+            <ion-list>
+               <ion-item>
+                  <ion-select
+                     aria-label="Forma de pago"
+                     id="formapago_id"
+                     formControlName="formapago_id"
+                     name="formapago_id"
+                     required
+                  >
+                     <ion-select-option
+                        *ngFor="let formaPagoItem of formaPagoList; index as i"
+                        [value]="i + 1"
+                        >{{formaPagoItem}}
+                     </ion-select-option>
+                  </ion-select>
+               </ion-item>
+            </ion-list>
+         </div>
+
+         <!--div class="form-group">
+        <ion-label position="floating">Observación</ion-label>
+        <ion-textarea
+          formControlName="observacion"
+          labelPlacement="floating"
+          fill="outline"
+          placeholder="Enter text"
+        ></ion-textarea>
+      </div-->
+      </form>
+   </div>
+
+   <!-- SEGMENT DE LISTADO DE PRODUCTO -->
+   <div *ngIf="segmentValue === 'producto'">
+      <!-- Productos detalle -->
+      <ion-grid
+         *ngFor="let producto of productos; let i = index"
+         class="bl-detalle"
+      >
+         <ion-row>
+            <ion-col size-sm="12"> Id/Cod: {{ producto?.producto_id}} </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col size-sm="12">
+               <strong>
+                  {{ producto?.nombre + " - " + producto?.descripcion }}
+               </strong>
+            </ion-col>
+         </ion-row>
+         <ion-row>
+            <ion-col size="2"
+               ><div class="ion-text-start">
+                  {{ producto?.tipo_envase }}
+               </div></ion-col
+            >
+            <ion-col size="2"
+               ><div class="ion-text-start">
+                  {{ producto.cantidad }}
+               </div></ion-col
+            >
+            <ion-col size="4"
+               ><div class="ion-text-end">
+                  {{ producto.precio_unitario | formatCustom}}
+               </div></ion-col
+            >
+            <ion-col size="4" class="bl-subtotal ion-text-end"
+               >{{ producto.subtotal | formatCustom }}</ion-col
+            >
+         </ion-row>
+         <ion-row>
+            <ion-col
+               size="6"
+               class="bl-edit"
+               (click)="openProductoFormModal(producto)"
+               >Editar</ion-col
+            >
+            <ion-col
+               size="6"
+               class="bl-remove"
+               (click)="removeProductoDetalle(i)"
+               >Eliminar</ion-col
+            >
+         </ion-row>
+      </ion-grid>
+
+      <!-- Seleccionar producto y enviar -->
+      <ion-button expand="block" (click)="openProductoTableModal()">
+         Seleccionar Producto
+      </ion-button>
+   </div>
+</ion-content>
+
+<ion-toast
+   [isOpen]="toastComponent.open"
+   [message]="toastComponent.message"
+   [duration]="3000"
+   (didDismiss)="setOpenToast(false)"
+></ion-toast>
+
+<ion-footer>
+   <ion-toolbar>
+      <ion-title slot="start">Total</ion-title>
+      <ion-title slot="end">{{ sumTotal | formatCustom }}</ion-title>
+   </ion-toolbar>
+   <ion-button expand="block" (click)="ventaFormSubmit()">
+      Enviar Venta
+   </ion-button>
+</ion-footer>
