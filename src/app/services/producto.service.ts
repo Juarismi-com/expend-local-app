@@ -12,7 +12,8 @@ export class ProductoService {
    constructor() {}
 
    async getProducts() {
-      const result = (await axios.get(`${apiUrl}/productos`)).data.items;
+      const result = (await axios.get(`${apiUrl}/productos`)).data;
+      console.log(result);
       return result;
    }
 
