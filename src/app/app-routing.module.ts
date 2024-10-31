@@ -93,6 +93,12 @@ const routes: Routes = [
             (m) => m.AboutUsPageModule,
          ),
    },
+
+  {
+    path: 'venta-form',
+    loadChildren: () => import('./pages/venta/venta-form/venta-form.module').then( m => m.VentaFormPageModule)
+  },
+
    {
       path: "producto-list-card",
       loadChildren: () =>
@@ -107,10 +113,12 @@ const routes: Routes = [
             (m) => m.CompraFormPageModule,
          ),
    },
+
   {
     path: 'preventa-shopping-cart',
     loadChildren: () => import('./pages/preventa/preventa-shopping-cart/preventa-shopping-cart.module').then( m => m.PreventaShoppingCartPageModule)
   },
+
 ];
 
 @NgModule({
