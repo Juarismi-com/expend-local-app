@@ -23,12 +23,10 @@ export class PreventaShoppingCartPage {
       const navigation = this.router.getCurrentNavigation();
       if (navigation && navigation.extras.state) {
          const productosData = navigation.extras.state["productos"] || [];
-         // Verifica si es un objeto y conviértelo a un array
          this.productos = Array.isArray(productosData)
             ? productosData
             : [productosData];
          this.sumTotal = this.productoService.setTotalOfList(this.productos);
-         console.log("Productos recibidos:", this.productos);
       }
    }
 
