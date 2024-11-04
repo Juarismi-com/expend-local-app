@@ -94,10 +94,13 @@ const routes: Routes = [
          ),
    },
 
-  {
-    path: 'venta-form',
-    loadChildren: () => import('./pages/venta/venta-form/venta-form.module').then( m => m.VentaFormPageModule)
-  },
+   {
+      path: "venta-form",
+      loadChildren: () =>
+         import("./pages/venta/venta-form/venta-form.module").then(
+            (m) => m.VentaFormPageModule,
+         ),
+   },
 
    {
       path: "producto-list-card",
@@ -113,7 +116,13 @@ const routes: Routes = [
             (m) => m.CompraFormPageModule,
          ),
    },
-
+   {
+      path: "shopping-cart",
+      loadChildren: () =>
+         import("./pages/shopping-cart/shopping-cart.module").then(
+            (m) => m.ShoppingCartPageModule,
+         ),
+   },
 ];
 
 @NgModule({

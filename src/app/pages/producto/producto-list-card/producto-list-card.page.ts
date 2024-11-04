@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { ProductoService } from "src/app/services/producto.service";
 import { ProductoFormModalComponent } from "src/app/components/producto/producto-form-modal/producto-form-modal.component";
@@ -17,6 +18,7 @@ export class ProductoListCardPage implements OnInit {
    constructor(
       private productoService: ProductoService,
       private modalController: ModalController,
+      private router: Router,
    ) {}
 
    async ngOnInit() {
@@ -26,7 +28,6 @@ export class ProductoListCardPage implements OnInit {
    async handleInput(e: any) {
       const value = e.target.value.toLowerCase();
       this.results = await this.productoService.searchProduct(value);
-      console.log(this.results);
    }
 
    async selectProduct(producto: any) {
@@ -50,16 +51,9 @@ export class ProductoListCardPage implements OnInit {
       });
 
       modal.onDidDismiss().then(({ data }) => {
-         const producto = data;
-         if (producto) {
-            this.modalController.dismiss({
-               ...producto,
-               precio_unitario: producto?.precio_unitario,
-               descuento: producto?.descuento || 0,
-               cantidad: producto?.cantidad || 1,
-               subtotal: producto?.subtotal,
-            });
-         }
+         this.router.navigate(["/shopping-cart"], {
+            state: { productos: data },
+         });
       });
       await modal.present();
    }
