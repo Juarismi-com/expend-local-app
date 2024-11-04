@@ -116,13 +116,12 @@ const routes: Routes = [
             (m) => m.CompraFormPageModule,
          ),
    },
-
    {
-      path: "preventa-shopping-cart",
+      path: "shopping-cart",
       loadChildren: () =>
-         import(
-            "./pages/preventa/preventa-shopping-cart/preventa-shopping-cart.module"
-         ).then((m) => m.PreventaShoppingCartPageModule),
+         import("./pages/shopping-cart/shopping-cart.module").then(
+            (m) => m.ShoppingCartPageModule,
+         ),
    },
 ];
 

@@ -51,7 +51,7 @@ export class ProductoListCardPage implements OnInit {
       });
 
       modal.onDidDismiss().then(({ data }) => {
-         this.router.navigate(["/preventa-shopping-cart"], {
+         this.router.navigate(["/shopping-cart"], {
             state: { productos: data },
          });
       });

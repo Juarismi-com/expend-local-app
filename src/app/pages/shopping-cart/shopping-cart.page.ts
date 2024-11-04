@@ -5,11 +5,11 @@ import { ProductoFormModalComponent } from "src/app/components/producto/producto
 import { ProductoService } from "src/app/services/producto.service";
 
 @Component({
-   selector: "app-preventa-shopping-cart",
-   templateUrl: "./preventa-shopping-cart.page.html",
-   styleUrls: ["./preventa-shopping-cart.page.scss"],
+   selector: "app-shopping-cart",
+   templateUrl: "./shopping-cart.page.html",
+   styleUrls: ["./shopping-cart.page.scss"],
 })
-export class PreventaShoppingCartPage {
+export class ShoppingCartPage {
    productos: any[] = [];
    sumTotal = 0;
    segmentValue: string = "producto";
