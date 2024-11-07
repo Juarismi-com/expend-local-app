@@ -116,13 +116,6 @@ const routes: Routes = [
             (m) => m.CompraFormPageModule,
          ),
    },
-   // {
-   //    path: "shopping-cart",
-   //    loadChildren: () =>
-   //       import("./pages/shopping-cart/shopping-cart.module").then(
-   //          (m) => m.ShoppingCartPageModule,
-   //       ),
-   // },
 ];
 
 @NgModule({
