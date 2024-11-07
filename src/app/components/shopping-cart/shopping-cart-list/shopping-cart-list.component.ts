@@ -1,16 +1,17 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { ModalController, AlertController } from "@ionic/angular";
 import { ProductoFormModalComponent } from "src/app/components/producto/producto-form-modal/producto-form-modal.component";
 import { ProductoService } from "src/app/services/producto.service";
 
 @Component({
-   selector: "app-shopping-cart",
-   templateUrl: "./shopping-cart.page.html",
-   styleUrls: ["./shopping-cart.page.scss"],
+   selector: "app-shopping-cart-list",
+   templateUrl: "./shopping-cart-list.component.html",
+   styleUrls: ["./shopping-cart-list.component.scss"],
 })
-export class ShoppingCartPage {
-   productos: any[] = [];
+export class ShoppingCartListComponent {
+   @Input() productos: any[] = []; // Agrega este decorador
+
    sumTotal = 0;
    segmentValue: string = "producto";
 
@@ -25,8 +26,10 @@ export class ShoppingCartPage {
          const productosData = navigation.extras.state["productos"] || [];
          this.productos = Array.isArray(productosData)
             ? productosData
-            : [productosData];
+            : Object.values(productosData);
          this.sumTotal = this.productoService.setTotalOfList(this.productos);
+
+         console.log("Datos del producto recibidos:", this.productos);
       }
    }
 
@@ -88,7 +91,7 @@ export class ShoppingCartPage {
       await alert.present();
    }
 
-   openProductListCard() {
-      this.router.navigate(["/producto-list-card"]);
+   closeModal() {
+      this.modalController.dismiss();
    }
 }

@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { ProductoService } from "src/app/services/producto.service";
 import { ProductoFormModalComponent } from "src/app/components/producto/producto-form-modal/producto-form-modal.component";
+import { ShoppingCartListComponent } from "src/app/components/shopping-cart/shopping-cart-list/shopping-cart-list.component";
 
 @Component({
    selector: "app-producto-list-card",
@@ -50,10 +51,16 @@ export class ProductoListCardPage implements OnInit {
          },
       });
 
-      modal.onDidDismiss().then(({ data }) => {
-         this.router.navigate(["/shopping-cart"], {
-            state: { productos: data },
-         });
+      modal.onDidDismiss().then(async ({ data }) => {
+         if (data) {
+            const nuevoModal = await this.modalController.create({
+               component: ShoppingCartListComponent,
+               componentProps: {
+                  productos: Array.isArray(data) ? data : [data], // Asegurarse de que siempre sea un array
+               },
+            });
+            await nuevoModal.present();
+         }
       });
       await modal.present();
    }
