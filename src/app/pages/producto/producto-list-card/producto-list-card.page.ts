@@ -13,6 +13,7 @@ import { ShoppingCartListComponent } from "src/app/components/shopping-cart/shop
 export class ProductoListCardPage implements OnInit {
    public results: any[] = [];
    productos: any[] = [];
+   productosSeleccionados: any[] = [];
    sumTotal = 0;
    public variantByCantSelected: any = null;
 
@@ -51,17 +52,21 @@ export class ProductoListCardPage implements OnInit {
          },
       });
 
-      modal.onDidDismiss().then(async ({ data }) => {
+      modal.onDidDismiss().then(({ data }) => {
          if (data) {
-            const nuevoModal = await this.modalController.create({
-               component: ShoppingCartListComponent,
-               componentProps: {
-                  productos: Array.isArray(data) ? data : [data], // Asegurarse de que siempre sea un array
-               },
-            });
-            await nuevoModal.present();
+            this.productosSeleccionados.push(data);
          }
       });
       await modal.present();
+   }
+
+   async openShoppingCartModal() {
+      const nuevoModal = await this.modalController.create({
+         component: ShoppingCartListComponent,
+         componentProps: {
+            productos: this.productosSeleccionados,
+         },
+      });
+      await nuevoModal.present();
    }
 }

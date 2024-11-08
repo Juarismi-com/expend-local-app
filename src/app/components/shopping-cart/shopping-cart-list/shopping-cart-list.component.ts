@@ -91,6 +91,16 @@ export class ShoppingCartListComponent {
       await alert.present();
    }
 
+   openShoppingCartModal = async () => {
+      const nuevoModal = await this.modalController.create({
+         component: ShoppingCartListComponent,
+         componentProps: {
+            //productos: Array.isArray(data) ? data : [data],
+         },
+      });
+      await nuevoModal.present();
+   };
+
    closeModal() {
       this.modalController.dismiss();
    }
