@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { ProductoService } from "src/app/services/producto.service";
 import { ProductoFormModalComponent } from "src/app/components/producto/producto-form-modal/producto-form-modal.component";
+import { ShoppingCartListComponent } from "src/app/components/shopping-cart/shopping-cart-list/shopping-cart-list.component";
 
 @Component({
    selector: "app-producto-list-card",
@@ -12,6 +13,7 @@ import { ProductoFormModalComponent } from "src/app/components/producto/producto
 export class ProductoListCardPage implements OnInit {
    public results: any[] = [];
    productos: any[] = [];
+   productosSeleccionados: any[] = [];
    sumTotal = 0;
    public variantByCantSelected: any = null;
 
@@ -51,10 +53,20 @@ export class ProductoListCardPage implements OnInit {
       });
 
       modal.onDidDismiss().then(({ data }) => {
-         this.router.navigate(["/shopping-cart"], {
-            state: { productos: data },
-         });
+         if (data) {
+            this.productosSeleccionados.push(data);
+         }
       });
       await modal.present();
+   }
+
+   async openShoppingCartModal() {
+      const nuevoModal = await this.modalController.create({
+         component: ShoppingCartListComponent,
+         componentProps: {
+            productos: this.productosSeleccionados,
+         },
+      });
+      await nuevoModal.present();
    }
 }
