@@ -7,6 +7,7 @@ import { MenuController } from "@ionic/angular";
 import { MeService } from "./services/auth/me.service";
 import { Subscription } from "rxjs";
 
+import { environment } from "../environments/environment";
 @Component({
    selector: "app-root",
    templateUrl: "app.component.html",
@@ -16,31 +17,9 @@ export class AppComponent implements OnChanges {
    public storageSub: Subscription | undefined;
    @Input()
    public usuario: any = null;
+   public isProd: boolean = environment.production ?? false;
 
-   public appPages = [
-      { title: "Inicio", url: "/dashboard/dashboard-vendedor", icon: "albums" },
-      { title: "Preventas", url: "/preventa-list", icon: "checkmark-done" },
-      { title: "Proveedores", url: "/proveedor-detail", icon: "paper-plane" },
-      {
-         title: "Producto List Card",
-         url: "/producto-list-card",
-         icon: "person",
-      },
-      { title: "Acerca de la App", url: "/about-us", icon: "paper-plane" },
-      //{ title: 'Clientes', url: '/cliente-list', icon: 'paper-plane' },
-      //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
-      //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
-      //{ title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
-      //{ title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
-      //{ title: 'Proveedores (inactivo)', url: '/preventa-form-5', icon: 'checkmark-done' },
-      //{ title: 'Mi cuenta (inactivo)', url: '/preventa-form-6', icon: 'person' },
-
-      /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },*/
-   ];
+   public appPages: any[] = [];
    public labels = [];
    constructor(
       private storage: Storage,
@@ -52,8 +31,10 @@ export class AppComponent implements OnChanges {
    ) {}
 
    async ngOnInit() {
-      // If using a custom driver:
-      // await this.storage.defineDriver(MyCustomDriver)
+      console.log("Ambiente es productivo? ", this.isProd);
+
+      // Genera el menu dependiendo del ambiente
+      this.setMenuSide();
       await this.storage.create();
 
       this.storageSub = this.storageService.watchStorage().subscribe(() => {
@@ -81,5 +62,86 @@ export class AppComponent implements OnChanges {
 
       await this.menu.close();
       this.router.navigate(["/login"]);
+   }
+
+   async setMenuSide() {
+      if (this.isProd) {
+         this.appPages = [
+            {
+               title: "Inicio",
+               url: "/dashboard/dashboard-vendedor",
+               icon: "albums",
+            },
+            {
+               title: "Preventas",
+               url: "/preventa-list",
+               icon: "checkmark-done",
+            },
+            {
+               title: "Proveedores",
+               url: "/proveedor-detail",
+               icon: "paper-plane",
+            },
+            {
+               title: "Acerca de la App",
+               url: "/about-us",
+               icon: "paper-plane",
+            },
+            //{ title: 'Clientes', url: '/cliente-list', icon: 'paper-plane' },
+            //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
+            //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
+            //{ title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
+            //{ title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
+            //{ title: 'Proveedores (inactivo)', url: '/preventa-form-5', icon: 'checkmark-done' },
+            //{ title: 'Mi cuenta (inactivo)', url: '/preventa-form-6', icon: 'person' },
+
+            /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
+            { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
+            { title: 'Archived', url: '/folder/archived', icon: 'archive' },
+            { title: 'Trash', url: '/folder/trash', icon: 'trash' },
+            { title: 'Spam', url: '/folder/spam', icon: 'warning' },*/
+         ];
+      } else {
+         this.appPages = [
+            {
+               title: "Inicio",
+               url: "/dashboard/dashboard-vendedor",
+               icon: "albums",
+            },
+            {
+               title: "Preventas",
+               url: "/preventa-list",
+               icon: "checkmark-done",
+            },
+            {
+               title: "Proveedores",
+               url: "/proveedor-detail",
+               icon: "paper-plane",
+            },
+            {
+               title: "Producto List Card",
+               url: "/producto-list-card",
+               icon: "person",
+            },
+            {
+               title: "Acerca de la App",
+               url: "/about-us",
+               icon: "paper-plane",
+            },
+            //{ title: 'Clientes', url: '/cliente-list', icon: 'paper-plane' },
+            //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
+            //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
+            //{ title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
+            //{ title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
+            //{ title: 'Proveedores (inactivo)', url: '/preventa-form-5', icon: 'checkmark-done' },
+            //{ title: 'Mi cuenta (inactivo)', url: '/preventa-form-6', icon: 'person' },
+
+            /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
+            { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
+            { title: 'Archived', url: '/folder/archived', icon: 'archive' },
+            { title: 'Trash', url: '/folder/trash', icon: 'trash' },
+            { title: 'Spam', url: '/folder/spam', icon: 'warning' },*/
+         ];
+      }
    }
 }
