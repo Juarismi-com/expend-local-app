@@ -68,24 +68,15 @@ export class AppComponent implements OnChanges {
       if (this.isProd) {
          this.appPages = [
             {
-               title: "Inicio",
-               url: "/dashboard/dashboard-vendedor",
-               icon: "albums",
-            },
-            {
-               title: "Preventas",
-               url: "/preventa-list",
+               title: "Pagos",
+               url: "/pago-list",
                icon: "checkmark-done",
             },
+
             {
-               title: "Proveedores",
-               url: "/proveedor-detail",
-               icon: "paper-plane",
-            },
-            {
-               title: "Acerca de la App",
-               url: "/about-us",
-               icon: "paper-plane",
+               title: "Producto",
+               url: "/producto-list",
+               icon: "person",
             },
             //{ title: 'Clientes', url: '/cliente-list', icon: 'paper-plane' },
             //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
@@ -104,30 +95,17 @@ export class AppComponent implements OnChanges {
       } else {
          this.appPages = [
             {
-               title: "Inicio",
-               url: "/dashboard/dashboard-vendedor",
-               icon: "albums",
-            },
-            {
-               title: "Preventas",
-               url: "/preventa-list",
+               title: "Pagos",
+               url: "/pago-list",
                icon: "checkmark-done",
             },
+
             {
-               title: "Proveedores",
-               url: "/proveedor-detail",
-               icon: "paper-plane",
-            },
-            {
-               title: "Producto List Card",
-               url: "/producto-list-card",
+               title: "Producto",
+               url: "/producto-list",
                icon: "person",
             },
-            {
-               title: "Acerca de la App",
-               url: "/about-us",
-               icon: "paper-plane",
-            },
+
             //{ title: 'Clientes', url: '/cliente-list', icon: 'paper-plane' },
             //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
             //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },

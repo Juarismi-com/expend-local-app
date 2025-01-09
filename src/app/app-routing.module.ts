@@ -4,15 +4,6 @@ import { authGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
    {
-      path: "",
-      redirectTo: "dashboard/dashboard-vendedor",
-      pathMatch: "full",
-   },
-   /*{
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },*/
-   {
       path: "producto-list",
       canActivate: [authGuard],
       loadChildren: () =>
@@ -20,22 +11,7 @@ const routes: Routes = [
             (m) => m.ProductoListPageModule,
          ),
    },
-   {
-      path: "preventa-form",
-      canActivate: [authGuard],
-      loadChildren: () =>
-         import("./pages/preventa/preventa-form/preventa-form.module").then(
-            (m) => m.PreventaFormPageModule,
-         ),
-   },
-   {
-      path: "preventa-list",
-      canActivate: [authGuard],
-      loadChildren: () =>
-         import("./pages/preventa/preventa-list/preventa-list.module").then(
-            (m) => m.PreventaListPageModule,
-         ),
-   },
+
    {
       path: "login",
       loadChildren: () =>
@@ -50,42 +26,7 @@ const routes: Routes = [
             (m) => m.GeoSimplePageModule,
          ),
    },
-   {
-      path: "dashboard/dashboard-vendedor",
-      canActivate: [authGuard],
-      loadChildren: () =>
-         import(
-            "./pages/dashboard/dashboard-vendedor/dashboard-vendedor.module"
-         ).then((m) => m.DashboardVendedorPageModule),
-   },
-   {
-      path: "preventa-detail",
-      loadChildren: () =>
-         import("./pages/preventa/preventa-detail/preventa-detail.module").then(
-            (m) => m.PreventaDetailPageModule,
-         ),
-   },
-   {
-      path: "preventa-detail/:id",
-      loadChildren: () =>
-         import("./pages/preventa/preventa-detail/preventa-detail.module").then(
-            (m) => m.PreventaDetailPageModule,
-         ),
-   },
-   {
-      path: "proveedor-detail",
-      loadChildren: () =>
-         import(
-            "./pages/producto/proveedor-detail/proveedor-detail.module"
-         ).then((m) => m.ProveedorDetailPageModule),
-   },
-   {
-      path: "cliente-list",
-      loadChildren: () =>
-         import("./pages/cliente/cliente-list/cliente-list.module").then(
-            (m) => m.ClienteListPageModule,
-         ),
-   },
+
    {
       path: "about-us",
       loadChildren: () =>
@@ -93,29 +34,10 @@ const routes: Routes = [
             (m) => m.AboutUsPageModule,
          ),
    },
-
-   {
-      path: "venta-form",
-      loadChildren: () =>
-         import("./pages/venta/venta-form/venta-form.module").then(
-            (m) => m.VentaFormPageModule,
-         ),
-   },
-
-   {
-      path: "producto-list-card",
-      loadChildren: () =>
-         import(
-            "./pages/producto/producto-list-card/producto-list-card.module"
-         ).then((m) => m.ProductoListCardPageModule),
-   },
-   {
-      path: "compra-form",
-      loadChildren: () =>
-         import("./pages/compra/compra-form/compra-form.module").then(
-            (m) => m.CompraFormPageModule,
-         ),
-   },
+  {
+    path: 'pago-list',
+    loadChildren: () => import('./pages/pago/pago-list/pago-list.module').then( m => m.PagoListPageModule)
+  },
 ];
 
 @NgModule({

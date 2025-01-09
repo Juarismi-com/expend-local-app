@@ -7,13 +7,7 @@ import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
-import { ProductoFormModalComponent } from "./components/producto/producto-form-modal/producto-form-modal.component";
-import { ProductoTableModalComponent } from "./components/producto/producto-table-modal/producto-table-modal.component";
-import { ClienteFormModalComponent } from "./components/cliente/cliente-form-modal/cliente-form-modal.component";
-import { ClienteTableModalComponent } from "./components/cliente/cliente-table-modal/cliente-table-modal.component";
-import { ProveedorTableModalComponent } from "./components/proveedor/proveedor-table-modal/proveedor-table-modal.component";
-import { VendedorTableModalComponent } from "./components/vendedor/vendedor-table-modal/vendedor-table-modal.component";
-import { ShoppingCartListComponent } from "./components/shopping-cart/shopping-cart-list/shopping-cart-list.component";
+
 import { AppRoutingModule } from "./app-routing.module";
 
 import { IonicStorageModule } from "@ionic/storage-angular";
@@ -21,16 +15,7 @@ import { Drivers } from "@ionic/storage";
 import { PipeModule } from "./pipes/pipe/pipe.module";
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      ProductoFormModalComponent,
-      ClienteTableModalComponent,
-      ClienteFormModalComponent,
-      ProveedorTableModalComponent,
-      ProductoTableModalComponent,
-      VendedorTableModalComponent,
-      ShoppingCartListComponent,
-   ],
+   declarations: [AppComponent],
    imports: [
       BrowserModule,
       IonicModule.forRoot(),
@@ -39,7 +24,7 @@ import { PipeModule } from "./pipes/pipe/pipe.module";
       ReactiveFormsModule,
       HttpClientModule,
       IonicStorageModule.forRoot({
-         name: "blogic_app_db",
+         name: "extend_app_db",
          driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
       }),
       PipeModule,

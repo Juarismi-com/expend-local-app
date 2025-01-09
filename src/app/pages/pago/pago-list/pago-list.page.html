@@ -3,13 +3,13 @@
       <ion-buttons slot="start">
          <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>Productos</ion-title>
+      <ion-title>Pagos</ion-title>
    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
    <ion-searchbar
-      placeholder="Filtrar por Codigo o Descripcion"
+      placeholder="Filtrar por ID"
       (ionInput)="handleInput($event)"
       [debounce]="100"
    >
@@ -22,8 +22,9 @@
          </div>
          <ion-label>
             <strong>ID: {{ result.id }}</strong><br />
-            <ion-text>NOM: {{ result.nombre }}</ion-text><br />
-            <ion-text>DES: {{ result.descripcion }}</ion-text><br />
+            <ion-text>VENTA: {{ result.venta_id }}</ion-text><br />
+            <ion-text>CAN: {{ result.cantidad }}</ion-text><br />
+            <ion-text>TOT: {{ result.total }}</ion-text><br />
             <!-- <ion-note color="medium" class="ion-text-wrap">
                {{ result.precios[0].cantidad }} x {{
                result.precios[0].precio_unitario }}
