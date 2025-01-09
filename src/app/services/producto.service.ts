@@ -12,20 +12,26 @@ export class ProductoService {
    constructor() {}
 
    async getProducts() {
-      const result = (await axios.get(`${apiUrl}/productos`)).data;
-      console.log(result);
-      return result;
+      try {
+         const response = await axios.get(`${apiUrl}/productos`);
+         return response.data.items;
+      } catch (error) {
+         console.error("Error al obtener productos:", error);
+         return []; // Devuelve un array vacío en caso de error
+      }
    }
 
    async searchProduct(value: string) {
-      if (value.length > 3) {
+      try {
+         // if (value.length > 3) {
          const result = (
             await axios.get(`${apiUrl}/productos/search?q=${value}`)
          ).data?.rows;
          return result;
+         // }
+      } catch (error) {
+         return []; // Devuelve un array vacío en caso de error
       }
-
-      return [];
    }
 
    /**
