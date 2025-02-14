@@ -1,4 +1,4 @@
-# blogic-app
+# expend-app
 
 Aplicacion movil para gestion comercial
 
