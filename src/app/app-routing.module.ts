@@ -7,9 +7,9 @@ const routes: Routes = [
       path: "producto-list",
       canActivate: [authGuard],
       loadChildren: () =>
-         import("./pages/producto/producto-list/producto-list.module").then(
-            (m) => m.ProductoListPageModule,
-         ),
+         import(
+            "./pages/maquina-expendedora/producto/producto-list/producto-list.module"
+         ).then((m) => m.ProductoListPageModule),
    },
 
    {
@@ -17,13 +17,6 @@ const routes: Routes = [
       loadChildren: () =>
          import("./pages/auth/login-form/login-form.module").then(
             (m) => m.LoginFormPageModule,
-         ),
-   },
-   {
-      path: "geo-simple",
-      loadChildren: () =>
-         import("./pages/common/geo/geo-simple/geo-simple.module").then(
-            (m) => m.GeoSimplePageModule,
          ),
    },
 
@@ -34,10 +27,27 @@ const routes: Routes = [
             (m) => m.AboutUsPageModule,
          ),
    },
-  {
-    path: 'pago-list',
-    loadChildren: () => import('./pages/pago/pago-list/pago-list.module').then( m => m.PagoListPageModule)
-  },
+   {
+      path: "maquina-expendedora-list",
+      loadChildren: () =>
+         import(
+            "./pages/maquina-expendedora/maquina-expendedora-list/maquina-expendedora-list.module"
+         ).then((m) => m.MaquinaExpendedoraListPageModule),
+   },
+   {
+      path: "maquina-expendedora-list/:uuid",
+      loadChildren: () =>
+         import(
+            "./pages/maquina-expendedora/maquina-expendedora-detail/maquina-expendedora-detail.module"
+         ).then((m) => m.MaquinaExpendedoraDetailPageModule),
+   },
+   {
+      path: "venta-list",
+      loadChildren: () =>
+         import(
+            "./pages/maquina-expendedora/venta-list/venta-list.module"
+         ).then((m) => m.VentaListPageModule),
+   },
 ];
 
 @NgModule({

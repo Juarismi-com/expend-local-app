@@ -65,61 +65,24 @@ export class AppComponent implements OnChanges {
    }
 
    async setMenuSide() {
-      if (this.isProd) {
-         this.appPages = [
-            {
-               title: "Pagos",
-               url: "/pago-list",
-               icon: "checkmark-done",
-            },
+      this.appPages = [
+         {
+            title: "Ventas",
+            url: "/venta-list",
+            icon: "person",
+         },
 
-            {
-               title: "Producto",
-               url: "/producto-list",
-               icon: "person",
-            },
-            //{ title: 'Clientes', url: '/cliente-list', icon: 'paper-plane' },
-            //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
-            //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
-            //{ title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
-            //{ title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
-            //{ title: 'Proveedores (inactivo)', url: '/preventa-form-5', icon: 'checkmark-done' },
-            //{ title: 'Mi cuenta (inactivo)', url: '/preventa-form-6', icon: 'person' },
+         {
+            title: "Maquinas",
+            url: "/maquina-expendedora-list",
+            icon: "checkmark-done",
+         },
 
-            /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-            { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-            { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-            { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-            { title: 'Spam', url: '/folder/spam', icon: 'warning' },*/
-         ];
-      } else {
-         this.appPages = [
-            {
-               title: "Pagos",
-               url: "/pago-list",
-               icon: "checkmark-done",
-            },
-
-            {
-               title: "Producto",
-               url: "/producto-list",
-               icon: "person",
-            },
-
-            //{ title: 'Clientes', url: '/cliente-list', icon: 'paper-plane' },
-            //{ title: 'Preventas List', url: '/preventa-list', icon: 'checkmark-done' },
-            //{ title: 'Ventas (inactivo)', url: '/preventa-form-2', icon: 'checkmark-done' },
-            //{ title: 'Compras (inactivo)', url: '/preventa-form-3', icon: 'checkmark-done' },
-            //{ title: 'Clientes (inactivo)', url: '/preventa-form-4', icon: 'checkmark-done' },
-            //{ title: 'Proveedores (inactivo)', url: '/preventa-form-5', icon: 'checkmark-done' },
-            //{ title: 'Mi cuenta (inactivo)', url: '/preventa-form-6', icon: 'person' },
-
-            /*{ title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-            { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-            { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-            { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-            { title: 'Spam', url: '/folder/spam', icon: 'warning' },*/
-         ];
-      }
+         {
+            title: "Productos",
+            url: "/producto-list",
+            icon: "checkmark-done",
+         },
+      ];
    }
 }

@@ -1,0 +1,46 @@
+<ion-header [translucent]="false">
+   <ion-toolbar color="main">
+      <ion-buttons slot="start">
+         <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Maquinas Expendedoras</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+   <div class="container">
+      <ion-card>
+         <ion-card-header>
+            <ion-card-title>Listado de Maquinas</ion-card-title>
+         </ion-card-header>
+
+         <ion-card-content>
+            <ion-list>
+               <ion-item
+                  *ngFor="let result of results"
+                  [button]="true"
+                  detail="false"
+               >
+                  <div class="unread-indicator-wrapper" slot="start">
+                     <div class="unread-indicator"></div>
+                  </div>
+
+                  <ion-label>
+                     <h2><strong>ID:</strong> {{ result.id }}</h2>
+                     <p><strong>uuid:</strong> {{ result.uuid }}</p>
+                     <p><strong>Local:</strong> {{ result.local_id }}</p>
+                  </ion-label>
+
+                  <ion-button
+                     fill="outline"
+                     slot="end"
+                     size="small"
+                     [routerLink]="[result.uuid]"
+                     >Ver</ion-button
+                  >
+               </ion-item>
+            </ion-list>
+         </ion-card-content>
+      </ion-card>
+   </div>
+</ion-content>

@@ -1,0 +1,50 @@
+<ion-header [translucent]="false">
+   <ion-toolbar color="main">
+      <ion-buttons slot="start">
+         <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Productos</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+   <div class="container">
+      <ion-searchbar
+         placeholder="Filtrar por Código o Descripción"
+         (ionInput)="handleInput($event)"
+         [debounce]="100"
+      ></ion-searchbar>
+
+      <ion-card>
+         <ion-card-header>
+            <ion-card-title>Listado de Productos</ion-card-title>
+         </ion-card-header>
+
+         <ion-card-content>
+            <ion-list>
+               <ion-item
+                  *ngFor="let result of results"
+                  [button]="true"
+                  detail="false"
+               >
+                  <div class="unread-indicator-wrapper" slot="start">
+                     <div class="unread-indicator"></div>
+                  </div>
+
+                  <ion-label>
+                     <h2><strong>ID:</strong> {{ result.id }}</h2>
+                     <p><strong>Nombre:</strong> {{ result.nombre }}</p>
+                     <p>
+                        <strong>Descripción:</strong> {{ result.descripcion }}
+                     </p>
+                  </ion-label>
+
+                  <ion-button fill="outline" slot="end" size="small"
+                     >Ver</ion-button
+                  >
+               </ion-item>
+            </ion-list>
+         </ion-card-content>
+      </ion-card>
+   </div>
+</ion-content>

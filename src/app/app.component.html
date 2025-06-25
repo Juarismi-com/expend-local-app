@@ -1,12 +1,9 @@
 <ion-app>
-   <ion-split-pane contentId="main-content">
+   <ion-split-pane contentId="main-content" when="lg">
       <ion-menu contentId="main-content" type="overlay">
          <ion-content>
             <ion-list id="inbox-list">
-               <ion-list-header>expend</ion-list-header>
-
-               <!-- @TODO pass this to .env -->
-               <ion-note>LP</ion-note>
+               <ion-list-header>Evending</ion-list-header>
 
                <ion-item *ngIf="usuario">
                   <ion-avatar slot="start">
@@ -21,10 +18,7 @@
                   </ion-label>
                </ion-item>
 
-               <ion-menu-toggle
-                  *ngFor="let p of appPages; let i = index"
-                  auto-hide="false"
-               >
+               <ion-menu-toggle *ngFor="let p of appPages" auto-hide="false">
                   <ion-item
                      routerDirection="root"
                      [routerLink]="[p.url]"
@@ -45,7 +39,6 @@
 
             <ion-list id="labels-list" *ngIf="labels.length > 0">
                <ion-list-header>Etiquetas</ion-list-header>
-
                <ion-item *ngFor="let label of labels" lines="none">
                   <ion-icon
                      aria-hidden="true"
@@ -56,11 +49,19 @@
                   <ion-label>{{ label }}</ion-label>
                </ion-item>
             </ion-list>
-            <ion-button expand="full" (click)="closeSession()"
-               >Cerrar Sesión</ion-button
-            >
+
+            <div class="logout-wrapper">
+               <ion-button
+                  expand="full"
+                  color="danger"
+                  (click)="closeSession()"
+               >
+                  Cerrar Sesión
+               </ion-button>
+            </div>
          </ion-content>
       </ion-menu>
+
       <ion-router-outlet id="main-content"></ion-router-outlet>
    </ion-split-pane>
 </ion-app>

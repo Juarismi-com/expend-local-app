@@ -1,0 +1,47 @@
+<ion-header [translucent]="false">
+   <ion-toolbar color="main">
+      <ion-buttons slot="start">
+         <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Ventas</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+   <div class="container">
+      <ion-card>
+         <ion-card-header>
+            <ion-card-title>Listado de Ventas</ion-card-title>
+         </ion-card-header>
+
+         <ion-card-content>
+            <ion-list>
+               <ion-item
+                  *ngFor="let venta of ventas"
+                  [button]="true"
+                  detail="false"
+               >
+                  <div class="unread-indicator-wrapper" slot="start">
+                     <div class="unread-indicator"></div>
+                  </div>
+
+                  <ion-label>
+                     <h2><strong>ID:</strong> {{ venta.id }}</h2>
+                     <p><strong>Fecha:</strong> {{ venta.fecha }}</p>
+                     <p><strong>Maquina:</strong> {{ venta.maquina_id }}</p>
+                     <p><strong>Precio:</strong> {{ venta.precio_venta }}</p>
+                     <p>
+                        <strong>Metodo Pago:</strong> {{ venta.metodo_pago }}
+                     </p>
+                     <p><strong>Estado:</strong> {{ venta.estado }}</p>
+                  </ion-label>
+
+                  <ion-button fill="outline" slot="end" size="small"
+                     >Ver</ion-button
+                  >
+               </ion-item>
+            </ion-list>
+         </ion-card-content>
+      </ion-card>
+   </div>
+</ion-content>
