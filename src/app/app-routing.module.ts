@@ -48,6 +48,20 @@ const routes: Routes = [
             "./pages/maquina-expendedora/venta-list/venta-list.module"
          ).then((m) => m.VentaListPageModule),
    },
+   {
+      path: "keyboard",
+      loadChildren: () =>
+         import(
+            "./pages/maquina-expendedora-local/keyboard/keyboard.module"
+         ).then((m) => m.KeyboardPageModule),
+   },
+   {
+      path: "maquina-local",
+      loadChildren: () =>
+         import(
+            "./maquina-expendedora-local/maquina-config/maquina-config.module"
+         ).then((m) => m.MaquinaConfigPageModule),
+   },
 ];
 
 @NgModule({

@@ -83,6 +83,16 @@ export class AppComponent implements OnChanges {
             url: "/producto-list",
             icon: "checkmark-done",
          },
+
+         // maquina local
+         {
+            title: "Keyboard",
+            url: "/keyboard",
+         },
+         {
+            title: "Maquina Local",
+            url: "/maquina-local",
+         },
       ];
    }
 }

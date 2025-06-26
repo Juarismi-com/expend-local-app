@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { VentaServiceService } from "src/app/services/venta.service.service";
+import { VentaService } from "src/app/services/venta.service.service";
 
 @Component({
    selector: "app-venta-list",
@@ -9,7 +9,7 @@ import { VentaServiceService } from "src/app/services/venta.service.service";
 export class VentaListPage implements OnInit {
    ventas: any[] = [];
 
-   constructor(private ventaService: VentaServiceService) {}
+   constructor(private ventaService: VentaService) {}
 
    async ngOnInit() {
       this.ventas = await this.ventaService.getVentas();

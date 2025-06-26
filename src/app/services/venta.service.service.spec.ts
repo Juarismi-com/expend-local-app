@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { VentaServiceService } from './venta.service.service';
+import { VentaService } from "./venta.service.service";
 
-describe('VentaServiceService', () => {
-  let service: VentaServiceService;
+describe("VentaService", () => {
+   let service: VentaService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(VentaServiceService);
-  });
+   beforeEach(() => {
+      TestBed.configureTestingModule({});
+      service = TestBed.inject(VentaService);
+   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+   it("should be created", () => {
+      expect(service).toBeTruthy();
+   });
 });

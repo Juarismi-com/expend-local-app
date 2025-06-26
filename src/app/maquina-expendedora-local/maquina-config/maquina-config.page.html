@@ -1,0 +1,28 @@
+<ion-header>
+   <ion-toolbar>
+      <ion-title>Listado Key/Value</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+   <ion-item>
+      <ion-label position="floating">Clave</ion-label>
+      <ion-input [(ngModel)]="key"></ion-input>
+   </ion-item>
+
+   <ion-item>
+      <ion-label position="floating">Valor</ion-label>
+      <ion-input [(ngModel)]="value"></ion-input>
+   </ion-item>
+
+   <ion-button expand="block" (click)="addItem()"> Agregar </ion-button>
+
+   <ion-list>
+      <ion-item *ngFor="let item of items">
+         <ion-label>
+            <h2>{{ item.key }}</h2>
+            <p>{{ item.value }}</p>
+         </ion-label>
+      </ion-item>
+   </ion-list>
+</ion-content>

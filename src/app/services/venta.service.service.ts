@@ -7,7 +7,7 @@ const { apiUrl } = environment;
 @Injectable({
    providedIn: "root",
 })
-export class VentaServiceService {
+export class VentaService {
    constructor() {}
 
    async getVentas() {

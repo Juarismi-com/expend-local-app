@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+   <ion-toolbar>
+      <ion-title>Teclado en Pantalla</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content>
+   <div class="display">{{ displayValue || 'Ingrese número' }}</div>
+
+   <div class="keyboard-container">
+      <div class="keyboard-row" *ngFor="let row of getRows()">
+         <button *ngFor="let key of row" (click)="handleKey(key)">
+            {{ key }}
+         </button>
+      </div>
+
+      <div class="keyboard-row">
+         <button class="special" (click)="handleKey('Backspace')">⌫</button>
+         <button class="special" (click)="handleKey('Enter')">↵</button>
+      </div>
+   </div>
+</ion-content>

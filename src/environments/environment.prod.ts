@@ -1,5 +1,5 @@
 export const environment = {
    production: true,
-   apiUrl: "https://001aod9sa8.execute-api.us-east-1.amazonaws.com/core",
+   apiUrl: "https://squid-app-bbs42.ondigitalocean.app",
    gmapsKey: "AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ",
 };

@@ -45,4 +45,13 @@ export class StorageService {
       await this.storage.clear();
       this.storageSub.next(true);
    }
+
+   async getAll() {
+      const result: any[] = [];
+      this.storage.forEach(async (value, key) => {
+         result.push({ value, key });
+      });
+
+      return result;
+   }
 }
