@@ -23,10 +23,6 @@ export class KeyboardPage implements OnInit {
    displayValue = "";
    resultPreventa: any;
 
-   field1 = "";
-   field2 = "";
-   field3 = "";
-
    keys: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
    setActiveField(field: string) {
@@ -86,7 +82,9 @@ export class KeyboardPage implements OnInit {
                      const localHost = await this.storageService.get(
                         "local_ip",
                      );
-                     console.log(localHost);
+
+                     const { file, columna } = config;
+
                      const resultVenta = axios.patch(
                         `http://${localHost}:5001/${resultPreventa?.id}/qr`,
                      );
