@@ -15,22 +15,22 @@ export class MaquinaConfigPage implements OnInit {
 
    items: { key: string; value: string }[] = [];
 
-   constructor() //private toastController: ToastController,
-   //private storageService: StorageService,
-   {}
+   constructor(
+      private toastController: ToastController,
+      private storageService: StorageService,
+   ) {}
 
    ionViewWillEnter() {
-      //this.loadItems();
-      alert("rpeuab");
+      this.loadItems();
    }
 
-   /*addItem() {
+   addItem() {
       if (!this.key || !this.value) {
          this.showToast("Ingrese clave y valor", "warning");
          return;
       }
 
-      this.saveItems();
+      //this.saveItems();
 
       this.key = "";
       this.value = "";
@@ -44,9 +44,9 @@ export class MaquinaConfigPage implements OnInit {
    }
 
    async loadItems() {
-      const data = await this.storageService.getAll();
-      this.items = data;
-      console.log(data);
+      //const data = await this.storageService.getAll();
+      //this.items = data;
+      //console.log(data);
    }
 
    async showToast(message: string, color: string) {
@@ -57,5 +57,5 @@ export class MaquinaConfigPage implements OnInit {
          position: "bottom",
       });
       await toast.present();
-   }*/
+   }
 }
