@@ -15,16 +15,16 @@ export class MaquinaConfigPage implements OnInit {
 
    items: { key: string; value: string }[] = [];
 
-   constructor(
-      private toastController: ToastController,
-      private storageService: StorageService,
-   ) {}
+   constructor() //private toastController: ToastController,
+   //private storageService: StorageService,
+   {}
 
    ionViewWillEnter() {
-      this.loadItems();
+      //this.loadItems();
+      alert("rpeuab");
    }
 
-   addItem() {
+   /*addItem() {
       if (!this.key || !this.value) {
          this.showToast("Ingrese clave y valor", "warning");
          return;
@@ -57,5 +57,5 @@ export class MaquinaConfigPage implements OnInit {
          position: "bottom",
       });
       await toast.present();
-   }
+   }*/
 }
