@@ -185,4 +185,20 @@ export class ProductoService {
 
       return total;
    }
+
+   async create(payload: any) {
+      try {
+         if (payload.nombre.length < 2)
+            throw "Nombre debe tener por lo menos 3 caracteres";
+
+         if (payload.precio.toString().length < 3)
+            throw "Producto debe tener por lo menos 3 caracteres";
+
+         await axios.post(`${apiUrl}/productos`, payload);
+         return true;
+      } catch (error) {
+         alert(error);
+         return false;
+      }
+   }
 }

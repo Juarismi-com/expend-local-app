@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { ModalController } from "@ionic/angular";
+import { ProductoFormModalComponent } from "src/app/components/maquina-expendedora/producto-form-modal/producto-form-modal.component";
 import { ProductoService } from "src/app/services/producto.service";
 
 @Component({
@@ -9,7 +11,10 @@ import { ProductoService } from "src/app/services/producto.service";
 export class ProductoListPage implements OnInit {
    public results: any[] = [];
 
-   constructor(private productoService: ProductoService) {}
+   constructor(
+      private productoService: ProductoService,
+      private modalCtrl: ModalController,
+   ) {}
 
    async ngOnInit() {
       try {
@@ -23,5 +28,20 @@ export class ProductoListPage implements OnInit {
    async handleInput(e: any) {
       const value = e.target.value.toLowerCase();
       this.results = await this.productoService.searchProduct(value);
+   }
+
+   async openProductoFormModal() {
+      const modal = await this.modalCtrl.create({
+         component: ProductoFormModalComponent,
+      });
+      await modal.present();
+
+      // Captura el resultado al cerrar el modal (opcional)
+
+      const { data } = await modal.onDidDismiss();
+      if (data?.result) {
+         this.results = await this.productoService.getProducts();
+      }
+      console.log("Datos recibidos:", data);
    }
 }

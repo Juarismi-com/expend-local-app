@@ -90,7 +90,7 @@ export class AppComponent implements OnChanges {
             url: "/keyboard",
          },
          {
-            title: "Maquina Local",
+            title: "Configuración APP",
             url: "/maquina-local",
          },
       ];

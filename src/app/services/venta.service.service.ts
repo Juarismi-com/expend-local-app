@@ -23,10 +23,11 @@ export class VentaService {
    async createVenta(params: any) {
       try {
          const response = await axios.post(`${apiUrl}/ventas`, params);
-         return response.data;
-      } catch (error) {
-         console.error("Error al obtener listado:", error);
-         return []; // Devuelve un array vacío en caso de error
+         return response;
+      } catch (error: any) {
+         console.error("Error al obtener listado:", error.response);
+
+         throw error.response?.data?.message || "Algo salio mal";
       }
    }
 }

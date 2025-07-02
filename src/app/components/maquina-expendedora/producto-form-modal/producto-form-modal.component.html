@@ -1,3 +1,14 @@
+<ion-header [translucent]="false">
+   <ion-toolbar color="main">
+      <ion-title>Formulario de Producto</ion-title>
+      <ion-buttons slot="end">
+         <ion-button (click)="closeModal()">
+            <ion-icon name="close"></ion-icon>
+         </ion-button>
+      </ion-buttons>
+   </ion-toolbar>
+</ion-header>
+
 <ion-content class="ion-padding">
    <form [formGroup]="productoForm" (ngSubmit)="saveProduct()">
       <ion-item>

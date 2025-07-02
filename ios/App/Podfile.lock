@@ -4,6 +4,8 @@ PODS:
   - CapacitorApp (6.0.0):
     - Capacitor
   - CapacitorCordova (6.0.0)
+  - CapacitorGeolocation (6.0.0):
+    - Capacitor
   - CapacitorGoogleMaps (5.4.1):
     - Capacitor
     - Google-Maps-iOS-Utils (~> 4.1)
@@ -43,6 +45,7 @@ DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorGeolocation (from `../../node_modules/@capacitor/geolocation`)"
   - "CapacitorGoogleMaps (from `../../node_modules/@capacitor/google-maps`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
@@ -60,6 +63,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/app"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
+  CapacitorGeolocation:
+    :path: "../../node_modules/@capacitor/geolocation"
   CapacitorGoogleMaps:
     :path: "../../node_modules/@capacitor/google-maps"
   CapacitorHaptics:
@@ -70,16 +75,17 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/status-bar"
 
 SPEC CHECKSUMS:
-  Capacitor: 559d073c4ca6c27f8e7002c807eea94c3ba435a9
-  CapacitorApp: 9d53aec7101f7b030a950c5bdc4df8612576b279
+  Capacitor: c527d208447590a004f0a4a2c42a5f361848fa8a
+  CapacitorApp: 30145f2ea2311e4f3744472119ec87d2ddf4c0a7
   CapacitorCordova: 8c4bfdf69368512e85b1d8b724dd7546abeb30af
-  CapacitorGoogleMaps: 7764613bb8eab28f290c1ca76b6ff4ee32d3c50f
-  CapacitorHaptics: 9ebc9363f0e9b8eb4295088a0b474530acf1859b
-  CapacitorKeyboard: deacbd09d8d1029c3681197fb05d206b721d5f73
-  CapacitorStatusBar: 2e4369f99166125435641b1908d05f561eaba6f6
+  CapacitorGeolocation: 86f82a32b238ff79d5be6fc0943f2866965d3f1b
+  CapacitorGoogleMaps: cdfff83cfb370efb657810e281a888556a048013
+  CapacitorHaptics: 0cea833e6a8bf489dd6acaaebf6d953b90086c59
+  CapacitorKeyboard: dc97fe50dcfdcbe12af56c49bbed150077d08043
+  CapacitorStatusBar: 129c68650d3f950e080e8e7e03d69c3b361dbe52
   Google-Maps-iOS-Utils: f77eab4c4326d7e6a277f8e23a0232402731913a
   GoogleMaps: 032f676450ba0779bd8ce16840690915f84e57ac
 
-PODFILE CHECKSUM: a2e5a45298eb16329b133c92a742e1fb5d75bca1
+PODFILE CHECKSUM: 97cc6096f77d1ff055973232cd779c56fe7e8181
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

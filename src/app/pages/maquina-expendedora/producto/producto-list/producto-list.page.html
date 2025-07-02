@@ -4,16 +4,21 @@
          <ion-menu-button></ion-menu-button>
       </ion-buttons>
       <ion-title>Productos</ion-title>
+      <ion-buttons slot="end">
+         <ion-button (click)="openProductoFormModal()">
+            <ion-icon name="add-circle"></ion-icon>
+         </ion-button>
+      </ion-buttons>
    </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" color="light">
    <div class="container">
-      <ion-searchbar
+      <!--ion-searchbar
          placeholder="Filtrar por Código o Descripción"
          (ionInput)="handleInput($event)"
          [debounce]="100"
-      ></ion-searchbar>
+      ></ion-searchbar-->
 
       <ion-card>
          <ion-card-header>

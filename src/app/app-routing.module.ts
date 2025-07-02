@@ -11,7 +11,6 @@ const routes: Routes = [
             "./pages/maquina-expendedora/producto/producto-list/producto-list.module"
          ).then((m) => m.ProductoListPageModule),
    },
-
    {
       path: "login",
       loadChildren: () =>

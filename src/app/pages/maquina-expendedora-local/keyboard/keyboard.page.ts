@@ -43,6 +43,38 @@ export class KeyboardPage implements OnInit {
       this.displayValue += char;
    }
 
+   async createVenta(formaPago: String, slotNum: any) {
+      try {
+         const localHost = await this.storageService.get("LOCAL_HOST");
+         const maquina_id = await this.storageService.get("MAQUINA_ID");
+
+         if (!maquina_id) throw "Maquina no esta disponible";
+
+         if (!localHost) throw "HOST LOCAL no esta disponible";
+
+         // Genera la primera venta
+         const res: any = await this.ventaService.createVenta({
+            maquina_id,
+            slot_num: parseInt(slotNum),
+         });
+
+         await this.showToast("Realice su pago en el POS", "success");
+
+         // con la forma de pago si selecciono qr, solo se espera a lo que
+         // retorne
+         const venta_id = res?.data?.id;
+         if (formaPago == "QR") {
+            await axios.patch(`${localHost}/vending/${venta_id}`);
+         } else {
+            console.log("venta con tarjeta");
+         }
+
+         console.log();
+      } catch (error: any) {
+         await this.showToast(error, "danger");
+      }
+   }
+
    onBackspace() {
       if (this.displayValue.length > 0) {
          this.displayValue = this.displayValue.slice(0, -1);
@@ -50,55 +82,37 @@ export class KeyboardPage implements OnInit {
    }
 
    async onEnter() {
-      console.log("Número ingresado:", this.displayValue);
-      // no se ingreso datao
       if (!this.displayValue) {
          await this.showToast("Ingrese un valor primero", "warning");
+         return;
+      }
+
+      if (this.displayValue.length > 2) {
+         await this.showToast(
+            "Ingrese un valor en el rango permitido",
+            "warning",
+         );
+         this.displayValue = "";
          return;
       }
 
       const slotNum = this.displayValue;
 
       const alert = await this.alertController.create({
-         header: "Confirmar",
-         message: `¿Desea continuar con el slot: ${this.displayValue}?`,
+         header: "Confirmar su metodo de pago",
+         message: `¿Seleccione su forma de pago, slot seleccionado ${this.displayValue}?`,
          buttons: [
             {
                text: "Cancelar",
                role: "cancel",
             },
             {
-               text: "Aceptar",
-               handler: async () => {
-                  try {
-                     const resultPreventa = await this.ventaService.createVenta(
-                        {
-                           maquina_id: "87c082c9-470c-44b2-af8d-1d89dabe5071",
-                           slot_num: parseInt(slotNum),
-                        },
-                     );
-
-                     const config: any = resultPreventa.config;
-                     const localHost = await this.storageService.get(
-                        "local_ip",
-                     );
-
-                     const { file, columna } = config;
-
-                     const resultVenta = axios.patch(
-                        `http://${localHost}:5001/${resultPreventa?.id}/qr`,
-                     );
-
-                     console.log(resultVenta);
-
-                     await this.showToast(
-                        "Por favor visualice el POS",
-                        "success",
-                     );
-                  } catch (error) {
-                     await this.showToast("No se dispone de stock", "danger");
-                  }
-               },
+               text: "QR",
+               handler: async () => await this.createVenta("QR", slotNum),
+            },
+            {
+               text: "Tarjeta Credito/Debito",
+               handler: async () => await this.createVenta("TARJETA", slotNum),
             },
          ],
       });

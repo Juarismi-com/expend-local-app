@@ -30,7 +30,7 @@ export class MaquinaConfigPage implements OnInit {
          return;
       }
 
-      //this.saveItems();
+      this.saveItems();
 
       this.key = "";
       this.value = "";
@@ -41,12 +41,25 @@ export class MaquinaConfigPage implements OnInit {
    async saveItems() {
       await this.storageService.set(this.key, this.value);
       await this.loadItems();
+      this.key = "";
+      this.value = "";
    }
 
    async loadItems() {
-      //const data = await this.storageService.getAll();
-      //this.items = data;
-      //console.log(data);
+      let temData = [];
+      const maquina = {
+         key: "MAQUINA_ID",
+         value: await this.storageService.get("MAQUINA_ID"),
+      };
+
+      const localHost = {
+         key: "LOCAL_HOST",
+         value: await this.storageService.get("LOCAL_HOST"),
+      };
+
+      temData.push(maquina, localHost);
+
+      this.items = temData;
    }
 
    async showToast(message: string, color: string) {
