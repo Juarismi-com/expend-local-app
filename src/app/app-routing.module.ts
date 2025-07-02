@@ -4,14 +4,6 @@ import { authGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
    {
-      path: "/",
-      canActivate: [authGuard],
-      loadChildren: () =>
-         import(
-            "./pages/maquina-expendedora/producto/producto-list/producto-list.module"
-         ).then((m) => m.ProductoListPageModule),
-   },
-   {
       path: "producto-list",
       canActivate: [authGuard],
       loadChildren: () =>
