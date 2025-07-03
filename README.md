@@ -1,4 +1,4 @@
-# expend-app
+# automatica
 
 Aplicacion movil para gestion comercial
 
