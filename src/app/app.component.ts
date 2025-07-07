@@ -86,8 +86,12 @@ export class AppComponent implements OnChanges {
 
          // maquina local
          {
-            title: "Keyboard",
+            title: "Teclado Cliente",
             url: "/keyboard",
+         },
+         {
+            title: "Teclado Prueba",
+            url: "/keyboard-slot-test",
          },
          {
             title: "Configuración APP",

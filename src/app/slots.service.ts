@@ -11,11 +11,9 @@ export class SlotsService {
 
    async getSlotByMaquinaId(maquina_id: string) {
       try {
-         const response = await axios.get(`${apiUrl}/slots`, {
-            data: {
-               maquina_id,
-            },
-         });
+         const response = await axios.get(
+            `${apiUrl}/slots?maquina_id=${maquina_id}`,
+         );
          return response.data;
       } catch (error) {
          console.error("Error al obtener listado:", error);

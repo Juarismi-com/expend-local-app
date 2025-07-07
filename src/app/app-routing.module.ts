@@ -61,6 +61,13 @@ const routes: Routes = [
             "./maquina-expendedora-local/maquina-config/maquina-config.module"
          ).then((m) => m.MaquinaConfigPageModule),
    },
+   {
+      path: "keyboard-slot-test",
+      loadChildren: () =>
+         import(
+            "./pages/maquina-expendedora-local/keyboard-slot-test/keyboard-slot-test.module"
+         ).then((m) => m.KeyboardSlotTestPageModule),
+   },
 ];
 
 @NgModule({

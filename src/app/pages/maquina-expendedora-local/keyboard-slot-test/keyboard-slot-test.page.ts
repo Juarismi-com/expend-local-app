@@ -5,11 +5,11 @@ import { StorageService } from "src/app/services/storage.service";
 import { VentaService } from "src/app/services/venta.service.service";
 
 @Component({
-   selector: "app-keyboard",
-   templateUrl: "./keyboard.page.html",
-   styleUrls: ["./keyboard.page.scss"],
+   selector: "app-keyboard-slot-test",
+   templateUrl: "./keyboard-slot-test.page.html",
+   styleUrls: ["./keyboard-slot-test.page.scss"],
 })
-export class KeyboardPage implements OnInit {
+export class KeyboardSlotTestPage implements OnInit {
    constructor(
       private toastController: ToastController,
       private alertController: AlertController,
@@ -63,7 +63,7 @@ export class KeyboardPage implements OnInit {
          // con la forma de pago si selecciono qr, solo se espera a lo que
          // retorne
          const venta_id = res?.data?.id;
-         if (metodoPago == "QR") {
+         if (metodoPago == "qr") {
             await axios.patch(`${localHost}/vending/${venta_id}/qr`);
          } else {
             await axios.patch(`${localHost}/vending/${venta_id}/ux`);

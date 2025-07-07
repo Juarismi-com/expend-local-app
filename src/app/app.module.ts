@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { LOCALE_ID, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouteReuseStrategy } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
@@ -13,6 +13,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { IonicStorageModule } from "@ionic/storage-angular";
 import { Drivers } from "@ionic/storage";
 import { PipeModule } from "./pipes/pipe/pipe.module";
+
+import localeEs from "@angular/common/locales/es";
 
 @NgModule({
    declarations: [AppComponent],
@@ -29,7 +31,10 @@ import { PipeModule } from "./pipes/pipe/pipe.module";
       }),
       PipeModule,
    ],
-   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+   providers: [
+      { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+      { provide: LOCALE_ID, useValue: "es-ES" },
+   ],
    bootstrap: [AppComponent],
 })
 export class AppModule {}
