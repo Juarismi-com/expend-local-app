@@ -43,33 +43,12 @@ export class KeyboardSlotTestPage implements OnInit {
       this.displayValue += char;
    }
 
-   async createVenta(metodoPago: String, slotNum: any) {
+   async slotTest(slotNum: any) {
       try {
          const localHost = await this.storageService.get("LOCAL_HOST");
-         const maquina_id = await this.storageService.get("MAQUINA_ID");
 
-         if (!maquina_id) throw "Maquina no esta disponible";
-
-         if (!localHost) throw "HOST LOCAL no esta disponible";
-
-         // Genera la primera venta
-         const res: any = await this.ventaService.createVenta({
-            maquina_id,
-            slot_num: parseInt(slotNum),
-         });
-
-         await this.showToast("Realice su pago en el POS", "success");
-
-         // con la forma de pago si selecciono qr, solo se espera a lo que
-         // retorne
-         const venta_id = res?.data?.id;
-         if (metodoPago == "qr") {
-            await axios.patch(`${localHost}/vending/${venta_id}/qr`);
-         } else {
-            await axios.patch(`${localHost}/vending/${venta_id}/ux`);
-         }
-
-         console.log();
+         const res = await axios.get(`${localHost}/slots/${slotNum}`);
+         console.log(res);
       } catch (error: any) {
          await this.showToast(error, "danger");
       }
@@ -107,12 +86,8 @@ export class KeyboardSlotTestPage implements OnInit {
                role: "cancel",
             },
             {
-               text: "QR",
-               handler: async () => await this.createVenta("QR", slotNum),
-            },
-            {
-               text: "Tarjeta Credito/Debito",
-               handler: async () => await this.createVenta("TARJETA", slotNum),
+               text: "Probar slot",
+               handler: async () => await this.slotTest(slotNum),
             },
          ],
       });

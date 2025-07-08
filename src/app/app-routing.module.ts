@@ -4,6 +4,11 @@ import { authGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
    {
+      path: "",
+      redirectTo: "venta-list",
+      pathMatch: "full",
+   },
+   {
       path: "producto-list",
       canActivate: [authGuard],
       loadChildren: () =>

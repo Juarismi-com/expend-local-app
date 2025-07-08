@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MaquinaExpendedoraService } from "src/app/services/maquina-expendedora.service";
+import axios from "axios";
+import { environment } from "src/environments/environment";
+const { apiUrl } = environment;
 
 @Component({
    selector: "app-maquina-expendedora-list",
@@ -18,5 +21,14 @@ export class MaquinaExpendedoraListPage implements OnInit {
       } catch (error) {
          this.results = [];
       }
+   }
+
+   async onInputEtiquetaChange(event: any, id: number) {
+      const newValue = event.detail.value;
+      //this.results[index].value = newValue;
+
+      await axios.patch(`${apiUrl}/maquinas/${id}`, {
+         etiqueta: newValue,
+      });
    }
 }

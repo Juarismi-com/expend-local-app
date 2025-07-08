@@ -29,6 +29,16 @@
                      <h2><strong>ID:</strong> {{ result.id }}</h2>
                      <p><strong>uuid:</strong> {{ result.uuid }}</p>
                      <p><strong>Local:</strong> {{ result.local_id }}</p>
+                     <p>
+                        <strong>Etiqueta:</strong>
+                        <ion-input
+                           type="text"
+                           (ionChange)="onInputEtiquetaChange($event, result.id)
+                           "
+                           [value]="result.etiqueta"
+                        >
+                        </ion-input>
+                     </p>
                   </ion-label>
 
                   <ion-button
