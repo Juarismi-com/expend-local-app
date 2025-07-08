@@ -5,7 +5,7 @@ import { authGuard } from "./guards/auth.guard";
 const routes: Routes = [
    {
       path: "",
-      redirectTo: "venta-list",
+      redirectTo: "keyboard",
       pathMatch: "full",
    },
    {

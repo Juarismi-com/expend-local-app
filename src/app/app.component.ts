@@ -66,24 +66,6 @@ export class AppComponent implements OnChanges {
 
    async setMenuSide() {
       this.appPages = [
-         {
-            title: "Ventas",
-            url: "/venta-list",
-            icon: "person",
-         },
-
-         {
-            title: "Maquinas",
-            url: "/maquina-expendedora-list",
-            icon: "checkmark-done",
-         },
-
-         {
-            title: "Productos",
-            url: "/producto-list",
-            icon: "checkmark-done",
-         },
-
          // maquina local
          {
             title: "Teclado Cliente",
