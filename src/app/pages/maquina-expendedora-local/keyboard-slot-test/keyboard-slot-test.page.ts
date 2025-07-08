@@ -13,7 +13,6 @@ export class KeyboardSlotTestPage implements OnInit {
    constructor(
       private toastController: ToastController,
       private alertController: AlertController,
-      private ventaService: VentaService,
       private storageService: StorageService,
    ) {}
 
@@ -44,12 +43,13 @@ export class KeyboardSlotTestPage implements OnInit {
    }
 
    async slotTest(slotNum: any) {
-      try {
-         const localHost = await this.storageService.get("LOCAL_HOST");
+      const localHost = await this.storageService.get("LOCAL_HOST");
 
+      try {
          const res = await axios.get(`${localHost}/slots/${slotNum}`);
          console.log(res);
       } catch (error: any) {
+         alert(localHost);
          alert(JSON.stringify(error));
          await this.showToast(JSON.stringify(error), "danger");
       }
