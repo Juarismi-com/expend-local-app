@@ -50,7 +50,8 @@ export class KeyboardSlotTestPage implements OnInit {
          const res = await axios.get(`${localHost}/slots/${slotNum}`);
          console.log(res);
       } catch (error: any) {
-         await this.showToast(error, "danger");
+         alert(JSON.stringify(error));
+         await this.showToast(JSON.stringify(error), "danger");
       }
    }
 
