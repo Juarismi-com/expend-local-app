@@ -46,12 +46,23 @@ export class KeyboardSlotTestPage implements OnInit {
       const localHost = await this.storageService.get("LOCAL_HOST");
 
       try {
-         const res = await axios.get(`${localHost}/slots/${slotNum}`);
-         console.log(res);
+         const res = await axios.get(
+            `http://192.168.133.10:5001/slots/${slotNum}`,
+         );
+         alert(res.data);
       } catch (error: any) {
-         alert(localHost);
-         alert(JSON.stringify(error));
-         await this.showToast(JSON.stringify(error), "danger");
+         if (error.response) {
+            // El servidor respondió con código 4xx o 5xx
+            alert("🔴 DATA:" + error.response.data);
+            alert("📦 STATUS:" + error.response.status);
+            alert("📄 HEADERS:" + error.response.headers);
+         } else if (error.request) {
+            // No hubo respuesta del servidor (timeout, conexión fallida, etc.)
+            alert("⚠️ NO RESPONSE. REQUEST:" + error.request);
+         } else {
+            // Otro error (config, etc.)
+            alert("❗ ERROR MESSAGE:" + error.message);
+         }
       }
    }
 
