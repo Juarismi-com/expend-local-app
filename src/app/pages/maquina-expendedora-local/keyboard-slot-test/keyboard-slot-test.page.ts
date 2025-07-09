@@ -46,9 +46,7 @@ export class KeyboardSlotTestPage implements OnInit {
       const localHost = await this.storageService.get("LOCAL_HOST");
 
       try {
-         const res = await axios.get(
-            `http://192.168.133.10:5001/slots/${slotNum}`,
-         );
+         const res = await axios.get(`${localHost}/slots/${slotNum}`);
          alert(res.data);
       } catch (error: any) {
          if (error.response) {
