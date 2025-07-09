@@ -42,15 +42,6 @@ export class AppComponent implements OnChanges {
          this.getUserData();
       });
       this.getUserData();
-
-      axios
-         .get("http://192.168.100.13:5002/")
-         .then((response) => {
-            alert(JSON.stringify(response.data));
-         })
-         .catch((error) => {
-            alert(JSON.stringify(error));
-         });
    }
 
    ngOnDestroy(): void {
@@ -72,6 +63,17 @@ export class AppComponent implements OnChanges {
 
       await this.menu.close();
       this.router.navigate(["/login"]);
+   }
+
+   goFullscreen() {
+      const el = document.documentElement as any;
+      if (el.requestFullscreen) {
+         el.requestFullscreen();
+      } else if (el.webkitRequestFullscreen) {
+         el.webkitRequestFullscreen(); // Safari
+      } else if (el.msRequestFullscreen) {
+         el.msRequestFullscreen(); // IE11
+      }
    }
 
    async setMenuSide() {
