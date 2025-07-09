@@ -56,7 +56,7 @@ export class KeyboardSlotTestPage implements OnInit {
             alert("📄 HEADERS:" + error.response.headers);
          } else if (error.request) {
             // No hubo respuesta del servidor (timeout, conexión fallida, etc.)
-            alert("⚠️ NO RESPONSE. REQUEST:" + error.request);
+            alert("⚠️ NO RESPONSE. REQUEST:" + JSON.stringify(error.request));
          } else {
             // Otro error (config, etc.)
             alert("❗ ERROR MESSAGE:" + error.message);

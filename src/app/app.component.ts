@@ -8,6 +8,7 @@ import { MeService } from "./services/auth/me.service";
 import { Subscription } from "rxjs";
 
 import { environment } from "../environments/environment";
+import axios from "axios";
 @Component({
    selector: "app-root",
    templateUrl: "app.component.html",
@@ -41,6 +42,15 @@ export class AppComponent implements OnChanges {
          this.getUserData();
       });
       this.getUserData();
+
+      axios
+         .get("http://192.168.100.13:5002/")
+         .then((response) => {
+            alert(JSON.stringify(response.data));
+         })
+         .catch((error) => {
+            alert(JSON.stringify(error));
+         });
    }
 
    ngOnDestroy(): void {
