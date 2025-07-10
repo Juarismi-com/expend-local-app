@@ -3,10 +3,17 @@ import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { authGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
-   {
+   /*{
       path: "",
       redirectTo: "inicio",
       pathMatch: "full",
+   },*/
+   {
+      path: "",
+      loadChildren: () =>
+         import("./maquina-expendedora-local/inicio/inicio.module").then(
+            (m) => m.InicioPageModule,
+         ),
    },
    {
       path: "producto-list",
