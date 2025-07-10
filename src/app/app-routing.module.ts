@@ -4,6 +4,11 @@ import { authGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
    {
+      path: "",
+      redirectTo: "inicio",
+      pathMatch: "full",
+   },
+   {
       path: "producto-list",
       canActivate: [authGuard],
       loadChildren: () =>
@@ -67,6 +72,13 @@ const routes: Routes = [
          import(
             "./pages/maquina-expendedora-local/keyboard-slot-test/keyboard-slot-test.module"
          ).then((m) => m.KeyboardSlotTestPageModule),
+   },
+   {
+      path: "inicio",
+      loadChildren: () =>
+         import("./maquina-expendedora-local/inicio/inicio.module").then(
+            (m) => m.InicioPageModule,
+         ),
    },
 ];
 
