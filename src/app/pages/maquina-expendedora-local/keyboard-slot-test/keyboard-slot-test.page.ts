@@ -47,7 +47,7 @@ export class KeyboardSlotTestPage implements OnInit {
 
       try {
          const res = await axios.get(`${localHost}/slots/${slotNum}`);
-         alert(res.data);
+         console.log(res.data);
       } catch (error: any) {
          if (error.response) {
             // El servidor respondió con código 4xx o 5xx
