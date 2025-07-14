@@ -3,11 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 import { authGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
-   /*{
-      path: "",
-      redirectTo: "inicio",
-      pathMatch: "full",
-   },*/
    {
       path: "",
       loadChildren: () =>
