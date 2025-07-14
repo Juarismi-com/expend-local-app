@@ -5,10 +5,12 @@ import { TokenService } from "./services/auth/token.service";
 import { Router } from "@angular/router";
 import { MenuController } from "@ionic/angular";
 import { MeService } from "./services/auth/me.service";
-import { Subscription } from "rxjs";
+import { Subscription, from, interval } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
 import { environment } from "../environments/environment";
-import axios from "axios";
+import { MaquinaExpendedoraService } from "./services/maquina-expendedora.service";
+
 @Component({
    selector: "app-root",
    templateUrl: "app.component.html",
@@ -16,6 +18,8 @@ import axios from "axios";
 })
 export class AppComponent implements OnChanges {
    public storageSub: Subscription | undefined;
+   private intervaloSub: Subscription | undefined;
+
    @Input()
    public usuario: any = null;
    public isProd: boolean = environment.production ?? false;
@@ -29,6 +33,7 @@ export class AppComponent implements OnChanges {
       private router: Router,
       private menu: MenuController,
       private meService: MeService,
+      private maquinaService: MaquinaExpendedoraService,
    ) {}
 
    async ngOnInit() {
@@ -42,6 +47,38 @@ export class AppComponent implements OnChanges {
          this.getUserData();
       });
       this.getUserData();
+
+      // info de la maquina
+      const maquina_id = await this.storageService.get("MAQUINA_ID");
+      if (!maquina_id) {
+         alert("Maquina no esta definida");
+
+         this.router.navigate(["/maquina-local"]);
+         return;
+      }
+
+      // recargar el valor de la ip
+      this.intervaloSub = interval(300000)
+         .pipe(
+            switchMap(() =>
+               from(
+                  // asignamo el slot numero 1, pero puede ser cualquier
+                  this.maquinaService.getMaquinaExpendedoraByUuuid(
+                     maquina_id,
+                     1,
+                  ),
+               ),
+            ),
+         )
+         .subscribe((data) => {
+            const maquinaIp = data?.maquinaIp[0]?.ip || null;
+            if (maquinaIp != null) {
+               this.storageService.set(
+                  "LOCAL_HOST",
+                  `http://${maquinaIp}:5001`,
+               );
+            }
+         });
    }
 
    ngOnDestroy(): void {

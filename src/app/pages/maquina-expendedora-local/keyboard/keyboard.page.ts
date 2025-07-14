@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ToastController, AlertController } from "@ionic/angular";
 import axios from "axios";
-import { MaquinaExpendedoraService } from "src/app/services/maquina-expendedora.service";
 import { StorageService } from "src/app/services/storage.service";
 import { VentaService } from "src/app/services/venta.service.service";
 
@@ -16,7 +15,6 @@ export class KeyboardPage implements OnInit {
       private alertController: AlertController,
       private ventaService: VentaService,
       private storageService: StorageService,
-      private maquinaService: MaquinaExpendedoraService,
    ) {}
 
    ngOnInit() {}
@@ -47,24 +45,11 @@ export class KeyboardPage implements OnInit {
 
    async createVenta(metodoPago: String, slotNum: any) {
       try {
+         const localHost = await this.storageService.get("LOCAL_HOST");
          const maquina_id = await this.storageService.get("MAQUINA_ID");
 
-         // retorna datos del slot
-         const maquina = await this.maquinaService.getMaquinaExpendedoraByUuuid(
-            maquina_id,
-            slotNum,
-         );
-
-         const localHost = maquina?.maquinaIp[0]?.ip || null;
-
-         if (localHost == null) {
-            throw "HOST LOCAL no esta disponible";
-         }
-
-         // si existe host, lo asigna a localstorage
-         await this.storageService.set("LOCAL_HOST", localHost);
-
          if (!maquina_id) throw "Maquina no esta disponible";
+         if (!localHost) throw "HOST LOCAL no esta disponible";
 
          // Genera la primera venta
          const res: any = await this.ventaService.createVenta({

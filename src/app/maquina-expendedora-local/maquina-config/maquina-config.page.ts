@@ -45,8 +45,9 @@ export class MaquinaConfigPage implements OnInit {
       this.value = "";
    }
 
-   copyKeyName(key: string) {
+   copyKeyName(key: string, value: string = "") {
       this.key = key;
+      this.value = value;
    }
 
    async loadItems() {

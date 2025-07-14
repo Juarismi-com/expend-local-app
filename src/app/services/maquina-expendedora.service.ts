@@ -23,7 +23,7 @@ export class MaquinaExpendedoraService {
    async getMaquinaExpendedoraByUuuid(maquina_id: any, slot_num: any) {
       try {
          const response = await axios.get(
-            `${apiUrl}/maquinas/${maquina_id}${slot_num}`,
+            `${apiUrl}/maquinas/${maquina_id}/slot/${slot_num}`,
          );
          return response.data;
       } catch (error) {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ToastController, AlertController } from "@ionic/angular";
 import axios from "axios";
-import { MaquinaExpendedoraService } from "src/app/services/maquina-expendedora.service";
 import { StorageService } from "src/app/services/storage.service";
 import { VentaService } from "src/app/services/venta.service.service";
 
@@ -15,7 +14,6 @@ export class KeyboardSlotTestPage implements OnInit {
       private toastController: ToastController,
       private alertController: AlertController,
       private storageService: StorageService,
-      private maquinaService: MaquinaExpendedoraService,
    ) {}
 
    ngOnInit() {}
@@ -45,20 +43,8 @@ export class KeyboardSlotTestPage implements OnInit {
    }
 
    async slotTest(slotNum: any) {
-      const maquina_id = await this.storageService.get("MAQUINA_ID");
-      const maquina = await this.maquinaService.getMaquinaExpendedoraByUuuid(
-         maquina_id,
-         slotNum,
-      );
+      const localHost = await this.storageService.get("LOCAL_HOST");
 
-      const localHost = maquina?.maquinaIp[0]?.ip || null;
-
-      if (localHost == null) {
-         throw "HOST LOCAL no esta disponible";
-      }
-
-      // si existe host, lo asigna a localstorage
-      await this.storageService.set("LOCAL_HOST", localHost);
       try {
          await axios.get(`${localHost}/slots/${slotNum}`);
          await this.showToast("Aguarde unos segundos", "SUCCESS");
