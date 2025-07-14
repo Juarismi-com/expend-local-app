@@ -33,10 +33,10 @@ export class AppComponent implements OnChanges {
 
    async ngOnInit() {
       console.log("Ambiente es productivo? ", this.isProd);
+      await this.storage.create();
 
       // Genera el menu dependiendo del ambiente
       this.setMenuSide();
-      await this.storage.create();
 
       this.storageSub = this.storageService.watchStorage().subscribe(() => {
          this.getUserData();

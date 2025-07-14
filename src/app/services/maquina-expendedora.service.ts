@@ -19,4 +19,16 @@ export class MaquinaExpendedoraService {
          return []; // Devuelve un array vacío en caso de error
       }
    }
+
+   async getMaquinaExpendedoraByUuuid(maquina_id: any, slot_num: any) {
+      try {
+         const response = await axios.get(
+            `${apiUrl}/maquinas/${maquina_id}${slot_num}`,
+         );
+         return response.data;
+      } catch (error) {
+         console.error("Error al obtener listado:", error);
+         return []; // Devuelve un array vacío en caso de error
+      }
+   }
 }
