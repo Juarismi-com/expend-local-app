@@ -7,7 +7,7 @@ echo "📦 1. Construyendo frontend Ionic..."
 ionic build
 
 echo "🔄 2. Copiando archivos al proyecto Android (Capacitor)..."
-npx cap copy android
+ionic cap sync android
 
 echo "📂 3. Entrando al proyecto Android..."
 cd android
@@ -21,11 +21,10 @@ echo "⚙️ 5. Compilando APK debug..."
 APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
 
 if [ -f "$APK_PATH" ]; then
-  echo "📲 6. Instalando APK en el dispositivo (usando adb)..."
-  adb install -r "$APK_PATH"
-  echo "✅ Instalación completada: $APK_PATH"
+   echo "📲 6. Instalando APK en el dispositivo (usando adb)..."
+   adb install -r "$APK_PATH"
+   echo "✅ Instalación completada: $APK_PATH"
 else
-  echo "❌ No se encontró la APK: $APK_PATH"
-  exit 1
+   echo "❌ No se encontró la APK: $APK_PATH"
+   exit 1
 fi
-
