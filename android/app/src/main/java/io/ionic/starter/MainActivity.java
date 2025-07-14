@@ -8,11 +8,20 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+
 public class MainActivity extends BridgeActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Para admitir redes con http
+         WebView webView = getBridge().getWebView();
+         webView.getSettings().setMixedContentMode(
+            WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+         );
 
         // Cambiar color del status bar
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
