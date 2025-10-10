@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from "@angular/core";
+import { Component, Input, OnChanges, OnInit, OnDestroy } from "@angular/core";
 import { Storage } from "@ionic/storage-angular";
 import { StorageService } from "./services/storage.service";
 import { TokenService } from "./services/auth/token.service";
@@ -16,7 +16,7 @@ import { MaquinaExpendedoraService } from "./services/maquina-expendedora.servic
    templateUrl: "app.component.html",
    styleUrls: ["app.component.scss"],
 })
-export class AppComponent implements OnChanges {
+export class AppComponent implements OnChanges, OnInit, OnDestroy {
    public storageSub: Subscription | undefined;
    private intervaloSub: Subscription | undefined;
 
@@ -74,7 +74,7 @@ export class AppComponent implements OnChanges {
             const maquinaIp = data?.maquinaIp[0]?.ip || null;
             if (maquinaIp != null) {
                this.storageService.set(
-                  "LOCAL_HOST",
+                  "MACHINE_HOST",
                   `http://${maquinaIp}:5001`,
                );
             }
@@ -123,6 +123,10 @@ export class AppComponent implements OnChanges {
          {
             title: "Teclado Prueba",
             url: "/keyboard-slot-test",
+         },
+         {
+            title: "Dispensador Prueba",
+            url: "/dispenser-list-test",
          },
          {
             title: "Configuración APP",

@@ -43,10 +43,10 @@ export class KeyboardSlotTestPage implements OnInit {
    }
 
    async slotTest(slotNum: any) {
-      const localHost = await this.storageService.get("LOCAL_HOST");
+      const maquinaHost = await this.storageService.get("MACHINE_HOST");
 
       try {
-         await axios.get(`${localHost}/slots/${slotNum}`);
+         await axios.get(`${maquinaHost}/slots/${slotNum}`);
          await this.showToast("Aguarde unos segundos", "SUCCESS");
       } catch (error: any) {
          if (error.response) {

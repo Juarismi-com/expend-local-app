@@ -45,11 +45,11 @@ export class KeyboardPage implements OnInit {
 
    async createVenta(metodoPago: String, slotNum: any) {
       try {
-         const localHost = await this.storageService.get("LOCAL_HOST");
+         const maquinaHost = await this.storageService.get("MACHINE_HOST");
          const maquina_id = await this.storageService.get("MAQUINA_ID");
 
          if (!maquina_id) throw "Maquina no esta disponible";
-         if (!localHost) throw "HOST LOCAL no esta disponible";
+         if (!maquinaHost) throw "HOST LOCAL no esta disponible";
 
          // Genera la primera venta
          const res: any = await this.ventaService.createVenta({
@@ -63,9 +63,9 @@ export class KeyboardPage implements OnInit {
          // retorne
          const venta_id = res?.data?.id;
          if (metodoPago == "QR") {
-            await axios.patch(`${localHost}/vending/${venta_id}/qr`);
+            await axios.patch(`${maquinaHost}/vending/${venta_id}/qr`);
          } else {
-            await axios.patch(`${localHost}/vending/${venta_id}/ux`);
+            await axios.patch(`${maquinaHost}/vending/${venta_id}/ux`);
          }
 
          console.log();

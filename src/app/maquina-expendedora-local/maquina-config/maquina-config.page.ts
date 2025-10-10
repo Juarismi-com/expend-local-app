@@ -57,12 +57,17 @@ export class MaquinaConfigPage implements OnInit {
          value: await this.storageService.get("MAQUINA_ID"),
       };
 
-      const localHost = {
-         key: "LOCAL_HOST",
-         value: await this.storageService.get("LOCAL_HOST"),
+      const maquinaHost = {
+         key: "MACHINE_HOST",
+         value: await this.storageService.get("MACHINE_HOST"),
       };
 
-      temData.push(maquina, localHost);
+      const bancardApiUrl = {
+         key: "BANCARD_API_URL",
+         value: await this.storageService.get("BANCARD_API_URL"),
+      };
+
+      temData.push(maquina, maquinaHost, bancardApiUrl);
 
       this.items = temData;
    }

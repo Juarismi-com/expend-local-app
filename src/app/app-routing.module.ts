@@ -82,6 +82,13 @@ const routes: Routes = [
             (m) => m.InicioPageModule,
          ),
    },
+   {
+      path: "dispenser-list-test",
+      loadChildren: () =>
+         import(
+            "./pages/maquina-expendedora-local/dispenser-list/dispenser-list.module"
+         ).then((m) => m.DispenserListPageModule),
+   },
 ];
 
 @NgModule({

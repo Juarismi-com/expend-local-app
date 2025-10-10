@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+   <ion-toolbar>
+      <ion-title>Dispensador de Prueba</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <ion-card (click)="selectOption(1)">
+      <ion-card-header>
+         <ion-card-title>CAFE TIPO 1</ion-card-title>
+         <ion-card-subtitle>Precio: 100</ion-card-subtitle>
+      </ion-card-header>
+   </ion-card>
+   <ion-card (click)="selectOption(2)">
+      <ion-card-header>
+         <ion-card-title>BEBIDA TIPO 2</ion-card-title>
+         <ion-card-subtitle>Precio: 120</ion-card-subtitle>
+      </ion-card-header>
+   </ion-card>
+</ion-content>
