@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-   appId: "com.juarismi.expend.app",
-   appName: "automatica",
+   appId: "com.jaupy.app",
+   appName: "jaupy",
    webDir: "www",
    server: {
       cleartext: true,
