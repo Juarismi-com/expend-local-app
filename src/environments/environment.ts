@@ -5,7 +5,7 @@
 export const environment = {
    production: false,
    gmapsKey: "AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ",
-   apiUrl: "https://squid-app-bbs42.ondigitalocean.app",
+   apiUrl: "https://seashell-app-752nc.ondigitalocean.app",
 };
 
 /*
