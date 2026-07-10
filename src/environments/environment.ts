@@ -5,7 +5,8 @@
 export const environment = {
    production: false,
    gmapsKey: "AIzaSyCyff2lEDtZaAQr-vtfpxe6b5gXBxSMMeQ",
-   apiUrl: "https://seashell-app-752nc.ondigitalocean.app",
+   //apiUrl: "https://seashell-app-752nc.ondigitalocean.app",
+   apiUrl: "https://urchin-app-os4l3.ondigitalocean.app",
 };
 
 /*

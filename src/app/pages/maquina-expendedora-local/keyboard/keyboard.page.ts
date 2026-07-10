@@ -62,14 +62,16 @@ export class KeyboardPage implements OnInit {
          // con la forma de pago si selecciono qr, solo se espera a lo que
          // retorne
          const venta_id = res?.data?.id;
+         let resPos: any;
          if (metodoPago == "QR") {
-            await axios.patch(`${maquinaHost}/vending/${venta_id}/qr`);
+            resPos = await axios.patch(`${maquinaHost}/vending/${venta_id}/qr`);
          } else {
-            await axios.patch(`${maquinaHost}/vending/${venta_id}/ux`);
+            resPos = await axios.patch(`${maquinaHost}/vending/${venta_id}/ux`);
          }
 
-         console.log();
+         console.log(resPos);
       } catch (error: any) {
+         console.log(error);
          await this.showToast(error, "danger");
       }
    }
