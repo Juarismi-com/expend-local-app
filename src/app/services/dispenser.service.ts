@@ -34,9 +34,16 @@ export class DispenserService {
          }
 
          return response.data;
-      } catch (error) {
+      } catch (error: any) {
          console.error(error);
-         alert(error);
+
+         const bancardMessage = error?.response?.data?.message ?? error;
+
+         if (bancardMessage == "No se pudo confirmar la venta") {
+            alert("No se pudo realizar la venta");
+         } else {
+            alert(error);
+         }
       }
    }
 }
