@@ -26,10 +26,7 @@ export class DispenserService {
             },
          );
 
-         if (
-            response.data?.message &&
-            response?.data?.message == "No se pudo confirmar la venta"
-         ) {
+         if (response.data?.bancard_status > 400) {
             throw response.data?.message;
          }
 

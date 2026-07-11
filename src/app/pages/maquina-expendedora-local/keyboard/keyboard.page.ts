@@ -82,11 +82,19 @@ export class KeyboardPage implements OnInit {
             resPos = await axios.patch(`${maquinaHost}/vending/${venta_id}/ux`);
          }
 
+         if (resPos.data?.bancard_status >= 400) {
+            throw resPos.data?.message;
+         }
+
+         console.log(resPos?.data?.bancard_status);
          console.log(resPos);
          await this.showToast("Pago procesado correctamente", "success");
       } catch (error: any) {
          console.log(error);
-         await this.showToast(error, "danger");
+         await this.showToast(
+            error?.message || error || "No se pudo realizar la venta",
+            "danger",
+         );
       } finally {
          await loading.dismiss();
          this.isProcesandoPago = false;
