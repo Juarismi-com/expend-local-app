@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { ToastController, AlertController } from "@ionic/angular";
+import {
+   ToastController,
+   AlertController,
+   LoadingController,
+} from "@ionic/angular";
 import axios from "axios";
 import { StorageService } from "src/app/services/storage.service";
 import { VentaService } from "src/app/services/venta.service.service";
@@ -13,6 +17,7 @@ export class KeyboardPage implements OnInit {
    constructor(
       private toastController: ToastController,
       private alertController: AlertController,
+      private loadingController: LoadingController,
       private ventaService: VentaService,
       private storageService: StorageService,
    ) {}
@@ -22,6 +27,7 @@ export class KeyboardPage implements OnInit {
    activeField: string | null = null;
    displayValue = "";
    resultPreventa: any;
+   isProcesandoPago = false;
 
    keys: string[] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
@@ -44,6 +50,15 @@ export class KeyboardPage implements OnInit {
    }
 
    async createVenta(metodoPago: String, slotNum: any) {
+      if (this.isProcesandoPago) return;
+      this.isProcesandoPago = true;
+
+      const loading = await this.loadingController.create({
+         message: "Revise su POS...",
+         backdropDismiss: false,
+      });
+      await loading.present();
+
       try {
          const maquinaHost = await this.storageService.get("MACHINE_HOST");
          const maquina_id = await this.storageService.get("MAQUINA_ID");
@@ -57,8 +72,6 @@ export class KeyboardPage implements OnInit {
             slot_num: parseInt(slotNum),
          });
 
-         await this.showToast("Realice su pago en el POS", "success");
-
          // con la forma de pago si selecciono qr, solo se espera a lo que
          // retorne
          const venta_id = res?.data?.id;
@@ -70,9 +83,13 @@ export class KeyboardPage implements OnInit {
          }
 
          console.log(resPos);
+         await this.showToast("Pago procesado correctamente", "success");
       } catch (error: any) {
          console.log(error);
          await this.showToast(error, "danger");
+      } finally {
+         await loading.dismiss();
+         this.isProcesandoPago = false;
       }
    }
 
