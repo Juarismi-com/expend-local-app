@@ -1,4 +1,11 @@
-import { Component, Input, OnChanges, OnInit, OnDestroy } from "@angular/core";
+import {
+   Component,
+   Input,
+   OnChanges,
+   OnInit,
+   OnDestroy,
+   HostListener,
+} from "@angular/core";
 import { Storage } from "@ionic/storage-angular";
 import { StorageService } from "./services/storage.service";
 import { TokenService } from "./services/auth/token.service";
@@ -7,9 +14,12 @@ import { MenuController } from "@ionic/angular";
 import { MeService } from "./services/auth/me.service";
 import { Subscription, from, interval } from "rxjs";
 import { switchMap } from "rxjs/operators";
+import axios from "axios";
 
 import { environment } from "../environments/environment";
 import { MaquinaExpendedoraService } from "./services/maquina-expendedora.service";
+
+const VERSION_CHECK_INTERVAL_MS = 60000;
 
 @Component({
    selector: "app-root",
@@ -19,6 +29,8 @@ import { MaquinaExpendedoraService } from "./services/maquina-expendedora.servic
 export class AppComponent implements OnChanges, OnInit, OnDestroy {
    public storageSub: Subscription | undefined;
    private intervaloSub: Subscription | undefined;
+   private versionCheckSub: Subscription | undefined;
+   private currentVersion: string | null = null;
 
    @Input()
    public usuario: any = null;
@@ -79,10 +91,41 @@ export class AppComponent implements OnChanges, OnInit, OnDestroy {
                );
             }
          });
+
+      this.watchAppVersion();
    }
 
    ngOnDestroy(): void {
       if (this.storageSub) this.storageSub.unsubscribe();
+      if (this.intervaloSub) this.intervaloSub.unsubscribe();
+      if (this.versionCheckSub) this.versionCheckSub.unsubscribe();
+   }
+
+   // Recarga la app sola cuando detecta que se publicó una nueva versión
+   async watchAppVersion() {
+      try {
+         const { data } = await axios.get(`${environment.apiUrl}/versiones`);
+         this.currentVersion = data[0]?.nro_version ?? null;
+      } catch (e) {
+         console.error("No se pudo obtener la versión inicial de la app", e);
+      }
+
+      this.versionCheckSub = interval(VERSION_CHECK_INTERVAL_MS)
+         .pipe(
+            switchMap(() =>
+               from(axios.get(`${environment.apiUrl}/versiones`)),
+            ),
+         )
+         .subscribe(({ data }) => {
+            const latestVersion = data[0]?.nro_version ?? null;
+            if (
+               this.currentVersion &&
+               latestVersion &&
+               latestVersion !== this.currentVersion
+            ) {
+               window.location.reload();
+            }
+         });
    }
 
    ngOnChanges(changes: any) {
@@ -102,14 +145,25 @@ export class AppComponent implements OnChanges, OnInit, OnDestroy {
       this.router.navigate(["/login"]);
    }
 
+   @HostListener("document:click")
+   @HostListener("document:touchstart")
+   onScreenInteraction() {
+      this.goFullscreen();
+   }
+
    goFullscreen() {
+      if (document.fullscreenElement) return;
       const el = document.documentElement as any;
-      if (el.requestFullscreen) {
-         el.requestFullscreen();
-      } else if (el.webkitRequestFullscreen) {
-         el.webkitRequestFullscreen(); // Safari
-      } else if (el.msRequestFullscreen) {
-         el.msRequestFullscreen(); // IE11
+      try {
+         if (el.requestFullscreen) {
+            el.requestFullscreen()?.catch(() => {});
+         } else if (el.webkitRequestFullscreen) {
+            el.webkitRequestFullscreen(); // Safari
+         } else if (el.msRequestFullscreen) {
+            el.msRequestFullscreen(); // IE11
+         }
+      } catch {
+         // Fullscreen puede estar bloqueado por permisos del navegador/entorno
       }
    }
 
