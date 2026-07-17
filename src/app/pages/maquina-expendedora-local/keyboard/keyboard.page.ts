@@ -54,7 +54,7 @@ export class KeyboardPage implements OnInit {
       this.isProcesandoPago = true;
 
       const loading = await this.loadingController.create({
-         message: "Revise su POS...",
+         message: "Revise su POS..., este proceso puede demorar unos segundos",
          backdropDismiss: false,
       });
       await loading.present();
